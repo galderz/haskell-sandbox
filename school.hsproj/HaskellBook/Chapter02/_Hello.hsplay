@@ -1,0 +1,155 @@
+-- Haskell Playground 1.0
+2 + 2
+7 < 9
+10 ^ 2
+
+sayHello "galder"
+sayHello "weff"
+sayHello "hoyf"
+
+(1 + 2) * 3
+((1 + 2) * 3) + 100
+
+triple 2
+half 2
+half 0
+square 4
+
+sqPi 5
+sqPi 10
+
+id 2
+
+100 + 100
+768395 * 21356345
+123123 / 123
+476 - 36
+10 / 4
+
+10 `div` 4
+div 10 4
+
+-- Evaluated as (2 * 3) * 4, left associative
+2 * 3 * 4
+
+-- Evaluated as 2 ^ (3 ^ 4), right associative
+2 ^ 3 ^ 4
+2 ^ (3 ^ 4)
+(2 ^ 3) ^ 4
+
+-- Evaluated as (2 + 3) * 4, multiplier precedence
+2 + 3 * 4
+(2 + 3) * 4
+
+8 + 7 * 9
+(8 + 7) * 9
+
+let perimeter x y = (x * 2) + (y * 2)
+let perimeter' x y = x * 2 + y * 2
+perimeter 10 20
+perimeter' 10 20
+
+let f x = x / 2 + 9
+let f' x = x / (2 + 9)
+f 10
+f' 10
+
+let y = 10
+let x = 10 * 5 + y
+let myResult = x * 5
+y
+x
+myResult
+
+foo 10
+
+let area x = 3.14 * (x * x)
+area 10
+
+let double x = x * 2
+double 10
+
+1 / 1
+
+-- Always use div for integral division unless you know what you’re doing.
+div 1 1
+mod 1 1
+quot 1 1
+
+-- If the remainder of a division is the value you need, rem is usually the function you want
+rem 1 1
+
+-1000
+1000 + (-9)
+
+2000 + (-1234)
+2000 + (negate 1234) -- semantically identical above
+
+1 + 2
+(+) 1 2 -- addition as infix
+(+1) 2 -- sectioning, partially applied function
+-- ^ order, (+1) or (1+) does not make difference because + is commutative
+
+(1/) 2 -- sectioning, ordering is important
+(/1) 2 -- sectioning, ordering is important
+
+-- Substraction is a special case
+2 - 1
+(-) 2 1
+(-2) 1 
+-- ^ `-` represents negation, not substraction, so system can't resolve this
+
+-- You can use sectioning for subtraction, but it must be the first argument:
+let x = 5
+let y = (1 -)
+y x
+
+-- Quotients and remainders
+
+-- (quot x y)*y + (rem x y) == x
+(quot 10 (-4)) * (-4) + (rem 10 (-4))
+
+-- (div x y)*y + (mod x y) == x
+(div 10 (-4))*(-4) + (mod 10 (-4))
+
+printInc 1
+printInc2 1
+
+let x = 5 in x
+let x = 5 in x * x
+let x = 5; y = 6 in x * y
+let x = 3; y = 1000 in x + 3
+
+mult1
+
+-- Lambdas
+(\x -> x) 0
+(\x -> x) 1
+(\x -> x) "blah"
+
+let id = \x -> x
+id 0
+id 1
+
+let id x = x
+id 0
+id 1
+
+-- let a = b in c
+-- (\a -> c) b
+
+let x = 10 in x + 9001
+(\x -> x + 9001) 10
+
+-- c where a = b
+-- (\a -> c) b
+
+-- x + 9001 where x = 10
+(\x -> x + 9001) 10
+
+-- ($) operator
+(2^) $ 2 + 2
+(2^) (2 + 2)
+(2^) 2 + 2
+
+(2^) $ (+2) $ 3*2

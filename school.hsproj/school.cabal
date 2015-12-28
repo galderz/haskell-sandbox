@@ -42,7 +42,8 @@ Executable school
   install-includes:
   include-dirs:
   hs-source-dirs:
-  other-modules:
+  other-modules: HaskellBook.Chapter02.Exercises
+                 HaskellBook.Chapter02.Hello
   ghc-prof-options:
   ghc-shared-options:
   ghc-options:

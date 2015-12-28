@@ -1,0 +1,78 @@
+-- Haskell Playground 1.0
+-- Parenthesization
+2 + 2 * 3 - 3
+2 + (2 * 3) - 3
+
+2 + 2 * 3 - 1
+2 + (2 * 3) - 1
+
+(^) 10 $ 1 + 1
+(^) 10 (1 + 1)
+
+2 ^ 2 * 4 ^ 5 + 1
+((2 ^ 2) * (4 ^ 5)) + 1
+
+-- Equivalent expressions
+1 + 1
+2
+
+10 ^ 2
+10 + 9 * 10
+
+400 - 37
+(-) 37 400
+
+100 `div` 3
+100 / 3
+
+2 * 5 + 18
+2 * (5 + 18)
+
+-- More fun with functions
+
+z
+x
+y
+waxOn
+
+-- Order matters in REPL
+let z' = 7
+z
+
+let y' = z' + 8
+y
+
+let x' = y' ^ 2
+x
+
+-- ((7 + 8) ^ 2) * 5
+let waxOn' = x' * 5
+waxOn'
+
+-- 10 + (((7 + 8) ^ 2) * 5)
+10 + waxOn'
+
+(+10) waxOn'
+
+-- (15 - 1135)
+(-) 15 waxOn'
+
+-- (1135 - 15)
+(-) waxOn' 15
+
+let triple' x = x * 3
+
+-- triple waxOn'
+triple' waxOn'
+
+waxOn''
+
+triple waxOn
+
+waxOff waxOn
+
+waxOff 10
+waxOff (-50)
+
+waxOff' 10
+waxOff'' 10
