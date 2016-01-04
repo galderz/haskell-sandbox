@@ -43,7 +43,9 @@ Executable school
   include-dirs:
   hs-source-dirs:
   other-modules: HaskellBook.Chapter02.Exercises
-                 HaskellBook.Chapter02.Hello
+                 HaskellBook.Chapter02.Hello HaskellBook.Chapter03.Exercises
+                 HaskellBook.Chapter03.Strings HaskellBook.Chapter04.Exercises
+                 HaskellBook.Chapter04.BasicTypes
   ghc-prof-options:
   ghc-shared-options:
   ghc-options:

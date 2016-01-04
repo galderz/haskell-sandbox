@@ -1,0 +1,101 @@
+-- Haskell Playground 1.0
+not
+not True
+not False
+
+changeMood Woot
+changeMood Blah
+
+-- Ratio of two Integers
+1 / 2 :: Rational
+
+import GHC.Int
+127 :: Int8
+128 :: Int8
+-- ^ overflow danger!
+
+minBound :: Int8
+minBound :: Int16
+minBound :: Int32
+minBound :: Int64
+
+maxBound :: Int8
+maxBound :: Int16
+maxBound :: Int32
+maxBound :: Int64
+
+(/)
+1 / 2
+4 / 2
+
+let x = 5
+(==)
+x == 5
+x == 6
+(<)
+x < 7
+x > 3
+x /= 5
+
+'a' == 'a'
+'a' == 'b'
+'a' < 'b'
+'a' > 'b'
+'a' == 'A'
+"Julie" == "Chris"
+
+'a' > 'A'
+'A' > 'a'
+"Julie" > "Chris"
+"Chris" > "Julie"
+
+['a', 'b'] > ['b', 'a']
+[1, 2] > [2, 1]
+
+not (x == 5)
+not (x > 7)
+
+True && True
+False || True
+False && True
+
+if True then "Thuthin'" else "Falsin'"
+if False then "Thuthin'" else "Falsin'"
+
+let x = 0
+if (x + 1 == 1) then "AWESOME" else "wut"
+
+greetIfCool "downright frosty yo"
+greetIfCool "please do!"
+
+greetIfCool' "downright frosty yo"
+greetIfCool' "please do!"
+
+-- Tuples
+let myTup = (1 :: Integer, "blah")
+fst myTup
+snd myTup
+
+import Data.Tuple
+swap myTup
+
+-- Lists
+
+let awesome = ["Papuchon", "curry", "Haskell"]
+let alsoAwesome = ["Quake", "The Simons"]
+awesome ++ alsoAwesome
+
+let allAwesome = [awesome, alsoAwesome]
+allAwesome
+concat
+concat allAwesome
+
+
+
+
+
+
+
+
+
+

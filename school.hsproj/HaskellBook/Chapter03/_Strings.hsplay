@@ -1,0 +1,74 @@
+-- Haskell Playground 1.0
+'a'
+"Hello!"
+
+print "hello world!"
+
+-- putStr* display Strings without quotation marks
+putStrLn "hola mundo!"
+putStr "hallo welt!"
+
+main
+main'
+main''
+
+myGreetingMain
+
+topLevelFunction 5
+
+let x = 5
+let y = 7
+let z = x * y
+z
+
+area 10
+
+-- (++) :: [a] -> [a] -> [a]
+(++)
+"hello" ++ " Claire"
+-- [Char] -> [Char] -> [Char]
+
+-- "hello" ++ [1,2,3] <-- ERROR
+
+-- ++ [1, 2, 3] [4, 5, 6]
+-- ^ ERROR, needs (++) when used as prefix
+(++) [1, 2, 3] [4, 5, 6]
+
+-- '<3' ++ ' Haskell'
+-- ^ ERROR, expects [Char], not Char
+
+-- 'a' ++ 'b' 
+-- ^ ERROR, expects [Char], not Char
+
+-- concat :: [[a]] -> [a]
+concat
+
+concat ["<3", " Haskell"]
+
+-- concat ['<3', ' Haskell']
+-- ^ ERROR, expects [Char], not Char
+
+myGreetingMain'
+
+mainPrint4
+
+-- the : operator, called "cons", builds a list
+'g' : "alder"
+
+head "galder"
+tail "galder"
+
+take 1 "galder"
+take 0 "galder"
+take 50 "galder"
+
+drop 4 "galder"
+drop 100 "galder"
+drop 1 "galder"
+
+"San" ++ " Francisco"
+"San" ++ ""
+
+-- !! returns element specified in position in the list, 0 based
+"San Francisco" !! 0
+-- "San Francisco" !! 1000 
