@@ -1,0 +1,79 @@
+-- Haskell Playground 1.0
+13
+not
+length
+(+)
+(/)
+
+let fifteen = 15
+let fifteenInt = fifteen :: Int
+let fifteenDouble = fifteen :: Double
+fifteenInt + fifteenInt
+fifteenDouble + fifteenDouble
+
+fifteenDouble + fifteen
+fifteenInt + fifteen
+
+addStuff
+let addTen = addStuff 5
+let fifteen = addTen 5
+fifteen
+addTen 15
+addStuff 5 5
+
+funcIgnoreArgs
+funcIgnoreArgs (1 :: Integer)
+
+undefined
+let u = undefined
+
+funcIgnoreArgs u
+funcIgnoreArgs u u
+funcIgnoreArgs u u u
+
+typicalCurriedFunction 10 False
+anonymous 10 False
+anonymousAndManuallyNested 10 False
+
+let x = 'a'
+f x
+
+g 0 'c' "woot"
+
+h 1.0 2
+h 1 (5.5 :: Double)
+
+jackal "keyboard" "has the word jackal in it"
+
+jackal "keyboard"
+
+kessel 1 2
+kessel 1 (2 :: Integer)
+kessel (1 :: Integer) 2
+
+id
+id "blah"
+let inc = (+1)
+inc 2
+(id inc) 2
+
+(-10) + 6.3
+
+-- Length is not polymorphic enough, Int is not Fractional
+-- 6 / length [1, 2, 3]
+
+fromIntegral -- (Num b, Integral a) => a -> b
+6 / fromIntegral (length [1, 2, 3])
+
+let myGreet x = x ++ " Julie"
+myGreet "Hello"
+myGreet
+
+let myGreet' x y = x ++ y
+myGreet'
+
+f' 1 2
+f' 1
+
+f''
+f'' 1 2

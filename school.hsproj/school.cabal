@@ -42,10 +42,11 @@ Executable school
   install-includes:
   include-dirs:
   hs-source-dirs:
-  other-modules: HaskellBook.Chapter02.Exercises
-                 HaskellBook.Chapter02.Hello HaskellBook.Chapter03.Exercises
-                 HaskellBook.Chapter03.Strings HaskellBook.Chapter04.Exercises
-                 HaskellBook.Chapter04.BasicTypes
+  other-modules: HaskellBook.Chapter03.Exercises
+                 HaskellBook.Chapter03.Strings HaskellBook.Chapter02.Exercises
+                 HaskellBook.Chapter02.Hello HaskellBook.Chapter04.Exercises
+                 HaskellBook.Chapter04.BasicTypes HaskellBook.Chapter05.Exercises
+                 HaskellBook.Chapter05.TypeKwonDo HaskellBook.Chapter05.Types
   ghc-prof-options:
   ghc-shared-options:
   ghc-options:

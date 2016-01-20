@@ -1,0 +1,65 @@
+-- Haskell Playground 1.0
+myConcat
+
+(/)
+
+myMult
+
+myMult 6
+
+myTake
+myTake 5
+
+myCom
+myCom 1
+
+myAlph
+myAlph 'a'
+
+(* 9) 6
+head [(0, "doge"),(1, "kitteh")]
+head [(0 :: Integer, "doge"),(1, "kitteh")]
+if False then True else False
+length [1,2,3,4,5]
+(length [1,2,3,4]) > (length "TACOCAT")
+
+let x = 5
+let y = x + 5
+let w = y * 10
+let z y = y * 10
+let f = 4 / y
+
+let x = "Julie"
+let y = " <3 "
+let z = "Haskell"
+let f = x ++ y ++ z
+
+let x = print
+let y = print "woohoo!"
+let z = x "hello world"
+
+let a = (+)
+let b = 5
+let c = b
+let d = c
+
+let a = 12 + b
+let b = 10000 * c
+
+functionC 1 2
+functionC 2 1
+
+functionS (1, 2)
+functionS (2, 1)
+
+r "one"
+r [1,2,3]
+
+(.)
+
+let composed = co negate length
+composed [1,2,3]
+
+sing
+
+main
