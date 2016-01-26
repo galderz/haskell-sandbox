@@ -1,0 +1,89 @@
+-- Haskell Playground 1.0
+-- divMod returns a tuple with a division result and rest
+let ones x = snd (divMod x 10)
+
+ones 10
+ones 1
+ones 2
+ones 11
+ones 12
+
+divMod 1 10
+
+quotRem 10 10
+quotRem 0 10
+quotRem 1 10
+
+max (length [1, 2, 3]) (length [8, 9, 10, 11, 12])
+compare (3 * 4) (3 * 5)
+--compare "Julie" True
+(5 + 3) > (3 + 6)
+
+TisAn 5 == TisAn 5
+TisAn 5 /= TisAn 6
+
+Two 0 0 == Two 0 0
+Two 0 0 /= Two 0 1
+
+TisAnInt 5 == TisAnInt 5
+TisAnInt 5 /= TisAnInt 6
+TisAnInt 5 /= TisAString "a"
+TisAString "a" == TisAString "a"
+
+Pair 5 5 == Pair 5 5
+Pair 5 5 /= Pair 5 6
+--Pair 5 5 /= Pair "a" "a"
+Pair "a" "a" == Pair "a" "a"
+
+Tuple 5 "a" == Tuple 5 "a"
+Tuple 5 "b" /= Tuple 5 "a"
+Tuple 6 "a" /= Tuple 5 "a"
+
+ThisOne 5 == ThisOne 5
+ThisOne 5 /= ThisOne 6
+ThisOne "a" /= ThisOne "b"
+ThisOne "a" == ThisOne "a"
+
+Hello 5 == Hello 5
+Hello 5 /= Hello 6
+Hello 5 /= Goodbye 5
+Goodbye 5 == Goodbye 5
+Hello "a" == Hello "a"
+Hello "a" /= Hello "b"
+Hello "a" /= Goodbye "a"
+Goodbye "a" == Goodbye "a"
+
+printPerson $ Person True
+
+settleDown Woot
+settleDown Blah
+-- settleDown 9
+-- Blah > Woot
+
+s1
+s1 "a lot"
+s2
+
+phew
+truth
+
+i
+let i = 1
+i
+
+f
+
+--freud 1
+
+freud' 1
+freud' "S"
+
+sigmund 5
+
+sigmund' 5
+
+jung [2,3,1]
+
+young "galder"
+
+signifier "galder"

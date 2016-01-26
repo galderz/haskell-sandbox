@@ -74,5 +74,3 @@ main = do
   print (negate (-1))
   print ((+) 0 blah)
   where blah = negate 1
-  
-

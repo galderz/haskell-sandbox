@@ -1,0 +1,91 @@
+-- Haskell Playground 1.0
+132 == 132
+132 /= 132
+(1, 2) == (1, 1)
+(1, 1) == (1, 2)
+"doge" == "doge"
+"doge" == "doggie"
+--(1, 2) == "puppies!"
+
+(1, 'a') == (2, 'b')
+--(1, 2) == ('a', 'b')
+--('a', 'b') == (1, 2)
+--(1, 'a') == ('a', 1)
+
+1 / 2
+1 / 2 :: Float
+1 / 2 :: Double
+1 / 2 :: Rational
+
+5 + 5
+5 + 5 :: Int
+5 + 5 :: Integer
+5 + 5 :: Float
+5 + 5 :: Double
+
+let x = 10 :: Integer
+(x+) -- gets specialised
+
+let addIntegers = (+) :: Integer -> Integer -> Integer
+addIntegers x x
+
+id
+let numId = id :: Num a => a -> a
+let intId = numId :: Integer -> Integer
+-- let altNumId = intId :: Num a => a -> a
+-- ^ we can specialise but not go generalise
+
+compare 7 8
+compare 8 7
+compare 4 (-4)
+compare "Julie" "Chris"
+compare True False
+compare True True
+
+max 7 8
+min 8 7
+min 4 (-4)
+min "Julie" "Chris"
+max True False
+max True True
+
+max 7 (max 8 9)
+
+succ 4
+pred 'd'
+succ 4.5
+enumFromTo 3 8
+enumFromTo 'a' 'f'
+enumFromThenTo 1 10 100
+enumFromThenTo 0 10 100
+enumFromThenTo 'a' 'c' 'z'
+
+Blah
+Blah'
+
+sumNumberish (Age 10) (Age 10)
+sumNumberish
+sumNumberish (Age 10)
+sumNumberish (Year 10) (Year 10)
+--sumNumberish (Age 10) (Year 10)
+
+--defaultNumber <- fails, needs forcing
+--defaultNumber :: Age
+--defaultNumber :: Year
+
+Trivial' == Trivial'
+Trivial' /= Trivial'
+
+Date Thu 10 == Date Thu 10
+Date Thu 10 == Date Thu 11
+Date Thu 10 == Date Weds 10
+
+-- Identity NoEqInstance == Identity NoEqInstance
+
+Mon > Tue
+Sun > Mon
+compare Tue Weds
+
+add 5 5
+addWeird 2 2
+addWeird 1 1
