@@ -1,0 +1,60 @@
+-- Haskell Playground 1.0
+g negate (1, 2)
+
+foldBool 0 1 True
+foldBool 1 0 False
+foldBool' 0 1 True
+foldBool' 1 0 False
+
+tensDigit 0
+tensDigit 1
+tensDigit 10
+tensDigit 33
+tensDigit 999
+tensDigit 15
+
+tensDigit' 0
+tensDigit' 1
+tensDigit' 10
+tensDigit' 33
+tensDigit' 999
+tensDigit' 15
+
+tensDigit 0 == tensDigit' 0
+tensDigit 1 == tensDigit' 1
+tensDigit 10 == tensDigit' 10
+tensDigit 33 == tensDigit' 33
+tensDigit 999 == tensDigit' 999
+tensDigit 15 == tensDigit' 15
+
+tensDigit
+tensDigit'
+
+hunsDigit 0
+hunsDigit 1
+hunsDigit 10
+hunsDigit 33
+hunsDigit 999
+
+15 `div` 1
+div 15 1
+
+(15 `div` 10) `mod` 10
+mod (div 15 10) 10
+
+snd ((fst (15 `divMod` 10)) `divMod` 10)
+
+roundTrip 4
+roundTripPF 4
+roundTripAB 4 :: Int
+
+show 4
+
+read (show (4 :: Int))
+read (show 4)
+
+read (show 4) :: Int
+(read . show) 4 :: Int
+read "4" :: Int
+
+roundTripABPF 4 :: Int

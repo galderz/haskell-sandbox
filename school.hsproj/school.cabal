@@ -1,4 +1,4 @@
-name: school
+name: School
 version: 1.0
 cabal-version: 1.6
 build-type: Simple
@@ -15,6 +15,9 @@ Executable school
       HaskellBook.Chapter06.Exercises
       HaskellBook.Chapter06.TypeKwonDo
       HaskellBook.Chapter06.Typeclasses
+      HaskellBook.Chapter07.Exercises
+      HaskellBook.Chapter07.Intermission
+      HaskellBook.Chapter07.FuncPatterns
       HaskellBook.Chapter02.Exercises
       HaskellBook.Chapter02.Hello
       HaskellBook.Chapter04.Exercises

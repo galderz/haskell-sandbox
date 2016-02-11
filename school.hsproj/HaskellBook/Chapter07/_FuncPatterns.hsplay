@@ -1,0 +1,124 @@
+-- Haskell Playground 1.0
+myVal
+
+myVal'
+
+let myNum = 1 :: Integer
+let myVal' f = f + myNum
+
+let myVal'' f g = myNum
+let myVal''' f g h = myNum
+
+addOne 1
+
+bindExp 5
+
+shadowedBindExp 9001
+
+let x = 5
+let y = x + 5
+y
+y * 10
+let z y = y * 10
+
+z
+y
+z 9
+z y
+
+triple 3
+
+let triple' = (\x -> x * 3) :: Integer -> Integer
+triple' 3
+
+(\x -> x * 3) 2
+
+isItTwo 2
+isItTwo 0
+
+isItTwo' 2
+isItTwo' 0
+
+printUser UnregisteredUser
+
+let myUser = (Username "user1")
+let myAcct = (AccountNumber 12345)
+printUser (RegisteredUser myUser myAcct)
+
+printUser (RegisteredUser (Username "user2") (AccountNumber 9876))
+
+let humboldt = Peng SouthAmerica
+let gentoo = Peng Antarctic
+let macaroni = Peng Antarctic
+let little = Peng Australia
+let galapagos = Peng Galapagos
+
+gimmeWhereTheyLive humboldt
+gimmeWhereTheyLive gentoo
+gimmeWhereTheyLive macaroni
+gimmeWhereTheyLive little
+gimmeWhereTheyLive galapagos
+
+addEmUp2 (10, 20)
+addEmUp2Alt (10, 20)
+
+fst3 (1, 2, 3)
+fst3 (1, [], "g")
+third3 (3, 2, 1)
+
+funcZ 10
+funcZ 0
+
+pal "gal"
+pal "aha"
+
+flip
+
+(-)
+let sub = (-)
+sub 10 1
+
+let rSub = flip sub
+rSub 10 1
+rSub 5 10
+
+employeeRank Coder CEO
+employeeRank Coder Coder
+employeeRank CEO Veep
+
+employeeRank' compare Coder CEO
+
+employeeRank' codersRuleCEOsDrool Coder CEO
+
+myAbs (-10)
+myAbs 10
+
+negate . sum $ [1,2,3,4,5]
+
+take 5 . reverse $ [1..10]
+
+take 5 (enumFrom 3)
+
+take 5 . enumFrom $ 3
+
+let f x = take 5 . enumFrom $ x
+f 3 
+
+take 5 . filter odd . enumFrom $ 3
+
+-- pointfree style
+let f = negate . sum
+f [1,2,3,4,5]
+
+let f' = take 5 . filter odd . enumFrom
+f' 3
+
+let f'' = length . filter (== 'a')
+f'' "abracadabra"
+
+main
+
+print' 99
+print'' 99
+print''' 99
+ 

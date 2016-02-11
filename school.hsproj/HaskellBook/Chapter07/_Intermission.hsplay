@@ -1,0 +1,77 @@
+-- Haskell Playground 1.0
+mTh 1 2 3
+mTh' 1 2 3
+mTh'' 1 2 3
+mTh''' 1 2 3
+
+mTh
+mTh 3
+
+addOne 5
+addOne' 5
+
+addOneIfOdd 10
+addOneIfOdd 11
+addOneIfOdd' 10
+addOneIfOdd' 11
+
+addFive 0 2
+addFive 2 3
+
+addFive' 0 2
+addFive' 2 3
+
+addFive'' 0 2
+addFive'' 2 3
+
+mflip (+) 5 3
+mflip' (+) 5 3
+
+myF (1, "g", 'd') ("g", 'a', 1)
+
+functionC 10 20
+functionC 20 30
+
+functionC' 20 10
+functionC' 20 30
+
+ifEvenAdd2 10
+ifEvenAdd2 9
+
+ifEvenAdd2' 10
+ifEvenAdd2' 9
+
+nums 10
+nums (-1)
+nums 0
+
+dodgy 1 0
+dodgy 1 1
+dodgy 2 2
+dodgy 1 2
+dodgy 2 1
+
+oneIsOne 1
+oneIsOne 2
+
+oneIsTwo 1
+oneIsTwo 2
+
+oneIsOne 3
+oneIsTwo 3
+
+avgGrade' 75
+avgGrade' 60
+avgGrade' 90
+
+avgGrade'' 75
+avgGrade'' 60
+avgGrade'' 90
+
+reverse
+
+pal
+pal "aga"
+pal "gal"
+
+numbers
