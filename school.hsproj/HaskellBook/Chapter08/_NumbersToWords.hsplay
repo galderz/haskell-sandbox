@@ -1,0 +1,8 @@
+-- Haskell Playground 1.0
+digits 1234
+digits 1
+
+concat (intersperse "-" (map wordNumber (digits 1234)))
+
+wordNumber 1234
+wordNumber 12324546

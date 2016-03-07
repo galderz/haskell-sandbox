@@ -1,0 +1,30 @@
+-- Haskell Playground 1.0
+fourFactorial
+
+factorial 4
+factorial 10
+
+three
+three'
+
+incTimes 0 1
+incTimes 10 1
+incTimes 5 0
+incTimes 5 5
+
+incTimes' 5 5
+
+applyTimes 5 (+1) 5
+
+f True
+f False
+
+f' False
+f' True
+
+f'' False
+f'' True
+
+fibonacci 6
+
+dividedBy 10 5

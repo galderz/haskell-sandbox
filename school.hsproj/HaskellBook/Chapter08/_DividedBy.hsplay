@@ -1,0 +1,40 @@
+-- Haskell Playground 1.0
+dividedBy 10 (-2) == divMod 10 (-2)
+dividedBy 10 (-3) == divMod 10 (-3)
+dividedBy 10 2 == divMod 10 2
+dividedBy 10 3 == divMod 10 3
+dividedBy (-10) (-3) == divMod (-10) (-3)
+dividedBy (-10) (-2) == divMod (-10) (-2)
+dividedBy (-10) 3 == divMod (-10) (3)
+dividedBy (-10) 2 == divMod (-10) (2)
+
+divMod 10 (-3)
+divMod (-10) (3)
+divMod 10 3
+divMod (-10) (-3)
+
+dividedBy 10 3
+divMod 10 3
+div 10 (-3)
+
+dividedBy 10 5 == divMod 10 5
+dividedBy 10 (-2) == divMod 10 (-2)
+dividedBy (-10) 2 == divMod (-10) 2
+dividedBy (-10) (-2) == divMod (-10) (-2)
+
+--dividedBy 10 0
+--dividedBy 10 (-2)
+div 10 (-2)
+divMod 10 (-2)
+divMod 10 (-3)
+divMod 10 (-4)
+divMod (-10) (-3)
+div (-10) (-2)
+div (-10) 2
+
+negate (-2)
+
+fst (1,2)
+
+dividedBy' 10 0
+dividedBy' 10 2

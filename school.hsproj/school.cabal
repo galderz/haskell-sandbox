@@ -18,10 +18,15 @@ Executable school
       HaskellBook.Chapter07.Exercises
       HaskellBook.Chapter07.Intermission
       HaskellBook.Chapter07.FuncPatterns
-      HaskellBook.Chapter02.Exercises
-      HaskellBook.Chapter02.Hello
       HaskellBook.Chapter04.Exercises
       HaskellBook.Chapter04.BasicTypes
       HaskellBook.Chapter05.Exercises
       HaskellBook.Chapter05.TypeKwonDo
       HaskellBook.Chapter05.Types
+      HaskellBook.Chapter08.Exercises
+      HaskellBook.Chapter08.NumbersToWords
+      HaskellBook.Chapter08.McCarthy91
+      HaskellBook.Chapter08.Recursion
+      HaskellBook.Chapter08.DividedBy
+      HaskellBook.Chapter02.Exercises
+      HaskellBook.Chapter02.Hello

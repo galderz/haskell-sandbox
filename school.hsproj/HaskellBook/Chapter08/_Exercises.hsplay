@@ -1,0 +1,30 @@
+-- Haskell Playground 1.0
+-- woops + mrow + woohoo!
+appedCatty "woohoo!"
+
+-- 1 + mrow + haha
+frappe "1"
+
+-- (woops + mrow + 2)
+-- frappe woomrow2 -> woopsmorow2 + mrow + haha
+frappe (appedCatty "2")
+
+-- blue + mrow + haha
+-- appedCatty bluemrowhaha -> woops + mrow + bluemrowhaha
+appedCatty (frappe "blue")
+
+-- woops + mrow + blue
+-- cattyConny "green" "woopsmrowblue" -> green + mrow + woopsmrowblue
+-- pink + mrow + haha
+-- cattyConny pinkmrowhaha greenmrowwoopsmrowblue
+-- pinkmrowhaha + mrow + greenmrowwoopsmrowblue
+cattyConny (frappe "pink") (cattyConny "green" (appedCatty "blue"))
+
+-- are + mrow + Pugs
+-- cattyConny aremrowPugs awesome -> aremrowPugs + mrow + awesome
+cattyConny (flippy "Pugs" "are") "awesome"
+
+sumAll 5
+
+multiplyBySum 5 2
+multiplyBySum 8 3
