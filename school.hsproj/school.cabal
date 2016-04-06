@@ -23,6 +23,16 @@ Executable school
       HaskellBook.Chapter05.Exercises
       HaskellBook.Chapter05.TypeKwonDo
       HaskellBook.Chapter05.Types
+      HaskellBook.Chapter09.Exercises
+      HaskellBook.Chapter09.NonStrict
+      HaskellBook.Chapter09.Transform
+      HaskellBook.Chapter09.Zipping
+      HaskellBook.Chapter09.MyStdFuns
+      HaskellBook.Chapter09.EnumFromTo
+      HaskellBook.Chapter09.Filtering
+      HaskellBook.Chapter09.Cipher
+      HaskellBook.Chapter09.Lists
+      HaskellBook.Chapter09.PoemLines
       HaskellBook.Chapter08.Exercises
       HaskellBook.Chapter08.NumbersToWords
       HaskellBook.Chapter08.McCarthy91

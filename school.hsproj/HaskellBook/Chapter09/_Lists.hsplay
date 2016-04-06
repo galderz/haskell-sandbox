@@ -1,0 +1,114 @@
+-- Haskell Playground 1.0
+take 7 ['a'..'z']
+take 3 [1..10]
+take 3 []
+take 10 $ enumFrom 10
+
+drop 5 [1..10]
+drop 8 ['a'..'z']
+drop 4 []
+drop 2 $ enumFromTo 10 20
+
+splitAt 5 [1..10]
+splitAt 10 ['a'..'z']
+splitAt 5 []
+splitAt 3 (enumFromTo 5 15)
+
+takeWhile (<3) [1..10]
+takeWhile (<8) (enumFromTo 5 15)
+takeWhile (>6) [1..10]
+takeWhile (=='a') "abradacabra"
+
+dropWhile (<3) [1..10]
+dropWhile (<8) (enumFromTo 5 15)
+dropWhile (>8) [1..10]
+dropWhile (=='a') "abradacabra"
+
+let myHead (x : _) = x
+myHead
+myHead [1,2,3]
+
+let myTail (_ : xs) = xs
+myTail
+myTail [1,2,3]
+
+-- myHead and myTail are dangerous
+-- ^ have no refutable pattern
+--myHead [] -- error
+--myTail [] -- error
+
+myTail' [1,2,3]
+myTail' []
+
+safeTail []
+safeTail [1]
+safeTail [1,2,3]
+
+safeHead []
+safeHead [1]
+safeHead [1,2,3]
+
+[1,2,3] ++ [4]
+-- syntatic sugar for:
+(1 : 2 : 3 : []) ++ 4 : []
+
+[1..5]
+enumFromTo 1 5
+[1,2..5]
+enumFromThenTo 1 2 5
+[1,3..10]
+enumFromThenTo 1 3 10
+[2,4..10]
+enumFromThenTo 2 4 10
+['t'..'z']
+enumFromTo 't' 'z'
+-- First argument must be lower than second argument!
+[10..1]
+enumFromTo 10 1
+
+[1..1]
+enumFromTo 1 1
+
+[x^2 | x <- [1..10]]
+[x^2 | x <- [1..10], rem x 2 == 0]
+
+-- rightmost generator will be exhausted first
+-- x ^ 2, x ^ 3, then try next x...
+[x^y | x <- [1..5], y <- [2, 3]]
+
+[x^y | x <- [1..10], y <- [2, 3], x^y < 200]
+
+[(x, y) | x <- [1, 2, 3], y <- [6, 7]]
+[(x, y) | x <- [1, 2, 3], y <- ['a', 'b']]
+
+-- 1, 4, 9, 16, 25
+let mySqr = [x^2 | x <- [1..5]]
+[(x, y) | x <- mySqr, y <- [1..3], x < 4]
+
+-- 4, 16
+[x | x <- mySqr, rem x 2 == 0]
+
+-- []
+[(x, y) | x <- mySqr, y <- mySqr, x < 50, y > 50]
+
+-- []
+take 5 [ (x, y) | x <- mySqr, y <- mySqr, x < 50, y > 50 ]elem 'a' "abracadabra"
+elem 'a' "Julie"
+
+-- Remove lower case characters
+[x | x <- "Three Letter Acronym", elem x ['A'..'Z']]
+
+let f xs = [x | x <- xs, elem x ['A'..'Z']]
+
+f "Self Contained Underwater Breathing Apparatus"
+
+f "National Aeronautics and Space Adminstration"
+
+let myString xs = [x | x <- xs, elem x "aeiou"]
+myString "Self Contained Underwater Breathing Apparatus"
+
+let myCube = [y^3 | y <- [1..5]]
+
+[(x, y) | x <- mySqr, y <- myCube]
+[(x, y) | x <- mySqr, y <- myCube, x < 50, y < 50]
+length [(x, y) | x <- mySqr, y <- myCube, x < 50, y < 50]

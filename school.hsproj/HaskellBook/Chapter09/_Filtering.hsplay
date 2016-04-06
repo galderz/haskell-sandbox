@@ -1,0 +1,19 @@
+-- Haskell Playground 1.0
+filter even [1..10]
+
+filter (== 'a') "abracadabra"
+
+filter (\x -> (rem x 2) == 0) [1..20]
+
+filter (\x -> elem x "aeiou") "abracadabra"
+
+[x | x <- "abracadabra", elem x "aeiou"]
+
+multiplesOf 3 [1..30]
+
+(length . multiplesOf 3) [1..30] 
+
+length [1,2,3]
+
+myFilter "the brown dog was a goof"
+myFilter "the brown dog was a goof" == ["brown","dog","was","goof"]

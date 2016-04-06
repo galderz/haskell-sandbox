@@ -1,0 +1,47 @@
+-- Haskell Playground 1.0
+map (+1) [1,2,3,4]
+map (1-) [1,2,3,4]
+fmap (+1) [1,2,3,4]
+fmap (2*) [1,2,3,4]
+fmap id [1,2,3]
+map id [1,2,3]
+
+map (+1)
+fmap (+1)
+
+(+1) undefined
+(1, undefined)
+fst $ (1, undefined)
+map (+1) [1, 2, undefined]
+take 2 $ map (+1) [1, 2, undefined]
+
+map fst [(2, 3), (4, 5), (6, 7), (8, 9)]
+fmap fst [(2, 3), (4, 5), (6, 7), (8, 9)]
+
+map (take 3) [[1..5], [1..5], [1..5]][[1,2,3],[1,2,3],[1,2,3]]
+
+map (\x -> if x == 3 then (-x) else (x)) [1..10]
+
+take 1 $ map (+1) [undefined, 2, 3]
+
+take 1 $ map (+1) [1, undefined, 3]
+take 2 $ map (+1) [1, undefined, 3]
+
+elem
+
+itIsMystery "galder"
+
+map (^2) [1..10]
+
+minimum [3,2,1]
+
+map minimum [[1..10], [10..20], [20..30]]
+
+map sum [[1..5], [1..5], [1..5]]
+
+import Data.Bool
+
+bool 1 2 True
+bool 1 2 False
+
+map (\x -> bool x (-x) (x == 3)) [1..10]

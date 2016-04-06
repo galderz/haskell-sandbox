@@ -1,0 +1,37 @@
+-- Haskell Playground 1.0
+isUpper
+isUpper 'a'
+isUpper 'A'
+isUpper '$'
+isUpper ' '
+
+toUpper 'a'
+toUpper 'A'
+toUpper '$'
+toUpper ' '
+
+filterUpper "HbEfLrLxO"
+filterUpper "HbEfLrLxO" == "HELLO"
+filterUpper ""
+
+upperFirst "julie"
+upperFirst "julie" == "Julie"
+upperFirst ""
+
+upperAll "woot"
+upperAll "woot" == "WOOT"
+upperAll ""
+
+head ""
+head "hello"
+head [1,2,3,4]
+
+upperFirstChar "julie"
+upperFirstChar "julie" == 'J'
+upperFirstChar "" == ' '
+
+upperFirstCharDot "julie"
+upperFirstCharDot "" == ' '
+
+upperFirstCharPF "julie"
+--upperFirstCharPF ""

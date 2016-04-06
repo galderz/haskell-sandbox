@@ -1,0 +1,31 @@
+-- Haskell Playground 1.0
+caesar "A" 3 == "D"
+caesar "aa" 3 == "dd"
+caesar "ZZ" 1 == "AA"
+caesar "zz" 1 == "aa"
+caesar "z" 3 == "c"
+caesar "Z" 3 == "C"
+
+unCaesar "C" 3 == "Z"
+unCaesar "c" 3 == "z"
+unCaesar "aa" 1 == "zz"
+unCaesar "AA" 1 == "ZZ"
+unCaesar "dd" 3 == "aa"
+unCaesar "D" 3 == "A"
+
+chr
+chr 49 -- 1
+chr 50 -- 2
+chr 97 -- a
+
+ord 'a' -- 97
+ord '1' -- 49
+ord '2' -- 50
+
+ord 'Z'
+chr ((mod (90 + 1 - 65) 26) + 65)
+ord 'A'
+
+ord 'z'
+chr ((mod (122 + 1 - 97) 26) + 97)
+ord 'a'

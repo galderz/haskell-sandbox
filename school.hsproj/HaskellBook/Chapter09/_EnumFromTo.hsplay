@@ -1,0 +1,35 @@
+-- Haskell Playground 1.0
+eftChar 'b' 'a' == ['b'..'a']
+eftChar 'a' 'a' == ['a'..'a']
+eftChar 'a' 'b' == ['a'..'b']
+eftChar 'a' 'c' == ['a'..'c']
+
+
+eftOrd EQ EQ == [EQ .. EQ]
+eftOrd GT EQ == [GT .. EQ]
+eftOrd LT EQ == [LT .. EQ]
+eftOrd EQ GT == [EQ .. GT]
+eftOrd GT GT == [GT .. GT]
+eftOrd LT GT == [LT .. GT]
+eftOrd EQ LT == [EQ .. LT]
+eftOrd GT LT == [GT .. LT]
+eftOrd LT LT == [LT .. LT]
+
+
+eftInt 0 0 == [0..0]
+eftInt 0 1 == [0..1]
+eftInt 0 2 == [0..2]
+eftInt 1 0 == [1..0]
+
+
+eftBool False True == 
+  [False .. True]
+
+eftBool False False ==
+  [False .. False]
+
+eftBool True False == 
+  [True .. False]
+
+eftBool True True ==
+  [True .. True]
