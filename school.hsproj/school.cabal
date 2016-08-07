@@ -4,39 +4,49 @@ cabal-version: 1.6
 build-type: Simple
 license: AllRightsReserved
 stability: experimental
+x-ghc-framework-version: 7.10.3-5.9-2
+x-last-ide-version: HfM1.2.1
 Executable school
   main-is: HSschool.hs
   buildable: True
   build-depends:
-      base -any
+      base -any,
+      time -any
   other-modules:
       HaskellBook.Chapter03.Exercises
       HaskellBook.Chapter03.Strings
+      HaskellBook.Chapter06.Typeclasses
       HaskellBook.Chapter06.Exercises
       HaskellBook.Chapter06.TypeKwonDo
-      HaskellBook.Chapter06.Typeclasses
-      HaskellBook.Chapter07.Exercises
       HaskellBook.Chapter07.Intermission
+      HaskellBook.Chapter07.Exercises
       HaskellBook.Chapter07.FuncPatterns
-      HaskellBook.Chapter04.Exercises
       HaskellBook.Chapter04.BasicTypes
+      HaskellBook.Chapter04.Exercises
+      HaskellBook.Chapter05.Types
       HaskellBook.Chapter05.Exercises
       HaskellBook.Chapter05.TypeKwonDo
-      HaskellBook.Chapter05.Types
-      HaskellBook.Chapter09.Exercises
-      HaskellBook.Chapter09.NonStrict
-      HaskellBook.Chapter09.Transform
+      HaskellBook.Chapter09.Cipher
+      HaskellBook.Chapter09.EnumFromTo
+      HaskellBook.Chapter09.PoemLines
       HaskellBook.Chapter09.Zipping
       HaskellBook.Chapter09.MyStdFuns
-      HaskellBook.Chapter09.EnumFromTo
-      HaskellBook.Chapter09.Filtering
-      HaskellBook.Chapter09.Cipher
       HaskellBook.Chapter09.Lists
-      HaskellBook.Chapter09.PoemLines
-      HaskellBook.Chapter08.Exercises
-      HaskellBook.Chapter08.NumbersToWords
-      HaskellBook.Chapter08.McCarthy91
+      HaskellBook.Chapter09.NonStrict
+      HaskellBook.Chapter09.Transform
+      HaskellBook.Chapter09.Filtering
+      HaskellBook.Chapter09.Exercises
+      HaskellBook.Chapter10.WriteFolds
+      HaskellBook.Chapter10.Scans
+      HaskellBook.Chapter10.FoldLeft
+      HaskellBook.Chapter10.Unconditional
+      HaskellBook.Chapter10.FoldRight
+      HaskellBook.Chapter10.FoldExercises
+      HaskellBook.Chapter10.Exercises
       HaskellBook.Chapter08.Recursion
       HaskellBook.Chapter08.DividedBy
+      HaskellBook.Chapter08.NumbersToWords
+      HaskellBook.Chapter08.Exercises
+      HaskellBook.Chapter08.McCarthy91
       HaskellBook.Chapter02.Exercises
       HaskellBook.Chapter02.Hello

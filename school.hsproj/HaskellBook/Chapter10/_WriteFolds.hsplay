@@ -1,0 +1,14 @@
+-- Haskell Playground 1.0
+filterDbDate theDatabase
+filterDbNumber theDatabase
+mostRecent theDatabase
+sumDb theDatabase
+avgDb theDatabase
+
+let pab = ["Pizza", "Apple", "Banana"]
+
+foldr (\a b -> undefined) [] pab
+foldr (\a b -> undefined) "" pab
+foldr (\a b -> take 3 a ++ b) "" pab
+
+length [1,2,3]

@@ -1,0 +1,196 @@
+-- Haskell Playground 1.0
+myMinimumBy' (\_ _ -> GT) [1..10] == 10
+myMinimumBy' (\_ _ -> LT) [1..10] == 1
+myMinimumBy' compare [1..10] == 1
+
+
+myMaximumBy' (\_ _ -> GT) [1..10] == 1
+myMaximumBy' (\_ _ -> LT) [1..10] == 10
+myMaximumBy' compare [1..10] == 10
+
+
+squishAgain [[1,1],[2,2]] == concat [[1,1],[2,2]]
+squishAgain [[1,1]] == concat [[1,1]]
+
+
+squishAgain' [[1,1],[2,2]] == concat [[1,1],[2,2]]
+squishAgain' [[1,1]] == concat [[1,1]]
+
+
+squishMap (\x -> [1, x, 3]) [2] == [1,2,3]
+squishMap (\x -> "WO " ++ [x] ++ " OT ") "blah" 
+    == "WO b OT WO l OT WO a OT WO h OT "
+
+
+squishMap' (\x -> [1, x, 3]) [2] == [1,2,3]
+squishMap' (\x -> "WO " ++ [x] ++ " OT ") "blah" 
+    == "WO b OT WO l OT WO a OT WO h OT "
+
+
+squish [[1,1],[2,2]] == concat [[1,1],[2,2]]
+squish [[1,1]] == concat [[1,1]]
+
+
+squish' [[1,1],[2,2]] == concat [[1,1],[2,2]]
+squish' [[1,1]] == concat [[1,1]]
+
+
+concat [[1,1],[2,2]]
+concat [[1,1]]
+concat
+
+
+myFilter even [1,2,3] == filter even [1,2,3]
+myFilter even [] == filter even []
+
+
+myFilter' even [1,2,3] == filter even [1,2,3]
+myFilter' even [] == filter even []
+
+
+myMap even [1,2,3] == map even [1,2,3]
+myMap even [] == map even []
+
+
+myMap' even [1,2,3] == map even [1,2,3]
+myMap' even [] == map even []
+
+
+myReverse "blah" == "halb"
+myReverse "blah"
+myReverse [1..5] == [5,4,3,2,1]
+myReverse [] == []
+
+
+myReverse' "blah" == "halb"
+myReverse' "blah"
+myReverse' [1..5] == [5,4,3,2,1]
+myReverse' [] == []
+
+1 : []
+
+myElemAny 1 [] == elem 1 []
+myElemAny 1 [1..10] == elem 1 [1..10]
+myElemAny 2 [1..10] == elem 2 [1..10]
+
+
+myElem 1 [] == elem 1 []
+myElem 1 [1..10] == elem 1 [1..10]
+myElem 2 [1..10] == elem 2 [1..10]
+
+(==) 1 1
+1 == 1
+(==) 1 2
+1 == 2
+
+myElem' 1 [] == elem 1 []
+myElem' 1 [1..10] == elem 1 [1..10]
+myElem' 2 [1..10] == elem 2 [1..10]
+
+
+myAny even [1,3,5] == False
+myAny even [] == False
+myAny odd [1,3,5] == True
+myAny odd [] == False
+myAny odd [1] == True
+myAny odd [1,2] == True
+
+
+myAny' even [1,3,5] == False
+myAny' even [] == False
+myAny' odd [1,3,5] == True
+myAny' odd [] == False
+myAny' odd [1] == True
+myAny' odd [1,2] == True
+
+
+myOr [] == or []
+myOr [True,True] == or [True,True]
+myOr [False,True] == or [False,True]
+myOr [True,False] == or [True,False]
+myOr [False,False] == or [False,False]
+
+
+myAnd [] == and []
+myAnd [True,True] == and [True,True]
+myAnd [False,True] == and [False,True]
+myAnd [True,False] == and [True,False]
+myAnd [False,False] == and [False,False]
+
+
+myAnd' [] == and []
+myAnd' [True,True] == and [True,True]
+myAnd' [False,True] == and [False,True]
+myAnd' [True,False] == and [True,False]
+myAnd' [False,False] == and [False,False]
+
+
+seekritFuncFract "g g g"
+
+
+seekritFunc "g g g"
+
+
+nounVerbCombo
+
+
+letterComboStartP
+
+
+letterCombo
+
+let len = length vowels
+let gen = map (replicate len) stops
+gen
+
+let genCompose = (map . replicate) len stops
+genCompose
+
+let pairs = concat $ map (\x -> zipWith (\x y -> (x, y)) x vowels) gen
+pairs
+
+let pairs = concat $ map (\x -> zipWith (\x y -> (x, y)) x vowels) gen
+pairs
+
+let res' = concat $ map (\g -> zipWith (\x y -> (fst x, snd x, y)) pairs g) gen
+length res'
+
+let res = concat $ map (\s -> map (\p -> (fst p, snd p, s)) pairs) stops
+res
+length res
+
+--let res = concat $ map (\p -> map (\g -> zipWith (\x y -> (fst x, snd x, y)) p g) gen) pairs
+--res
+
+length pairs
+length gen
+
+--let gen2 = concat $ map (replicate len) gen
+--gen2
+--concat $ map (\g -> zipWith (\x y -> (fst x, snd x, y)) pairs g) gen2
+
+--map (\x (fst x, snd y, ?)) pairs
+--map (x -> (fst x, snd x, y)) pairs stops
+
+
+let rep = replicate (length vowels) "p"
+zipWith (\x y -> (x, y)) rep vowels
+
+
+let pairs = zipWith (\x y -> (x, y)) stops vowels
+zipWith (\x y -> (fst x, snd x, y)) pairs stops
+
+
+zip stops vowels
+zipWith (\x y -> (x, y)) stops vowels
+
+
+zipWith
+
+
+stops
+
+words "g g g"
+
+div 1 1
+1 / 1

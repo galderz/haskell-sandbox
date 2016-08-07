@@ -1,0 +1,35 @@
+-- Haskell Playground 1.0
+const 1 undefined
+
+(flip const) 1 undefined
+(flip const) undefined 1
+
+-- const 1 (const 2 ... (const 5 0))
+foldr const 0 ([1..5] ++ undefined)
+
+-- const (const ... (const undefined 0)
+foldr (flip const) 0 ([1..5] ++ undefined)
+
+-- (const (const (const 0 1) 2) 3) ...
+foldl const 0 ([1..5] ++ undefined)
+
+-- (const 3 (const 2 (const 1 0))) ...
+foldl (flip const) 0 ([1..5] ++ undefined)
+
+-- ^ Foldl unconditionally evaluates the spine!
+-- But you can selectively evaluate values in the list:
+
+-- error because bottom is part of the spine-- and foldl must evaluate the spine
+foldl (\_ _ -> 5) 0 ([1..5] ++ undefined)
+
+-- Fine because here bottom is a value
+foldl (\_ _ -> 5) 0 ([1..5] ++ [undefined])
+
+-- As a result of this, foldl is generally 
+-- inappropiate with lists that are or could be 
+-- infinite
+
+-- Most case that you need foldl, use foldl' which 
+-- is strict in its evaluation, so it forces
+-- evaluation of values inside cons cells as it 
+-- traverses the spine

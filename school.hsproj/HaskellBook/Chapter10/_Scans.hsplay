@@ -1,0 +1,58 @@
+-- Haskell Playground 1.0
+foldr (+) 0 [1..3]
+-- scanr returns the intermediate values as well as final value
+scanr (+) 0 [1..3]
+
+foldl (+) 0 [1..3]
+scanl (+) 0 [1..3]
+
+-- Not quite fibonacci
+scanl (+) 1 [1..3]
+
+-- (!!) gets Nth element in a list
+(!!) [1,2,3] 2
+(!!) [1,2,3] 0
+
+fibsN 0
+fibsN 2
+fibsN 3
+fibsN 4
+fibsN 5
+fibsN 6
+
+-- Expected fibonacci:
+-- [1,1,2,3,5...]
+
+take 1 [1,2,3]
+
+fibs20
+length fibs20
+
+takeWhile
+takeWhile (\x -> x < 20) [1,2,3,30]
+
+fibsLess100
+
+5 * 4 * 3 * 2 * 1
+factorial 5
+
+(scanl (*) 1 [1..5]) !! 5
+
+--take 5 factorialScan
+
+last [1,2,3]
+
+factorialScanN 5
+
+take 5 factorialScan'
+take 5 factorialScan''
+takeWhile (< 200) factorialScan''
+
+water [2, 5, 1, 2, 3, 4, 7, 7, 6]
+let leftToRight = scanl1 max [2, 5, 1, 2, 3, 4, 7, 7, 6] 
+leftToRight
+let rightToLeft = scanr1 max [2, 5, 1, 2, 3, 4, 7, 7, 6]
+rightToLeft
+
+zipWith (-) (zipWith min leftToRight rightToLeft) [2, 5, 1, 2, 3, 4, 7, 7, 6]
+
