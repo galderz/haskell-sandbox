@@ -1,0 +1,10 @@
+-- Haskell Playground 1.0
+totalJarJams
+
+-- Map with field accessor
+map (\x -> count x) allJam
+
+let a = JamJars Apple 5
+let p = JamJars Peach 1
+
+a > p

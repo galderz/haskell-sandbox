@@ -1,0 +1,17 @@
+-- Haskell Playground 1.0
+getManu myCar
+getManu urCar
+getManu doge
+
+
+areCars [myCar, urCar]
+areCars [myCar, doge]
+areCars [doge, doge]
+
+
+isPlane doge
+isPlane myCar
+
+
+isCar doge
+isCar myCar

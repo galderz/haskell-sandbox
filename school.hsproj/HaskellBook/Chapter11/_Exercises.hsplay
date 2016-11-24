@@ -1,0 +1,48 @@
+-- Haskell Playground 1.0
+doubleUp []
+doubleUp [1]
+doubleUp [1, 2]
+doubleUp [1, 2, 3]
+
+isSubsequenceOf "blah" "blahwoot" == True
+isSubsequenceOf "blah" "wootblah" == True
+isSubsequenceOf "blah" "wboloath" == True
+isSubsequenceOf "blah" "wootbla" == False
+isSubsequenceOf "b" "b" == True
+isSubsequenceOf "b" "bl" == True
+
+isSubsequenceOf' "blah" "blahwoot" == True
+isSubsequenceOf' "blah" "wootblah" == True
+isSubsequenceOf' "blah" "wboloath" == True
+isSubsequenceOf' "blah" "wootbla" == False
+
+elem 'b' "blahwoot"
+elem ' ' "blah"
+
+
+capitalizeWords "hello" == [("hello", "Hello")]
+capitalizeWords "hello world" == [("hello", "Hello"), ("world", "World")]
+
+words "hello world"
+
+capitalizeWord "Titter" == "Titter"
+capitalizeWord "titter" == "Titter"
+capitalizeWord " titter" == " Titter"
+
+capitalizeParagraph "blah. woot ha." == "Blah. Woot ha."
+
+concat ["a", "b", "c"]
+
+isLetter 'a'
+isLetter '.'
+isLetter ' '
+
+findWord "blah. woot ha." ""
+
+findWord " woot ha." ""
+
+capitalizeWord "woot ha."
+
+"a" ++ "b"
+
+--isEmpty ""

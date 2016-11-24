@@ -1,0 +1,18 @@
+-- Haskell Playground 1.0
+-- Example use of Numba, parentheses due to
+-- syntactic collision between (-) minus and
+-- the negate function
+let myNumba = Numba (-128)
+
+-- warning cos compiler translates it to:
+-- (negate 128), and Int8 maxBound is 127
+let myNumba' = Numba (negate 128)
+
+-- A workaround:
+let n = (-128)
+let x = Numba n
+
+-- Or use negative literals, e.g.
+-- Prelude> :set -XNegativeLiterals
+-- let n = Numba (-128)
+

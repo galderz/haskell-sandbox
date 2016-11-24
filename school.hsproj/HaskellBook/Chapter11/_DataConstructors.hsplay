@@ -1,0 +1,12 @@
+-- Haskell Playground 1.0
+Example2 10 "FlappityBat" == Example2 1 "NC"
+
+Example1 10 == Example1 42
+
+Example1 10
+
+Example0
+
+-- Prelude> :t Husky-- Husky :: a -> Doggies a-- this needs to be applied to become a-- concrete value
+
+-- Prelude> :k Doggies--  Doggies :: * -> *-- this needs to be applied to become a-- concrete type

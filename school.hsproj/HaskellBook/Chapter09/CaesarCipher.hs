@@ -1,4 +1,4 @@
-module HaskellBook.Chapter09.Cipher where
+module HaskellBook.Chapter09.CaesarCipher where
 
 
 import Data.Char

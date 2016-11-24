@@ -1,0 +1,8 @@
+-- Haskell Playground 1.0
+tooMany (5 :: Int, 50 :: Int)
+
+tooMany (5 :: Int, 10 :: Int)
+
+tooMany (50 :: Int)
+
+tooMany (5 :: Int)

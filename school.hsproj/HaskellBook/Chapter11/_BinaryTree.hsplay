@@ -1,0 +1,17 @@
+-- Haskell Playground 1.0
+let t1 = insert' 0 Leaf
+t1
+
+let t2 = insert' 3 t1
+t2
+
+let t3 = insert' 5 t2
+t3
+
+mapOkay
+
+testPreorder
+testInorder
+testPostorder
+
+foldTree (+) 0 testTree

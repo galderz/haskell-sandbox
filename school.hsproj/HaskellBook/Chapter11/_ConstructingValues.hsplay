@@ -1,0 +1,48 @@
+-- Haskell Playground 1.0
+let bess = First (CowInfo "Bess" 4) :: Animal'
+
+let elmer' = Second (SheepInfo "Elmer" 5 5)
+let elmer = Second elmer' :: Animal'
+
+First [1,2]
+First
+
+let elmo' = Second (SheepInfo "Elmo" 5 5)
+
+-- First has argument CowInfo, but SheepInfo 
+-- is nested within the Second constructor
+--let elmo = First elmo' :: Animal'
+
+First (Second (SheepInfo "Baaaaa" 5 5))
+
+MkId "1"
+MkId 1
+
+idIdentity
+
+MkId idIdentity
+
+person
+
+
+First Twitter :: Sum Twitter AskFm
+--Second Twitter :: Sum Twitter AskFm
+--First AskFm :: Sum Twitter AskFm
+
+1 :: Int
+1
+
+let a = [1]
+let b = [2]
+
+concat (map (\os -> 
+  map (\pl -> Programmer os pl) allLanguages) 
+  allOperatingSystems)
+
+allProgrammers
+
+length allProgrammerslength allOperatingSystems * length allLanguages
+
+-- Accidental bottoms from records
+let partialAf = Programmer {os = GnuPlusLinux}
+--partialAf

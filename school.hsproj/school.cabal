@@ -4,8 +4,8 @@ cabal-version: 1.6
 build-type: Simple
 license: AllRightsReserved
 stability: experimental
-x-ghc-framework-version: 7.10.3-5.9-2
-x-last-ide-version: HfM1.2.1
+x-ghc-framework-version: 7.10.3-5.18-1
+x-last-ide-version: HfM1.3.0
 Executable school
   main-is: HSschool.hs
   buildable: True
@@ -26,15 +26,15 @@ Executable school
       HaskellBook.Chapter05.Types
       HaskellBook.Chapter05.Exercises
       HaskellBook.Chapter05.TypeKwonDo
-      HaskellBook.Chapter09.Cipher
       HaskellBook.Chapter09.EnumFromTo
       HaskellBook.Chapter09.PoemLines
       HaskellBook.Chapter09.Zipping
       HaskellBook.Chapter09.MyStdFuns
+      HaskellBook.Chapter09.CaesarCipher
       HaskellBook.Chapter09.Lists
       HaskellBook.Chapter09.NonStrict
-      HaskellBook.Chapter09.Transform
       HaskellBook.Chapter09.Filtering
+      HaskellBook.Chapter09.Transform
       HaskellBook.Chapter09.Exercises
       HaskellBook.Chapter10.WriteFolds
       HaskellBook.Chapter10.Scans
@@ -50,3 +50,23 @@ Executable school
       HaskellBook.Chapter08.McCarthy91
       HaskellBook.Chapter02.Exercises
       HaskellBook.Chapter02.Hello
+      HaskellBook.Chapter11.NormalForm
+      HaskellBook.Chapter11.WithoutNewtypeDeriving
+      HaskellBook.Chapter11.FunctionAsExponential
+      HaskellBook.Chapter11.DataVsType
+      HaskellBook.Chapter11.ExercisesJammin
+      HaskellBook.Chapter11.WithNewtypeDeriving
+      HaskellBook.Chapter11.ExercisesLogicGoats_1_2
+      HaskellBook.Chapter11.Kinds
+      HaskellBook.Chapter11.ExercisesPityTheBool
+      HaskellBook.Chapter11.DataConstructors
+      HaskellBook.Chapter11.DeconstructingValues
+      HaskellBook.Chapter11.ConstructingValues
+      HaskellBook.Chapter11.ProductTypes
+      HaskellBook.Chapter11.AlgebraicDataTypes
+      HaskellBook.Chapter11.ExercisesLogicGoats_3
+      HaskellBook.Chapter11.VigenereCipher
+      HaskellBook.Chapter11.BinaryTree
+      HaskellBook.Chapter11.ExerciseHuttonsRazor
+      HaskellBook.Chapter11.Exercises
+      HaskellBook.Chapter11.ExercisePhone

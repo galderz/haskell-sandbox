@@ -3,6 +3,9 @@ module HaskellBook.Chapter10.Exercises where
 -- Functions named with ' are first attemtps
 -- Functions with no ' are point-free versions
 
+import Data.Bool
+
+
 myMinimumBy' :: (a -> a -> Ordering) -> [a] -> a
 myMinimumBy' f (x:[]) = 
     x
@@ -64,7 +67,8 @@ squish' xs =
 
 myFilter :: (a -> Bool) -> [a] -> [a]
 myFilter f = 
-    foldr (\y z -> if' (f y) (y : z) z) []
+    foldr (\y z -> bool z (y : z) (f y)) []
+    --foldr (\y z -> if' (f y) (y : z) z) []
     --foldr (\y z -> if (f y) then y : z else z) []
 
 

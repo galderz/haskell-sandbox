@@ -1,0 +1,18 @@
+-- Haskell Playground 1.0
+tooMany (MultiGoats (5, 50))
+
+tooMany (MultiGoats (5, 10))
+
+tooMany (5 :: Int, 50 :: Int)
+
+tooMany (50 :: Int, "boo")
+
+tooMany (5 :: Int, "boo")
+
+tooMany (Goats 50)
+
+tooMany (Goats 5)
+
+tooMany (50 :: Int)
+
+tooMany (5 :: Int)

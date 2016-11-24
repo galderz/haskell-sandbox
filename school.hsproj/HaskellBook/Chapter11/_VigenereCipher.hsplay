@@ -1,0 +1,58 @@
+-- Haskell Playground 1.0
+vigenere "MEET AT DAWN" "ALLY" == "MPPR AE OYWY"
+
+zip "MEET AT DAWN" "ALLY"
+
+chr 77
+ord 'M'
+
+couple "MEET AT" "ALLY" "ALLY"
+
+couple "M" "A" "ALLY"
+couple "MEET" "ALLY" "ALLY"
+couple "MEET M" "ALLY" "ALLY"
+
+couple "M" "ALLY" "ALLY"
+couple "ME" "ALLY" "ALLY"
+couple "M E" "ALLY" "ALLY"
+
+ord ' '
+testSpace ' '
+testSpace 'a'
+
+couple " " "ALLY" "ALLY"
+
+fst (1,2)
+snd (1,2)
+
+--let cpd = couple "MEET" "ALLY" "ALLY"
+--cpd
+--map (\cp -> chr cp) cpd
+--map (\cp -> chr ((fst cp) + (snd cp))) cpd
+
+rightShift 'M' 0
+rightShift 'E' 11
+rightShift 'T' 24
+
+ord 'T'
+ord 'Y'
+chr (ord 'T' - 4)
+
+ord 'M'
+ord 'A'
+
+ord 'M'
+ord 'A'
+
+ord 'E'
+ord 'L'
+
+chr (ord 'E' + (ord 'L' - 65))
+ord 'E'
+ord 'L' - 65
+
+chr (ord 'T' + (ord 'Y' - 65))
+ord 'T'
+ord 'Y'
+89 - 65
+ord 'R'

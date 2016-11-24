@@ -1,0 +1,16 @@
+-- Haskell Playground 1.0
+age jm'
+name ca'
+
+let papu = Person "Papu" 5
+age papu
+name papu
+
+Person "Papu" 5
+
+name
+age
+
+namae ca
+
+namae jm

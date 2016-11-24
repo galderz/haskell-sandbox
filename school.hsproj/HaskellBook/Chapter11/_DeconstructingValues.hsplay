@@ -1,0 +1,7 @@
+-- Haskell Playground 1.0
+make Null
+
+-- Typechecker catches us doing things wrong
+-- before problems multiply and things go wrong
+-- at runtime
+--make Null'

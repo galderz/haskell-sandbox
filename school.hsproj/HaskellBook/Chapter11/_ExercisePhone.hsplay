@@ -1,0 +1,66 @@
+-- Haskell Playground 1.0
+findPhoneChar buttons 'a'
+
+reverseTaps buttons 'a' == [('2', 1)]
+reverseTaps buttons 'b' == [('2', 2)]
+reverseTaps buttons 'c' == [('2', 3)]
+reverseTaps buttons ' ' == [('0', 1)]
+reverseTaps buttons 'z' == [('9', 4)]
+reverseTaps buttons 'A' == [('*', 1), ('2', 1)]
+
+--filter [('2', "ABC")]
+
+--import Data.List
+--
+----elemIndex 'a' "a"
+----elemIndex 'a' "abc"
+----elemIndex 'b' "abc"
+--
+--filter (\c -> c == 'a') "abc"
+
+filter (\(c, d, p) -> c == 'a') [ ('a', '2', 1),  ('b', '2', 2), ('c', '2', 3) ]
+
+toLower 'A'
+
+map (\c -> c) "abc"
+
+concat (map (\c -> reverseTaps buttons c) "Ya")
+
+cellPhonesDead buttons "Ya"
+cellPhonesDead buttons "U 1st haha"
+
+fingerTaps [('2', 1)] == 1
+fingerTaps [('2', 1), ('2', 1)] == 2
+fingerTaps [('2', 1), ('2', 2)] == 3
+fingerTaps (cellPhonesDead buttons "Ya")
+fingerTaps (cellPhonesDead buttons "Ya") == 5
+
+import Data.List
+
+groupBy (\x y -> x == y) "aha"
+
+frequency "aha"
+frequency "U 1st haha"
+
+maximum [(4, 'a'), (2, 'b'), (3, 'c')]
+maximum [(4, 'a'), (2, 'b'), (5, ' ')]
+
+maximum $ filter (\t -> isLetter (snd t)) [(4, 'a'), (2, 'b'), (5, ' ')]
+
+mostPopularLetter "aha"
+mostPopularLetter "U 1st haha"
+
+costOfPopularLetter "U 1st haha"
+
+mostPopularLetter $ concat ["aha", "hahh"]
+
+coolestLtr ["aha", "hahh"]
+
+unwords ["aha", "hahh"]
+
+frequencyWord "a ha ha hh"
+
+mostPopularWordFrequency "a ha ha hh"
+
+coolestWord ["a ha", "ha hh"]
+

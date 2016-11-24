@@ -1,0 +1,20 @@
+-- Haskell Playground 1.0
+-- :k []
+-- [] :: * -> *
+-- ^ it has arrow, so still needs to be applied
+
+-- :k [Int]
+-- [Int] :: *
+-- ^ fully applied, no arrows
+
+-- :k Bool
+-- Bool :: *
+-- ^ fully applied, no arrows
+
+let f x = x > 3
+f -- type signature awaits application
+f 5
+
+
+let f = not True
+f -- type signature is concrete type

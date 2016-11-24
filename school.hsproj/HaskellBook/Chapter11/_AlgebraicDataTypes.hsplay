@@ -1,0 +1,41 @@
+-- Haskell Playground 1.0
+tooMany
+
+tooMany (Goats 45)
+
+tooMany (42 :: Int)
+
+
+tooManyGoats2 (Goats 43)
+--tooManyGoats2 (Cows 43)
+ 
+
+MakeExample
+
+
+import Data.Int
+
+
+-- Integer is arbitrary precision type, no limits!
+--minBound :: Integer
+--maxBound :: Integer
+
+
+minBound :: Int
+
+maxBound :: Int
+
+
+-- Int16 cardinality: 32768 + 32767 + 1 = 65536
+
+minBound :: Int16
+
+maxBound :: Int16
+
+
+-- Int8 cardinality: 128 + 127 + 1 = 256
+
+minBound :: Int8
+
+maxBound :: Int8
+
