@@ -172,6 +172,14 @@ lefts' =
 --      appendLeft (Right b) z = 
 --          ([], True)
 
+rights' :: [Either a b] -> [b]
+rights' =
+  foldr (\a z -> f a z) []
+  where 
+      f (Left a) xs = 
+          xs
+      f (Right b) xs = 
+          b : xs
 
 
 

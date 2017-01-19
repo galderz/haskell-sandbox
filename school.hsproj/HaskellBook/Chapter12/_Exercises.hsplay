@@ -83,3 +83,11 @@ lefts' [Right "a", Left 1, Left 3] == lefts [Right "a", Left 1, Left 3]
 lefts' [Right "a"] == []
 lefts' [Right "a", Right "b"] == []
 lefts' [Right "a", Left 5] == [5]
+
+rights' [Left 1, Left 2, Left 3] == rights [Left 1, Left 2, Left 3]
+rights' [Left 1, Right "a", Left 3] == rights [Left 1, Right "a", Left 3]
+rights' [Right "a", Left 1, Left 3] == rights [Right "a", Left 1, Left 3]
+rights' [Right "a"] == rights [Right "a"]
+rights' [Right "a", Right "b"] == rights [Right "a", Right "b"]
+rights' [Right "a", Left 5] == rights [Right "a", Left 5]
+
