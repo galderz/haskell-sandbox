@@ -91,3 +91,10 @@ rights' [Right "a"] == rights [Right "a"]
 rights' [Right "a", Right "b"] == rights [Right "a", Right "b"]
 rights' [Right "a", Left 5] == rights [Right "a", Left 5]
 
+partitionEithers' [Left 1, Left 2, Left 3] == partitionEithers [Left 1, Left 2, Left 3]
+partitionEithers' [Left 1, Right "a", Left 3] == partitionEithers [Left 1, Right "a", Left 3]
+partitionEithers' [Right "a", Left 1, Left 3] == partitionEithers [Right "a", Left 1, Left 3]
+partitionEithers' [Right "a"] == partitionEithers [Right "a"]
+partitionEithers' [Right "a", Right "b"] == partitionEithers [Right "a", Right "b"]
+partitionEithers' [Right "a", Left 5] == partitionEithers [Right "a", Left 5]
+

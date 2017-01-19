@@ -182,5 +182,11 @@ rights' =
           b : xs
 
 
-
-
+partitionEithers' :: [Either a b] -> ([a], [b])
+partitionEithers' = 
+  foldr (\a z -> f a z) ([], [])
+  where 
+      f (Left a) xs = 
+          (a : fst xs, snd xs)
+      f (Right b) xs = 
+          (fst xs, b : snd xs)
