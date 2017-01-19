@@ -1,6 +1,8 @@
 module HaskellBook.Chapter12.Exercises where
 
+
 -- String processing  
+
 
 notThe :: String -> Maybe String
 notThe "the" = Nothing
@@ -150,6 +152,25 @@ flipMaybe (Nothing:xs) = Nothing
 flipMaybe (Just a:xs) = fmap (\as -> a : as) (flipMaybe xs)
 
 
+-- Small library for Either
+
+lefts' :: [Either a b] -> [a]
+lefts' = 
+  foldr (\a z -> f a z) []
+  where 
+      f (Left a) xs = 
+          a : xs
+      f (Right b) xs = 
+          xs
+
+--lefts' :: [Either a b] -> [a]
+--lefts' xs = 
+--  fst (foldr (\a z -> appendLeft a z) ([], False) xs)
+--  where 
+--      appendLeft (Left a) z = 
+--          if (snd z) then ([], True) else ((a : fst z), snd z)
+--      appendLeft (Right b) z = 
+--          ([], True)
 
 
 
