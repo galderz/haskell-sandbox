@@ -4,8 +4,8 @@ cabal-version: 1.6
 build-type: Simple
 license: AllRightsReserved
 stability: experimental
-x-ghc-framework-version: 7.10.3-5.18-1
-x-last-ide-version: HfM1.3.0
+x-ghc-framework-version: 7.10.3-5.18-2
+x-last-ide-version: HfM1.3.2
 Executable school
   main-is: HSschool.hs
   buildable: True
@@ -13,6 +13,8 @@ Executable school
       base -any,
       time -any
   other-modules:
+      HaskellBook.Chapter12.Exercises
+      HaskellBook.Chapter12.SignallingAdversity
       HaskellBook.Chapter03.Exercises
       HaskellBook.Chapter03.Strings
       HaskellBook.Chapter06.Typeclasses

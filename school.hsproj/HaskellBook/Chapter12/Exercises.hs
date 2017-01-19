@@ -1,0 +1,157 @@
+module HaskellBook.Chapter12.Exercises where
+
+-- String processing  
+
+notThe :: String -> Maybe String
+notThe "the" = Nothing
+notThe x = Just x
+
+
+wordOrA :: Maybe String -> String
+wordOrA (Just w) = w
+wordOrA Nothing = "a"
+
+
+-- Supposed to be recursive?
+replaceThe :: String -> String
+replaceThe txt =
+  unwords $ map (wordOrA . notThe) (words txt)
+
+  
+--countIfVowel :: Maybe String -> Int -> Int
+--countIfVowel (Just w) i = i + 1
+--countIfVowel Nothing i = i
+
+isVowel :: Char -> Bool
+isVowel c = c `elem` "aeiou"
+
+
+isStartVowel :: String -> Bool
+isStartVowel (x:xs) = x `elem` "aeiou"
+isStartVowel [] = False
+
+
+countRec :: [String] -> Integer -> Integer
+countRec (x:y:xs) count
+  | x == "the" && isStartVowel y = 
+      countRec xs (count + 1)
+  | otherwise =
+      countRec xs (count)
+countRec _ count =
+  count 
+
+
+countTheBeforeVowel :: String -> Integer
+countTheBeforeVowel s =
+  countRec (words s) 0
+
+
+countVowels :: String -> Integer
+countVowels s = 
+  foldr (\x z -> if (isVowel x) then z + 1 else z) 0 s
+
+
+-- Validate the word
+
+
+newtype Word' =
+  Word' String
+  deriving (Eq, Show)
+  
+
+vowels = "aeiou"
+
+
+mkWord :: String -> Maybe Word'
+mkWord w = 
+  if (vCount > cCount) then Just (Word' w) else Nothing
+  where vCount = countVowels w
+        cCount = (toInteger (length w)) - vCount
+    
+
+-- It's Only Natural
+
+
+data Nat = 
+  Zero
+  | Succ Nat
+  deriving (Eq, Show)
+  
+
+natToInteger :: Nat -> Integer
+natToInteger Zero = 0
+natToInteger (Succ x) =
+  if (x == Zero) then 1 else 1 + natToInteger x
+
+
+integerToNat :: Integer -> Maybe Nat
+integerToNat x
+  | x < 0 =
+      Nothing
+  | x == 0 =
+      Just Zero
+  | otherwise =
+      fmap (\x -> Succ x) (integerToNat (x - 1))
+
+
+-- Small library for Maybe
+
+
+isJust :: Maybe a -> Bool
+isJust (Just _) = 
+  True
+isJust Nothing = 
+  False
+
+
+isNothing :: Maybe a -> Bool
+isNothing Nothing = 
+  True
+isNothing _ = 
+  False
+
+
+mayybee :: b -> (a -> b) -> Maybe a -> b
+mayybee b f Nothing = 
+  b
+mayybee b f (Just a) = 
+  f a
+
+
+-- Try writing it in terms of the maybe catamorphism
+fromMaybe :: a -> Maybe a -> a
+fromMaybe a ma = mayybee a id ma
+
+
+fromMaybe' :: a -> Maybe a -> a
+fromMaybe' a Nothing = a
+fromMaybe' _ (Just a) = a
+
+
+listToMaybe :: [a] -> Maybe a
+listToMaybe [] = Nothing
+listToMaybe (x:_) = Just x
+
+
+maybeToList :: Maybe a -> [a]
+maybeToList (Just a) = [a]
+maybeToList Nothing = []
+
+
+catMaybes :: [Maybe a] -> [a]
+catMaybes [] = []
+catMaybes (Nothing:xs) = catMaybes xs
+catMaybes (Just a:xs) = a : catMaybes xs
+
+
+flipMaybe :: [Maybe a] -> Maybe [a]
+flipMaybe [] = Just []
+flipMaybe (Nothing:xs) = Nothing
+flipMaybe (Just a:xs) = fmap (\as -> a : as) (flipMaybe xs)
+
+
+
+
+
+
+

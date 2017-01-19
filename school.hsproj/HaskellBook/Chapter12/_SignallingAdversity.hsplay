@@ -1,0 +1,17 @@
+-- Haskell Playground 1.0
+ifEvenAdd2 10
+
+ifEvenAdd2 11
+
+mkPerson "John" 160
+mkPerson "" 160
+mkPerson "blah" 0
+mkPerson "blah" (-9001)
+
+mkPerson2 "Djali" 5
+mkPerson2 "" 10
+mkPerson2 "Djali" (-1)
+mkPerson2 "" (-1)
+
+mkPerson3 "" (-1)
+

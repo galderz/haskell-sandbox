@@ -1,0 +1,77 @@
+-- Haskell Playground 1.0
+-- String processing
+
+notThe "the" == Nothing
+
+notThe "blahtheblah" == Just "blahtheblah"
+
+notThe "woot" == Just "woot"
+
+replaceThe "the cow loves us" == "a cow loves us"
+
+countTheBeforeVowel "the cow" == 0
+
+countTheBeforeVowel "the evil cow" == 1
+
+isStartVowel "a"
+isStartVowel "gal"
+
+let xs = words "the cow"
+
+countVowels "the cow" == 2
+
+countVowels "Mikolajczak" == 4
+
+-- Validate the word
+
+length "a"
+
+mkWord "a"
+mkWord "abc"
+mkWord "galder"
+mkWord "house"
+
+-- It's Only Natural
+
+natToInteger Zero == 0
+natToInteger (Succ Zero) == 1
+natToInteger (Succ (Succ Zero)) == 2
+
+integerToNat 0 == Just Zero
+integerToNat 1 == Just (Succ Zero)
+integerToNat 2 == Just (Succ (Succ Zero))
+integerToNat (-1) == Nothing
+
+-- Small library for Maybe
+
+isJust (Just 1) == True
+isJust Nothing == False
+
+isNothing (Just 1) == False
+isNothing Nothing == True
+
+mayybee 0 (+1) Nothing == 0
+mayybee 0 (+1) (Just 1) == 2
+
+fromMaybe 0 Nothing == 0
+fromMaybe 0 (Just 1) == 1
+fromMaybe' 0 Nothing == 0
+fromMaybe' 0 (Just 1) == 1
+
+listToMaybe [1, 2, 3] == Just 1
+listToMaybe [] == Nothing
+
+maybeToList (Just 1) == [1]
+maybeToList Nothing == []
+
+catMaybes [Just 1, Nothing, Just 2] == [1, 2]
+catMaybes [Nothing, Nothing, Nothing] == []
+
+flipMaybe [Just 1, Just 2, Just 3] == Just [1, 2, 3]
+flipMaybe [Just 1, Nothing, Just 3] == Nothing
+
+
+
+
+
+
