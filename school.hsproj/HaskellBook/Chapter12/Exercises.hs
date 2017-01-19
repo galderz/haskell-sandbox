@@ -190,3 +190,8 @@ partitionEithers' =
           (a : fst xs, snd xs)
       f (Right b) xs = 
           (fst xs, b : snd xs)
+
+
+eitherMaybe' :: (b -> c) -> Either a b -> Maybe c
+eitherMaybe' f (Right b) = Just (f b)
+eitherMaybe' f (Left _) = Nothing

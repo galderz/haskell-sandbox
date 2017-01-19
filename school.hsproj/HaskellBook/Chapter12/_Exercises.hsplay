@@ -98,3 +98,5 @@ partitionEithers' [Right "a"] == partitionEithers [Right "a"]
 partitionEithers' [Right "a", Right "b"] == partitionEithers [Right "a", Right "b"]
 partitionEithers' [Right "a", Left 5] == partitionEithers [Right "a", Left 5]
 
+eitherMaybe' id (Right 1) == Just 1
+eitherMaybe' id (Left "a") == Nothing
