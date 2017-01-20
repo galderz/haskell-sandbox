@@ -213,3 +213,14 @@ eitherMaybe'' fbc e =
 myIterate :: (a -> a) -> a -> [a]
 myIterate f a = 
   a : myIterate f (f a)
+
+
+myUnfoldr :: (b -> Maybe (a, b)) -> b -> [a]
+myUnfoldr f b = 
+  let 
+      m = f b
+  in
+      mf m
+  where 
+      mf (Just (x, y)) = x : myUnfoldr f y
+      mf Nothing = myUnfoldr f b
