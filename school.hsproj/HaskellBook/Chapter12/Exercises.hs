@@ -229,3 +229,40 @@ myUnfoldr f b =
 betterIterate :: (a -> a) -> a -> [a]
 betterIterate f x = 
   myUnfoldr (\b -> Just (b, f b)) x
+
+
+-- Binary tree w/ unfolds
+
+
+data BinaryTree a =
+  Leaf
+  | Node (BinaryTree a) a (BinaryTree a)
+  deriving (Eq, Ord, Show)
+  
+
+unfold :: (a -> Maybe (a, b, a)) -> a -> BinaryTree b
+unfold f a = 
+  let 
+      m = f a
+  in
+      mf m
+  where 
+      mf (Just (x1, y, x2)) = 
+          Node (unfold f x1) y (unfold f x2)
+      mf Nothing = Leaf
+      
+
+-- A bit more neat...
+unfold' :: (a -> Maybe (a,b,a)) -> a -> BinaryTree b
+unfold' f b = 
+  case f b of
+    Nothing -> Leaf
+    Just (x, y, z) -> Node (unfold' f x) y (unfold' f z)
+
+
+treeBuild :: Integer -> BinaryTree Integer
+treeBuild n = 
+  unfold f 0
+  where f m
+          | m == n = Nothing
+          | otherwise = Just (m + 1, m, m + 1)

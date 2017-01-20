@@ -125,3 +125,13 @@ take 10 $ unfoldr (\b -> Just (b, b+1)) 0
 
 (take 10 $ iterate (+1) 0) == (take 10 $ betterIterate (+1) 0)
 take 10 $ betterIterate (+1) 0
+
+-- Binary tree w/ unfolds
+
+treeBuild 0 == Leaf
+treeBuild 0
+
+treeBuild 1 == Node Leaf 0 Leaf
+treeBuild 1
+
+treeBuild 2 == Node (Node Leaf 1 Leaf) 0 (Node Leaf 1 Leaf)
