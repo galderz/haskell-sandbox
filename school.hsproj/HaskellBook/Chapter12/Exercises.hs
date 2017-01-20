@@ -195,3 +195,8 @@ partitionEithers' =
 eitherMaybe' :: (b -> c) -> Either a b -> Maybe c
 eitherMaybe' f (Right b) = Just (f b)
 eitherMaybe' f (Left _) = Nothing
+
+
+either' :: (a -> c) -> (b -> c) -> Either a b -> c
+either' fa fb (Right b) = fb b
+either' fa fb (Left a) = fa a

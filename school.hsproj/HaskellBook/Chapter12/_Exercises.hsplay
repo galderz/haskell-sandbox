@@ -73,7 +73,9 @@ flipMaybe [Just 1, Nothing, Just 3] == Nothing
 -- Small library for Either
 
 fmap (+1) (Left 1)
+fmap (*2) (Left 1)
 fmap (+1) (Right 1)
+fmap (*2) (Right 1)
 
 import Data.Either
 
@@ -100,3 +102,6 @@ partitionEithers' [Right "a", Left 5] == partitionEithers [Right "a", Left 5]
 
 eitherMaybe' id (Right 1) == Just 1
 eitherMaybe' id (Left "a") == Nothing
+
+either' (+1) (*2) (Right 1) == either (+1) (*2) (Right 1)
+either' (+1) (*2) (Left 2) == either (+1) (*2) (Left 2)
