@@ -200,3 +200,8 @@ eitherMaybe' f (Left _) = Nothing
 either' :: (a -> c) -> (b -> c) -> Either a b -> c
 either' fa fb (Right b) = fb b
 either' fa fb (Left a) = fa a
+
+
+eitherMaybe'' :: (b -> c) -> Either a b -> Maybe c
+eitherMaybe'' fbc e = 
+  either' (\_ -> Nothing) (\b -> Just (fbc b)) e
