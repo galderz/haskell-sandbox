@@ -108,3 +108,15 @@ either' (+1) (*2) (Left 2) == either (+1) (*2) (Left 2)
 
 eitherMaybe'' id (Right 1) == Just 1
 eitherMaybe'' id (Left "a") == Nothing
+
+-- Unfolds
+
+-- iterate is very limited, an unfold that never ends
+take 10 $ iterate (+1) 0
+
+import Data.List
+
+-- unfold is more general, same thing as iterate:
+take 10 $ unfoldr (\b -> Just (b, b+1)) 0
+
+(take 10 $ myIterate (+1) 0) == (take 10 $ iterate (+1) 0)

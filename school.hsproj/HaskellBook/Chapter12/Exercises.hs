@@ -205,3 +205,11 @@ either' fa fb (Left a) = fa a
 eitherMaybe'' :: (b -> c) -> Either a b -> Maybe c
 eitherMaybe'' fbc e = 
   either' (\_ -> Nothing) (\b -> Just (fbc b)) e
+
+
+-- Unfolds
+
+
+myIterate :: (a -> a) -> a -> [a]
+myIterate f a = 
+  a : myIterate f (f a)
