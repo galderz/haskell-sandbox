@@ -224,3 +224,8 @@ myUnfoldr f b =
   where 
       mf (Just (x, y)) = x : myUnfoldr f y
       mf Nothing = myUnfoldr f b
+
+
+betterIterate :: (a -> a) -> a -> [a]
+betterIterate f x = 
+  myUnfoldr (\b -> Just (b, f b)) x
