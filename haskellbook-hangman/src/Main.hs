@@ -44,6 +44,21 @@ randomWord' :: IO String
 randomWord' = gameWords >>= randomWord
 
 
+data Puzzle = Puzzle String [Maybe Char] [Char]
+
+
+-- instance Show Puzzle where
+--   show (Puzzle _ discovered guessed) =
+--     (intersperse ' ' $ fmap renderPuzzleChar discovered)
+--     ++ " Guessed so far: " ++ guessed
+
+
+freshPuzzle :: String -> Puzzle
+freshPuzzle x =
+  Puzzle x (map (const Nothing) x) []
+-- Puzzle x (map (\c -> Nothing) x) []
+
+
 main :: IO ()
 main = do
   putStrLn "hello world"
