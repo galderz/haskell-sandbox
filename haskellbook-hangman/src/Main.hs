@@ -58,9 +58,15 @@ freshPuzzle x =
   Puzzle x (map (const Nothing) x) []
 -- Puzzle x (map (\c -> Nothing) x) []
 
+
 charInWord :: Puzzle -> Char -> Bool
 charInWord (Puzzle s _ _) c =
   c `elem` s
+
+
+alreadyGuessed :: Puzzle -> Char -> Bool
+alreadyGuessed (Puzzle _ l _) c =
+  Just c `elem` l
 
 
 main :: IO ()
