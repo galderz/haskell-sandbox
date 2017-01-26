@@ -76,6 +76,17 @@ alreadyGuessed (Puzzle _ l _) c =
   Just c `elem` l
 
 
+fillInCharacter :: Puzzle -> Char -> Puzzle
+fillInCharacter (Puzzle word filledInSoFar s) c =
+  Puzzle word newFilledInSoFar (c : s)
+  where zipper guessed wordChar guessChar =
+          if wordChar == guessed
+          then Just wordChar
+          else guessChar
+        newFilledInSoFar =
+          zipWith (zipper c) word filledInSoFar    
+
+
 main :: IO ()
 main = do
   putStrLn "hello world"
