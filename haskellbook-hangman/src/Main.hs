@@ -106,6 +106,16 @@ handleGuess puzzle guess = do
         return (fillInCharacter puzzle guess)
 
 
+gameOver :: Puzzle -> IO ()
+gameOver (Puzzle wordToGuess _ guessed) =
+  if (length guessed) > 7 then
+    do putStrLn "You lose!"
+       putStrLn $ "The word was: " ++ wordToGuess
+       exitSuccess
+  else
+    return ()
+
+
 main :: IO ()
 main = do
   putStrLn "hello world"
