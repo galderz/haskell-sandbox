@@ -82,13 +82,17 @@ alreadyGuessed (Puzzle _ l _) c =
 
 fillInCharacter :: Puzzle -> Char -> Puzzle
 fillInCharacter (Puzzle word filledInSoFar s) c =
-  Puzzle word newFilledInSoFar (c : s)
+  Puzzle word newFilledInSoFar newGuessed
   where zipper guessed wordChar guessChar =
           if wordChar == guessed
           then Just wordChar
           else guessChar
         newFilledInSoFar =
           zipWith (zipper c) word filledInSoFar
+        newGuessed =
+          if elem c word
+          then s
+          else c : s
 
 
 handleGuess :: Puzzle -> Char -> IO Puzzle
