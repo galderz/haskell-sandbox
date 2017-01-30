@@ -52,6 +52,7 @@ Executable sandbox
       HaskellBook.Chapter08.McCarthy91
       HaskellBook.Chapter02.Exercises
       HaskellBook.Chapter02.Hello
+      HaskellBook.Chapter13.Vigenere
       HaskellBook.Chapter13.Caesar
       HaskellBook.Chapter11.NormalForm
       HaskellBook.Chapter11.WithoutNewtypeDeriving
