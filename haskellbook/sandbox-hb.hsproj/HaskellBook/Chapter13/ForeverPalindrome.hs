@@ -1,12 +1,18 @@
 module HaskellBook.Chapter13.ForeverPalindrome where
 
 import Control.Monad
+import Data.Char
 import System.Exit (exitSuccess)
+
+
+isPalindrome :: String -> Bool
+isPalindrome sentence = chars == reverse chars
+  where chars = map toLower $ filter isLetter sentence
 
 palindrome :: IO ()
 palindrome = forever $ do
   line1 <- getLine
-  case (line1 == reverse line1) of
+  case isPalindrome line1 of
     True ->
       putStrLn "It's a palindrome!"
     False ->
