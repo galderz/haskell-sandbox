@@ -1,6 +1,7 @@
 module Addition where
 
 import Test.Hspec
+import Test.QuickCheck
 
 sayHello :: IO ()
 sayHello = putStrLn "hello!"
@@ -40,3 +41,5 @@ main = hspec $ do
       multiplyBySum 0 2 `shouldBe` 0
     it "2 times 0 is 0" $ do
       multiplyBySum 2 0 `shouldBe` 0
+    it "x + 1 is always greater than x" $ do
+      property $ \x -> x + 1 > (x :: Int)
