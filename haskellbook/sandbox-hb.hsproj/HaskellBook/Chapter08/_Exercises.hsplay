@@ -28,3 +28,6 @@ sumAll 5
 
 multiplyBySum 5 2
 multiplyBySum 8 3
+
+--multiplyBySum 5 2
+--multiplyBySum 8 3
