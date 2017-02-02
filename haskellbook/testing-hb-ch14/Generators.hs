@@ -13,3 +13,9 @@ trivialInt = return 1
 oneThroughThree :: Gen Int
 oneThroughThree =
   elements [1, 2, 3]
+
+
+-- Tinker the odds
+oneThroughThreeTinker :: Gen Int
+oneThroughThreeTinker =
+  elements [1, 2, 2, 2, 2, 3]
