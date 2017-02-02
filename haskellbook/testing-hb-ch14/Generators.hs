@@ -43,3 +43,21 @@ genOrdering =
 genChar :: Gen Char
 genChar =
   elements ['a'..'z']
+
+-- sample genTuple
+-- sample (genTuple :: Gen (Int, Float))
+-- sample (genTuple :: Gen ([()], Char))
+genTuple :: (Arbitrary a, Arbitrary b) => Gen (a, b)
+genTuple = do
+  a <- arbitrary
+  b <- arbitrary
+  return (a, b)
+
+
+genThreeple :: (Arbitrary a, Arbitrary b, Arbitrary c) =>
+               Gen (a, b, c)
+genThreeple = do
+  a <- arbitrary
+  b <- arbitrary
+  c <- arbitrary
+  return (a, b, c)
