@@ -61,3 +61,25 @@ genThreeple = do
   b <- arbitrary
   c <- arbitrary
   return (a, b, c)
+
+-- sample (genEither :: Gen (Either Int Float))
+genEither :: (Arbitrary a, Arbitrary b) => Gen (Either a b)
+genEither = do
+  a <- arbitrary
+  b <- arbitrary
+  elements [Left a, Right b]
+
+-- sample (genMaybe :: Gen (Maybe String))
+genMaybe :: Arbitrary a => Gen (Maybe a)
+genMaybe = do
+  a <- arbitrary
+  elements [Nothing, Just a]
+
+
+-- What QuickCheck actually does
+-- so you get more Just values
+genMaybe' :: Arbitrary a => Gen (Maybe a)
+genMaybe' = do
+  a <- arbitrary
+  frequency [ (1, return Nothing)
+            , (3, return (Just a))]
