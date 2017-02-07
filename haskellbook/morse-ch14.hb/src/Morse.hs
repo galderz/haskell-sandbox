@@ -1,6 +1,10 @@
 module Morse
     ( Morse
     , letterToMorse
+    , charToMorse
+    , morseToChar
+    , stringToMorse
+    , morseToLetter
     ) where
 
 import qualified Data.Map as M
