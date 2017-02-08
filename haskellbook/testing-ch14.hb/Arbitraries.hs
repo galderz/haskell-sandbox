@@ -85,9 +85,24 @@ sumGenCharInt =
     sumGenEqual
 
 
+-- Make First 10 times more probable
+sumGenFirstPls :: (Arbitrary a, Arbitrary b) => Gen (Sum a b)
+sumGenFirstPls =
+    do  a <- arbitrary
+        b <- arbitrary
+        frequency [ (10, return $ First a),
+                    (1, return $ Second b)]
+
+
+sumGenCharIntFirst :: Gen (Sum Char Int)
+sumGenCharIntFirst =
+    sumGenFirstPls
+
+
 main :: IO ()
 main =
-    sample sumGenCharInt
+    sample sumGenCharIntFirst
+    -- sample sumGenCharInt
     -- sample pairGenIntString
     -- sample identityGenInt
     -- sample trivialGen
