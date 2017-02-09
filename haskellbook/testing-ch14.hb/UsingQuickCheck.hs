@@ -14,8 +14,8 @@ halfIdentity =
     (*2) . half
 
 
-prop_half :: Float -> Bool
-prop_half x =
+prop_FloatHalf :: Float -> Bool
+prop_FloatHalf x =
     halfIdentity x == x
 
 
@@ -32,11 +32,21 @@ listOrdered xs =
                 (Just y, x >= y)
 
 
-prop_listSort :: [Int] -> Bool
-prop_listSort = listOrdered . sort
+prop_IntListSort :: [Int] -> Bool
+prop_IntListSort = listOrdered . sort
+
+
+plusAssociative :: (Num a, Eq a) => a -> a -> a -> Bool
+plusAssociative x y z =
+    x + (y + z) == (x + y) + z
+
+
+prop_IntPlusAssociative :: Int -> Int -> Int -> Bool
+prop_IntPlusAssociative = plusAssociative
 
 
 main :: IO ()
 main =
-    do  quickCheck prop_half
-        quickCheck prop_listSort
+    do  quickCheck prop_FloatHalf
+        quickCheck prop_IntListSort
+        quickCheck prop_IntPlusAssociative
