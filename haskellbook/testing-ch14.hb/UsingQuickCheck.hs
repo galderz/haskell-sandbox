@@ -45,8 +45,18 @@ prop_IntPlusAssociative :: Int -> Int -> Int -> Bool
 prop_IntPlusAssociative = plusAssociative
 
 
+plusCommutative :: (Num a, Eq a) => a -> a -> Bool
+plusCommutative x y =
+    x + y == y + x
+
+
+prop_IntPlusCommutative :: Int -> Int -> Bool
+prop_IntPlusCommutative = plusCommutative
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
         quickCheck prop_IntListSort
         quickCheck prop_IntPlusAssociative
+        quickCheck prop_IntPlusCommutative
