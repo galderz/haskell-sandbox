@@ -63,6 +63,15 @@ prop_IntProductAssociative :: Int -> Int -> Int -> Bool
 prop_IntProductAssociative = productAssociative
 
 
+productCommutative :: (Num a, Eq a) => a -> a -> Bool
+productCommutative x y =
+    x * y == y * x
+
+
+prop_IntProductCommutative :: Int -> Int -> Bool
+prop_IntProductCommutative = productCommutative
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -70,3 +79,4 @@ main =
         quickCheck prop_IntPlusAssociative
         quickCheck prop_IntPlusCommutative
         quickCheck prop_IntProductAssociative
+        quickCheck prop_IntProductCommutative
