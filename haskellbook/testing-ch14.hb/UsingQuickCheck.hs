@@ -82,6 +82,16 @@ prop_IntQuotRemLaw x (NonZero y) =
     quotRemLaw x y
 
 
+divModLaw :: Integral a => a -> a -> Bool
+divModLaw x y =
+    div x y * y + mod x y == x
+
+
+prop_IntDivModLaw :: Int -> NonZero Int -> Bool
+prop_IntDivModLaw x (NonZero y) =
+    divModLaw x y
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -91,3 +101,4 @@ main =
         quickCheck prop_IntProductAssociative
         quickCheck prop_IntProductCommutative
         quickCheck prop_IntQuotRemLaw
+        quickCheck prop_IntDivModLaw
