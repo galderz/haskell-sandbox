@@ -92,6 +92,16 @@ prop_IntDivModLaw x (NonZero y) =
     divModLaw x y
 
 
+powerAssociative :: (Num a, Integral b1, Integral b, Eq a) => a -> b1 -> b -> Bool
+powerAssociative x y z =
+    x ^ (y ^ z) == (x ^ y) ^ z
+
+
+prop_IntPowerAssociative :: Int -> Int -> Int -> Bool
+prop_IntPowerAssociative =
+    powerAssociative
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -102,3 +112,4 @@ main =
         quickCheck prop_IntProductCommutative
         quickCheck prop_IntQuotRemLaw
         quickCheck prop_IntDivModLaw
+        quickCheck prop_IntPowerAssociative
