@@ -72,6 +72,16 @@ prop_IntProductCommutative :: Int -> Int -> Bool
 prop_IntProductCommutative = productCommutative
 
 
+quotRemLaw :: Integral a => a -> a -> Bool
+quotRemLaw x y =
+    (quot x y) * y + (rem x y) == x
+
+
+prop_IntQuotRemLaw :: Int -> NonZero Int -> Bool
+prop_IntQuotRemLaw x (NonZero y) =
+    quotRemLaw x y
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -80,3 +90,4 @@ main =
         quickCheck prop_IntPlusCommutative
         quickCheck prop_IntProductAssociative
         quickCheck prop_IntProductCommutative
+        quickCheck prop_IntQuotRemLaw
