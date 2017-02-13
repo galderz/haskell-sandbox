@@ -1,6 +1,7 @@
 module UsingQuickCheck where
 
 import Test.QuickCheck
+import Text.Show.Functions
 import Data.List (sort)
 
 
@@ -122,6 +123,16 @@ prop_IntListReverse =
     listReverse
 
 
+dollarOperator :: Eq a => (t -> a) -> t -> Bool
+dollarOperator f a =
+    (f $ a) == f a
+
+
+prop_IntToIntDollarOperator :: (Int -> Int) -> Int -> Bool
+prop_IntToIntDollarOperator =
+    dollarOperator
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -135,3 +146,4 @@ main =
         -- quickCheck prop_IntPowerAssociative
         -- quickCheck prop_IntPowerCommutative
         quickCheck prop_IntListReverse
+        quickCheck prop_IntToIntDollarOperator
