@@ -143,6 +143,16 @@ prop_IntComposeOperator =
     composeOperator
 
 
+colonIsConcat :: Eq a => [a] -> [a] -> Bool
+colonIsConcat y z =
+    foldr (:) y z == (++) z y
+
+
+prop_colonIsConcat :: [Int] -> [Int] -> Bool
+prop_colonIsConcat =
+    colonIsConcat
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -158,3 +168,4 @@ main =
         quickCheck prop_IntListReverse
         quickCheck prop_IntToIntDollarOperator
         quickCheck prop_IntComposeOperator
+        quickCheck prop_colonIsConcat
