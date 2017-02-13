@@ -133,6 +133,16 @@ prop_IntToIntDollarOperator =
     dollarOperator
 
 
+composeOperator :: Eq a1 => (b -> a1) -> (a -> b) -> a -> Bool
+composeOperator f g x =
+    (f . g) x == f (g x)
+
+
+prop_IntComposeOperator :: (Int -> Int) -> (Int -> Int) -> Int -> Bool
+prop_IntComposeOperator =
+    composeOperator
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -147,3 +157,4 @@ main =
         -- quickCheck prop_IntPowerCommutative
         quickCheck prop_IntListReverse
         quickCheck prop_IntToIntDollarOperator
+        quickCheck prop_IntComposeOperator
