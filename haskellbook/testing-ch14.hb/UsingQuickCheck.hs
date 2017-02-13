@@ -112,6 +112,16 @@ prop_IntPowerCommutative =
     powerCommutative
 
 
+listReverse :: Eq a => [a] -> Bool
+listReverse x =
+    reverse (reverse x) == id x
+
+
+prop_IntListReverse :: [Int] -> Bool
+prop_IntListReverse =
+    listReverse
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -122,5 +132,6 @@ main =
         quickCheck prop_IntProductCommutative
         quickCheck prop_IntQuotRemLaw
         quickCheck prop_IntDivModLaw
-        quickCheck prop_IntPowerAssociative
-        quickCheck prop_IntPowerCommutative
+        -- quickCheck prop_IntPowerAssociative
+        -- quickCheck prop_IntPowerCommutative
+        quickCheck prop_IntListReverse
