@@ -102,6 +102,16 @@ prop_IntPowerAssociative =
     powerAssociative
 
 
+powerCommutative :: Integral b => b -> b -> Bool
+powerCommutative x y =
+    x ^ y == y ^ x
+
+
+prop_IntPowerCommutative :: Int -> Int -> Bool
+prop_IntPowerCommutative =
+    powerCommutative
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -113,3 +123,4 @@ main =
         quickCheck prop_IntQuotRemLaw
         quickCheck prop_IntDivModLaw
         quickCheck prop_IntPowerAssociative
+        quickCheck prop_IntPowerCommutative
