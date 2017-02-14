@@ -174,6 +174,16 @@ prop_listTake (NonNegative n) l =
     listTake n (getNonEmpty l)
 
 
+readShow :: (Show a, Read a, Eq a) => a -> Bool
+readShow x =
+    (read (show x)) == x
+
+
+prop_ReadShow :: Int -> Bool
+prop_ReadShow =
+    readShow
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -192,3 +202,4 @@ main =
         quickCheck prop_colonIsConcat
         quickCheck prop_plusPlusIsConcat
         -- quickCheck prop_listTake
+        quickCheck prop_ReadShow
