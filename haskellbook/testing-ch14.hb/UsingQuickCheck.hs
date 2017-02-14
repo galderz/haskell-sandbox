@@ -153,6 +153,16 @@ prop_colonIsConcat =
     colonIsConcat
 
 
+plusPlusIsConcat :: Eq a => [[a]] -> Bool
+plusPlusIsConcat x =
+    foldr (++) [] x == concat x
+
+
+prop_plusPlusIsConcat :: [[Int]] -> Bool
+prop_plusPlusIsConcat =
+    plusPlusIsConcat
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -169,3 +179,4 @@ main =
         quickCheck prop_IntToIntDollarOperator
         quickCheck prop_IntComposeOperator
         quickCheck prop_colonIsConcat
+        quickCheck prop_plusPlusIsConcat 
