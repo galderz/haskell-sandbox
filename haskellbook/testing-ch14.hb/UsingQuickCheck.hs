@@ -1,6 +1,7 @@
 module UsingQuickCheck where
 
 import Test.QuickCheck
+import Test.QuickCheck.Modifiers
 import Text.Show.Functions
 import Data.List (sort)
 
@@ -163,6 +164,16 @@ prop_plusPlusIsConcat =
     plusPlusIsConcat
 
 
+listTake :: Int -> [a] -> Bool
+listTake n xs =
+    length (take n xs) == n
+
+
+prop_listTake :: NonNegative Int -> NonEmptyList Int -> Bool
+prop_listTake (NonNegative n) l =
+    listTake n (getNonEmpty l)
+
+
 main :: IO ()
 main =
     do  quickCheck prop_FloatHalf
@@ -179,4 +190,5 @@ main =
         quickCheck prop_IntToIntDollarOperator
         quickCheck prop_IntComposeOperator
         quickCheck prop_colonIsConcat
-        quickCheck prop_plusPlusIsConcat 
+        quickCheck prop_plusPlusIsConcat
+        -- quickCheck prop_listTake
