@@ -39,3 +39,6 @@ main = hspec $ do
         it "might not find a character" $ do
             fillInCharacter (freshPuzzle "haskell") 'z' `shouldBe`
                 (Puzzle "haskell" (replicate 7 Nothing) "z")
+        it "might find a character" $ do
+            fillInCharacter (freshPuzzle "haskell") 'l' `shouldBe`
+                (Puzzle "haskell" ((replicate 5 Nothing) ++ [Just 'l', Just 'l']) "")
