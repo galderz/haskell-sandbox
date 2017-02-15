@@ -31,6 +31,11 @@ fillInCharacter (Puzzle word filledInSoFar s) c =
 
 main :: IO ()
 main = hspec $ do
-  describe "Fresh puzzle" $ do
-    it "can be used to create a Puzzle" $ do
-      freshPuzzle "haskell" `shouldBe` (Puzzle "haskell" (replicate 7 Nothing) "")
+    describe "Fresh puzzle" $ do
+        it "can be used to create a Puzzle" $ do
+            freshPuzzle "haskell" `shouldBe`
+                (Puzzle "haskell" (replicate 7 Nothing) "")
+    describe "Fill in character" $ do
+        it "might not find a character" $ do
+            fillInCharacter (freshPuzzle "haskell") 'z' `shouldBe`
+                (Puzzle "haskell" (replicate 7 Nothing) "z")
