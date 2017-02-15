@@ -9,7 +9,15 @@ data Fool =
     deriving (Eq, Show)
 
 
--- $ sample foolGen
-foolGen :: Gen Fool
-foolGen =
+-- $ sample foolGenEqual
+foolGenEqual :: Gen Fool
+foolGenEqual =
     oneof [return Fulse, return Frue]
+
+
+-- $ sample foolGenMoreFulse
+foolGenMoreFulse :: Gen Fool
+foolGenMoreFulse =
+    frequency
+        [ (2, return Fulse)
+        , (1, return Frue)]
