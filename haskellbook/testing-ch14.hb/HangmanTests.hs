@@ -75,3 +75,6 @@ main = hspec $ do
         it "can handle a non guess" $ do
             handleGuess (freshPuzzle "haskell") 'z' `shouldReturn`
                 Puzzle "haskell" (replicate 7 Nothing) "z"
+        it "can handle a guess" $ do
+            handleGuess (freshPuzzle "haskell") 'l' `shouldReturn`
+                (Puzzle "haskell" ((replicate 5 Nothing) ++ [Just 'l', Just 'l']) "")
