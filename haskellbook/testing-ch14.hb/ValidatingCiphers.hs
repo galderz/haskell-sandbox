@@ -35,19 +35,43 @@ genLowerString =
     listOf genLowerAlpha
 
 
-genCaesar :: Gen (String, Int)
-genCaesar = do
+genCaesarLower :: Gen (String, Int)
+genCaesarLower = do
     t <- genLowerString
     k <- arbitrary
     return (t, k)
 
 
-prop_Caesar :: Property
-prop_Caesar =
-    forAll genCaesar
+prop_CaesarLower :: Property
+prop_CaesarLower =
+    forAll genCaesarLower
+        (\(s, n) -> caesarIdentity s n)
+
+
+genUpperAlpha :: Gen Char
+genUpperAlpha =
+  elements ['A'..'Z']
+
+
+genUpperString :: Gen String
+genUpperString =
+    listOf genUpperAlpha
+
+
+genCaesarUpper :: Gen (String, Int)
+genCaesarUpper = do
+    t <- genUpperString
+    k <- arbitrary
+    return (t, k)
+
+
+prop_CaesarUpper :: Property
+prop_CaesarUpper =
+    forAll genCaesarUpper
         (\(s, n) -> caesarIdentity s n)
 
 
 main :: IO ()
 main =
-    do  quickCheck prop_Caesar
+    do  quickCheck prop_CaesarLower
+        quickCheck prop_CaesarUpper
