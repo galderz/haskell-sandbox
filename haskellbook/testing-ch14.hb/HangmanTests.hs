@@ -29,6 +29,35 @@ fillInCharacter (Puzzle word filledInSoFar s) c =
           else c : s
 
 
+charInWord :: Puzzle -> Char -> Bool
+charInWord (Puzzle s _ _) c =
+    c `elem` s
+
+
+alreadyGuessed :: Puzzle -> Char -> Bool
+alreadyGuessed (Puzzle _ l _) c =
+    Just c `elem` l
+
+
+handleGuess :: Puzzle -> Char -> IO Puzzle
+handleGuess puzzle guess = do
+  putStrLn $ "Your guess was: " ++ [guess]
+  case (charInWord puzzle guess
+      , alreadyGuessed puzzle guess) of
+    (_, True) -> do
+        putStrLn "You already guesse that\
+                  \ character, pick somethign else!"
+        return puzzle
+    (True, _) -> do
+        putStrLn "This character was in the word,\
+                  \ filling in the word accordignly"
+        return (fillInCharacter puzzle guess)
+    (False, _) -> do
+        putStrLn "This character wasn't in \
+                  \ the word, try again."
+        return (fillInCharacter puzzle guess)
+
+
 main :: IO ()
 main = hspec $ do
     describe "Fresh puzzle" $ do
@@ -42,3 +71,7 @@ main = hspec $ do
         it "might find a character" $ do
             fillInCharacter (freshPuzzle "haskell") 'l' `shouldBe`
                 (Puzzle "haskell" ((replicate 5 Nothing) ++ [Just 'l', Just 'l']) "")
+    describe "Handle guess" $ do
+        it "can handle a non guess" $ do
+            handleGuess (freshPuzzle "haskell") 'z' `shouldReturn`
+                Puzzle "haskell" (replicate 7 Nothing) "z"
