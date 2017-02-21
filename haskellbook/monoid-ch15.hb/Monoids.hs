@@ -86,3 +86,15 @@ productRecordAccessor =
 
 sumRecordAccessorConcat =
     getSum $ mconcat [(Sum 5), (Sum 6), (Sum 7)]
+
+
+productMonoidFoldr =
+    foldr mappend mempty ([2, 4, 6] :: [Product Int])
+
+
+sumMonoidFoldr =
+    foldr mappend mempty ([2, 4, 6] :: [Sum Int])
+
+
+stringMonoidFoldr =
+    foldr mappend mempty ["blah", "woot"]
