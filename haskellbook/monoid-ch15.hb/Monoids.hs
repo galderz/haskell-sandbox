@@ -74,3 +74,15 @@ nestedSumMonoid =
 
 nestedSumMonoid2 =
     (Sum 1) `mappend` (Sum 1) `mappend` (Sum 1)
+
+
+sumRecordAccessor =
+    getSum $ mappend (Sum 1) (Sum 1)
+
+
+productRecordAccessor =
+    getProduct $ mappend (Product 5) (Product 5)
+
+
+sumRecordAccessorConcat =
+    getSum $ mconcat [(Sum 5), (Sum 6), (Sum 7)]
