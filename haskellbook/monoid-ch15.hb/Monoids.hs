@@ -58,3 +58,19 @@ productMonoid =
 
 floatSumMonoid =
     mappend (Sum 4.5) (Sum 3.4)
+
+
+-- Does not work because String is not a Num
+-- stringMonoid =
+--     Sum "Frank" <> Sum " " <> Sum "Herbert"
+
+nestedSumMonoidVerbose =
+    mappend (Sum 1) (mappend (Sum 2) (Sum 3))
+
+
+nestedSumMonoid =
+     (Sum 1) <> (Sum 1) <> (Sum 1)
+
+
+nestedSumMonoid2 =
+    (Sum 1) `mappend` (Sum 1) `mappend` (Sum 1)
