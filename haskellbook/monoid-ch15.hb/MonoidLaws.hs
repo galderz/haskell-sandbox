@@ -24,3 +24,10 @@ associativitySum' =
 concatSum =
     mconcat [Sum 1, Sum 2, Sum 3] ==
         foldr mappend mempty [Sum 1, Sum 2, Sum 3]
+
+
+-- lists: mempty is []
+-- lists: mappend is (++)
+
+leftIdentityList =
+    mappend mempty [1, 2, 3] == [1, 2, 3]
