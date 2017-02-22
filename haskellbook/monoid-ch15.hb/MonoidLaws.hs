@@ -19,3 +19,8 @@ associativitySum =
 associativitySum' =
     (Sum 1) <> (Sum 2 <> Sum 3) ==
         (Sum 1 <> Sum 2) <> Sum 3
+
+
+concatSum =
+    mconcat [Sum 1, Sum 2, Sum 3] ==
+        foldr mappend mempty [Sum 1, Sum 2, Sum 3]
