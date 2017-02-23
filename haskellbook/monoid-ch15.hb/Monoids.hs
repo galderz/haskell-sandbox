@@ -108,3 +108,13 @@ conjuctionBoolTrue =
 conjuctionBoolFalse =
     All True <> All False ==
         All False
+
+
+disjunctionBoolTrue =
+    Any True <> Any False ==
+        Any True
+
+
+disjunctionBoolFalse =
+    Any False <> Any False ==
+        Any False
