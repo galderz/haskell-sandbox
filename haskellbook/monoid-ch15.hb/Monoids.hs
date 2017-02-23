@@ -98,3 +98,13 @@ sumMonoidFoldr =
 
 stringMonoidFoldr =
     foldr mappend mempty ["blah", "woot"]
+
+
+conjuctionBoolTrue =
+    All True <> All True ==
+        All True
+
+
+conjuctionBoolFalse =
+    All True <> All False ==
+        All False
