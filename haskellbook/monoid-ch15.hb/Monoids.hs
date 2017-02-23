@@ -118,3 +118,31 @@ disjunctionBoolTrue =
 disjunctionBoolFalse =
     Any False <> Any False ==
         Any False
+
+
+firstMaybeJustMonoid =
+    First (Just 1) `mappend` First (Just 2) ==
+        First (Just 1)
+
+
+lastMaybeJustMonoid =
+    Last (Just 1) `mappend` Last (Just 2) ==
+        Last (Just 2)
+
+
+lastMaybeNothingJustMonoid =
+    Last Nothing `mappend` Last (Just 2) ==
+        Last (Just 2)
+
+
+firstMaybeNothingJustMonoid =
+    First Nothing `mappend` First (Just 2) ==
+        First (Just 2)
+
+
+firstMaybeNothingMonoid =
+    First Nothing `mappend` First Nothing
+
+
+lastMaybeNothingMonoid =
+    Last Nothing `mappend` Last Nothing
