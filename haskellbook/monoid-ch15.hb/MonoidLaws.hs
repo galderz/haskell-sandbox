@@ -35,3 +35,7 @@ leftIdentityList =
 
 rightIdentityList =
     mappend [1, 2, 3] mempty == [1, 2, 3]
+
+
+associativityList =
+    [1] <> ([2] <> [3]) == [1, 2, 3]
