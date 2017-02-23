@@ -38,4 +38,10 @@ rightIdentityList =
 
 
 associativityList =
-    [1] <> ([2] <> [3]) == [1, 2, 3]
+    [1] <> ([2] <> [3]) ==
+        ([1] <> [2]) <> [3]
+
+
+concatList =
+    mconcat [[1], [2], [3]] ==
+        foldr mappend mempty [[1], [2], [3]]
