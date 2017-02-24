@@ -6,8 +6,17 @@ main :: IO ()
 main = hspec $ do
     describe "Optional" $ do
         it "mappend of Sum and Nada is Sum" $ do
-            Only (Sum 1) <> Nada `shouldBe` Only (Sum 1)
+            Only (Sum 1) <> Nada `shouldBe`
+                Only (Sum 1)
+
         it "mappend of List and Nada is List" $ do
-            Only [1] <> Nada `shouldBe` Only [1]
+            Only [1] <> Nada `shouldBe`
+                Only [1]
+
         it "mappend of Nada and Sum is Sum" $ do
-            Nada <> Only (Sum 1) `shouldBe` Only (Sum 1)
+            Nada <> Only (Sum 1) `shouldBe`
+                Only (Sum 1)
+
+        it "mappend of Product and Product is Product" $ do
+            Only (Product 4) `mappend` Only (Product 2) `shouldBe`
+                Only (Product 8)

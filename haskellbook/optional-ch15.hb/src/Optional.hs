@@ -4,7 +4,7 @@ import Data.Monoid
 
 data Optional a =
     Nada
-    |Only a
+    | Only a
     deriving (Eq, Show)
 
 
@@ -17,3 +17,6 @@ instance Monoid a => Monoid (Optional a) where
 
     mappend Nada x =
         x
+
+    mappend (Only x) (Only y) =
+        Only (x `mappend` y)
