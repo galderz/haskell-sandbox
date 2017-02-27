@@ -14,3 +14,17 @@ import Test.QuickCheck
 monoidAssoc :: (Eq m, Monoid m) => m -> m -> m -> Bool
 monoidAssoc a b c =
     (a <> (b <> c)) == ((a <> b) <> c)
+
+
+-- Test with:
+-- quickCheck (monoidLeftIdentity :: String -> Bool)
+monoidLeftIdentity :: (Eq m, Monoid m) => m -> Bool
+monoidLeftIdentity a =
+    (mempty <> a) == a
+
+
+-- Test with:
+-- quickCheck (monoidRightIdentity :: String -> Bool)
+monoidRightIdentity :: (Eq m, Monoid m) => m -> Bool
+monoidRightIdentity a =
+    (a <> mempty) == a
