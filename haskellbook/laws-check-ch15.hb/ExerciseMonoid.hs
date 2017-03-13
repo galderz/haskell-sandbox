@@ -21,10 +21,13 @@ instance Arbitrary a => Arbitrary (First' a) where
     arbitrary =
         firstGen
 
--- instance Arbitrary Bull where
---     arbitrary =
---         frequency   [ (1, return Fools)
---                     , (1, return Twoo)]
+
+-- Another way of implementing it:
+-- instance Arbitrary a => Arbitrary (First' a) where
+--   arbitrary = do
+--     x <- arbitrary
+--     frequency [ (1, return (First' (Only x)))
+--               , (1, return (First' Nada))]
 
 
 instance Monoid (First' a) where

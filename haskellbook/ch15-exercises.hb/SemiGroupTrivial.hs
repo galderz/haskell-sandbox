@@ -1,4 +1,4 @@
-module SemiGroupTrivial where
+module SemigroupTrivial where
 
 import Data.Semigroup
 import Test.QuickCheck
@@ -25,7 +25,8 @@ semigroupAssoc a b c =
         == ((a <> b) <> c)
 
 
-type TrivialAssoc = Trivial -> Trivial -> Trivial -> Bool
+type TrivialAssoc =
+    Trivial -> Trivial -> Trivial -> Bool
 
 
 main :: IO ()
