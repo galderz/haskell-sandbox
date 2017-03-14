@@ -1,4 +1,4 @@
-module SemigroupTwo where
+module SemigroupThree where
 
 import Data.Semigroup
 import Test.QuickCheck
