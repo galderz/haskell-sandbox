@@ -13,16 +13,6 @@ instance Semigroup b => Semigroup (Combine a b) where
         Combine (f <> f')
 
 
-f :: Combine Integer (Sum Integer)
-f =
-    Combine $ \n -> Sum (n + 1)
-
-
-g :: Combine Integer (Sum Integer)
-g =
-    Combine $ \n -> Sum (n - 1)
-
-
 -- Test.QuickCheck.(===) requires (Eq b, Show b)
 -- but you can use (==) if you prefer.
 funEquality :: (Arbitrary a, Show a, Eq b, Show b) => Combine a b -> Combine a b -> Property
@@ -51,5 +41,6 @@ combineAssoc f g h =
 
 
 main :: IO ()
-main = quickCheck $ \(Fun _ f) (Fun _ g) (Fun _ h) ->
-  (combineAssoc :: CombineAssoc Int (Sum Int)) (Combine f) (Combine g) (Combine h)
+main =
+    quickCheck $ \(Fun _ f) (Fun _ g) (Fun _ h) ->
+        (combineAssoc :: CombineAssoc Int (Sum Int)) (Combine f) (Combine g) (Combine h)
