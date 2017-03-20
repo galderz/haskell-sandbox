@@ -15,6 +15,11 @@ newtype AccumulateRight a b =
     deriving (Eq, Show)
 
 
+newtype AccumulateBoth a b =
+    AccumulateBoth (Validation a b)
+    deriving (Eq, Show)
+
+
 instance Semigroup a =>
     Semigroup (Validation a b) where
         Failure a <> Failure a' =
@@ -42,6 +47,21 @@ instance Semigroup b =>
             AccumulateRight (Success (b <> b'))
 
 
+instance (Semigroup a, Semigroup b) =>
+    Semigroup (AccumulateBoth a b) where
+        AccumulateBoth (Failure a) <> AccumulateBoth (Failure a') =
+            AccumulateBoth (Failure (a <> a'))
+
+        _ <> a@(AccumulateBoth (Failure _)) =
+            a
+
+        a@(AccumulateBoth (Failure _)) <> _ =
+            a
+
+        AccumulateBoth (Success b) <> AccumulateBoth (Success b') =
+            AccumulateBoth (Success (b <> b'))
+
+
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Validation a b) where
     arbitrary = do
         a <- arbitrary
@@ -55,6 +75,14 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (AccumulateRight a b) where
         b <- arbitrary
         oneof   [return $ AccumulateRight (Failure a)
                 , return $ AccumulateRight (Success b)]
+
+
+instance (Arbitrary a, Arbitrary b) => Arbitrary (AccumulateBoth a b) where
+    arbitrary = do
+        a <- arbitrary
+        b <- arbitrary
+        oneof   [return $ AccumulateBoth (Failure a)
+                , return $ AccumulateBoth (Success b)]
 
 
 semigroupAssoc :: (Eq m, Semigroup m) => m -> m -> m -> Bool
@@ -71,7 +99,15 @@ type AccumulateRightAssoc =
     AccumulateRight String String -> AccumulateRight String String -> AccumulateRight String String -> Bool
 
 
+type AccumulateBothAssoc =
+    AccumulateBoth String String
+    -> AccumulateBoth String String
+    -> AccumulateBoth String String
+    -> Bool
+
+
 main :: IO ()
 main =
     do  quickCheck (semigroupAssoc :: ValidationAssoc)
         quickCheck (semigroupAssoc :: AccumulateRightAssoc)
+        quickCheck (semigroupAssoc :: AccumulateBothAssoc)
