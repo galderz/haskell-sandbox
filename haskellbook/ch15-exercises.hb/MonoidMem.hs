@@ -30,9 +30,15 @@ f' =
 
 
 main :: IO ()
-main =
-    do  print $ runMem (f' <> mempty) 0
-        print $ runMem (mempty <> f') 0
-        print $ (runMem mempty 0 :: (String, Int))
-        print $ runMem (f' <> mempty) 0 == runMem f' 0
-        print $ runMem (mempty <> f') 0 == runMem f' 0
+main = hspec $ do
+    describe "Mem" $ do
+        it "runMem right identity with a function" $ do
+            (runMem (f' <> mempty) 0) `shouldBe` ("hi", 1)
+        it "runMem left identity with a function" $ do
+            (runMem (mempty <> f') 0) `shouldBe` ("hi", 1)
+        it "runMem left identity with a value" $ do
+            (runMem mempty 0 :: (String, Int)) `shouldBe` ("", 0)
+        it "runMem right identity is same as applying function directly" $ do
+            (runMem (f' <> mempty) 0 == runMem f' 0) `shouldBe` True
+        it "runMem left identity is same as applying function directly" $ do
+            (runMem (mempty <> f') 0 == runMem f' 0) `shouldBe` True
