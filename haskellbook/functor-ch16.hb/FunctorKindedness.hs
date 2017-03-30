@@ -1,4 +1,4 @@
-module FunctorKindness where
+module FunctorKindedness where
 
 
 data FixMePls a =
