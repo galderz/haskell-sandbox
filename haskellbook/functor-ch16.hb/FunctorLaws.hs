@@ -33,3 +33,34 @@ idLawBreak :: Bool
 idLawBreak =
     fmap id (ItDoesnt :: WhoCares String) == id (ItDoesnt :: WhoCares String)
     -- fmap id ItDoesnt == id ItDoesnt
+
+
+data CountingBad a =
+    Heisenberg Int a
+    deriving (Eq, Show)
+
+
+instance Functor CountingBad where
+    fmap f (Heisenberg n a) =
+        Heisenberg (n+1) (f a)
+
+
+oneWhoKnocks =
+    Heisenberg 0 "Uncle"
+
+
+idLawBreakCountingBad =
+    -- Heisenberg 2 "Uncle lol Jesse"
+    (fmap (++ " Jesse") . fmap (++ " lol") $ oneWhoKnocks) ==
+        (fmap ((++ " Jesse") . (++ " lol")) $ oneWhoKnocks)
+        -- Heisenberg 1 "Uncle lol Jesse"
+
+
+data CountingGood a =
+    HeisenbergGood Int a
+    deriving (Eq, Show)
+
+
+instance Functor CountingGood where
+    fmap f (HeisenbergGood n a) =
+        HeisenbergGood (n) (f a)
