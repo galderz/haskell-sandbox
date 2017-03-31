@@ -26,6 +26,7 @@ fmapOnEither =
     fmap (++ ", Esq.") (Right "Chris Allen")
 
 
+-- b -> Char
 replaceWithP =
     const 'p' -- const :: a -> b -> a
 
@@ -72,3 +73,39 @@ tossEmOneMinus10 =
 
 tossEmOne' =
     (+1) . negate -- tossEmOne' 10 // tossEmOne' (-10) => same results as above
+
+
+lms =
+    [Just "Ave", Nothing, Just "woohoo"]
+
+-- List (Maybe String) => _ -> Char
+-- List (Maybe String) -> Char
+rwpLms =
+    replaceWithP lms
+
+
+-- lms has more than one function type:
+-- Maybe and List (which includes String) both have Functor instances
+-- So the code below fmaps only the outermost datatype
+--
+-- List (Maybe String => _ -> Char)
+-- List (Maybe String) -> List Char
+fmapRwpLms =
+    fmap replaceWithP lms
+
+
+-- However, it's possible to fmap the inner most type too:
+-- From List (Maybe String) -> List (Maybe Char)
+--
+-- List (Maybe (String => _ -> Char)
+-- List (Maybe String) -> List (Maybe Char)
+fmapInnerRwpLws =
+    (fmap . fmap) replaceWithP lms
+
+
+-- You can go even further!
+--
+-- List (Maybe (List (Char => _ -> Char))
+-- List (Maybe String) -> List (Maybe String)
+fmapInnerInnerRwpLws =
+    (fmap . fmap . fmap) replaceWithP lms
