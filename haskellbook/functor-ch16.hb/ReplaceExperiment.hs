@@ -42,3 +42,45 @@ twiceLifted =
 twiceLifted' :: [Maybe [Char]] -> [Maybe Char]
 twiceLifted' =
     twiceLifted
+
+
+-- Prelude> :t (fmap . fmap . fmap) replaceWithP
+-- (fmap . fmap . fmap) replaceWithP
+--   :: (Functor f2, Functor f1, Functor f)=>
+--      f (f1 (f2 a)) -> f (f1 (f2 Char))
+thriceLifted :: (Functor f2, Functor f1, Functor f) =>
+    f (f1 (f2 a)) -> f (f1 (f2 Char))
+thriceLifted =
+    (fmap . fmap . fmap) replaceWithP
+
+
+-- f ~ []
+-- f1 ~ Maybe
+-- f2 ~ []
+thriceLifted' :: [Maybe [Char]] -> [Maybe [Char]]
+thriceLifted' =
+    thriceLifted
+
+
+main :: IO ()
+main =
+    do  putStr "replaceWithP' lms:   "
+        print (replaceWithP' lms)
+
+        putStr "liftedReplace lms:   "
+        print (liftedReplace lms)
+
+        putStr "liftedReplace' lms:   "
+        print (liftedReplace' lms)
+
+        putStr "twiceLifted lms:   "
+        print (twiceLifted lms)
+
+        putStr "twiceLifted' lms:   "
+        print (twiceLifted' lms)
+
+        putStr "thriceLifted lms:   "
+        print (thriceLifted lms)
+
+        putStr "thriceLifted' lms:   "
+        print (thriceLifted' lms)
