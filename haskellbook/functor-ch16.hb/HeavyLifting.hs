@@ -9,3 +9,7 @@ a =
 -- Just ["Hi,lol","Hellolol"]
 b =
     (fmap . fmap) (++ "lol") (Just ["Hi,", "Hello"])
+
+-- c 1 => -2
+c =
+    (*2) . (\x -> x - 2)
