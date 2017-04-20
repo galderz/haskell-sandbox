@@ -24,14 +24,24 @@ data Pair a =
     deriving (Eq, Show)
 
 
+data Two a b =
+    Two a b
+    deriving (Eq, Show)
+
+
 instance Functor Identity where
     fmap f (Identity a) =
         Identity (f a)
 
 
 instance Functor Pair where
-    fmap f (Pair a b) =
-        Pair (f a) (f b)
+    fmap f (Pair a a') =
+        Pair (f a) (f a')
+
+
+instance Functor (Two a) where
+    fmap f (Two a b) =
+        Two a (f b)
 
 
 instance Arbitrary a => Arbitrary (Identity a) where
@@ -47,6 +57,13 @@ instance Arbitrary a => Arbitrary (Pair a) where
             return $ Pair x y
 
 
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            return $ Two x y
+
+
 type StrToInt = Fun String Int
 
 
@@ -59,9 +76,14 @@ type IdFC = Identity String -> StrToInt -> IntToStr -> Bool
 type PairFC = Pair String -> StrToInt -> IntToStr -> Bool
 
 
+type TwoFC = Two Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  quickCheck $ \x -> functorIdentity (x :: Identity String)
         quickCheck (functorCompose :: IdFC)
         quickCheck $ \x -> functorIdentity (x :: Pair String)
         quickCheck (functorCompose :: PairFC)
+        quickCheck $ \x -> functorIdentity (x :: Two Char String)
+        quickCheck (functorCompose :: TwoFC)
