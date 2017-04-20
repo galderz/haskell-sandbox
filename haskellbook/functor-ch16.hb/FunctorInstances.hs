@@ -39,6 +39,11 @@ data Three' a b =
     deriving (Eq, Show)
 
 
+data Four a b c d =
+    Four a b c d
+    deriving (Eq, Show)
+
+
 instance Functor Identity where
     fmap f (Identity a) =
         Identity (f a)
@@ -62,6 +67,11 @@ instance Functor (Three a b) where
 instance Functor (Three' a) where
     fmap f (Three' a b b') =
         Three' a (f b) (f b')
+
+
+instance Functor (Four a b c) where
+    fmap f (Four a b c d) =
+        Four a b c (f d)
 
 
 instance Arbitrary a => Arbitrary (Identity a) where
@@ -101,6 +111,16 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Three' a b) where
             return $ Three' x y z
 
 
+instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
+    Arbitrary (Four a b c d) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            z <- arbitrary
+            z' <- arbitrary
+            return $ Four x y z z'
+
+
 type StrToInt = Fun String Int
 
 
@@ -122,6 +142,9 @@ type ThreeFC = Three Bool Char String -> StrToInt -> IntToStr -> Bool
 type ThreeFC' = Three' Char String -> StrToInt -> IntToStr -> Bool
 
 
+type FourFC = Four Double Bool Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  quickCheck $ \x -> functorIdentity (x :: Identity String)
@@ -134,3 +157,5 @@ main =
         quickCheck (functorCompose :: ThreeFC)
         quickCheck $ \x -> functorIdentity (x :: Three' Char String)
         quickCheck (functorCompose :: ThreeFC')
+        quickCheck $ \x -> functorIdentity (x :: Four Double Bool Char String)
+        quickCheck (functorCompose :: FourFC)
