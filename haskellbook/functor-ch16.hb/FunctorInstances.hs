@@ -19,27 +19,49 @@ newtype Identity a =
     deriving (Eq, Show)
 
 
+data Pair a =
+    Pair a a
+    deriving (Eq, Show)
+
+
 instance Functor Identity where
     fmap f (Identity a) =
         Identity (f a)
 
 
+instance Functor Pair where
+    fmap f (Pair a b) =
+        Pair (f a) (f b)
+
+
 instance Arbitrary a => Arbitrary (Identity a) where
-    arbitrary = do
-        x <- arbitrary
-        return $ Identity x
+    arbitrary =
+        do  x <- arbitrary
+            return $ Identity x
 
 
-type StringToInt = Fun String Int
+instance Arbitrary a => Arbitrary (Pair a) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            return $ Pair x y
 
 
-type IntToString = Fun Int String
+type StrToInt = Fun String Int
 
 
-type IdFC = Identity String -> StringToInt -> IntToString -> Bool
+type IntToStr = Fun Int String
+
+
+type IdFC = Identity String -> StrToInt -> IntToStr -> Bool
+
+
+type PairFC = Pair String -> StrToInt -> IntToStr -> Bool
 
 
 main :: IO ()
 main =
     do  quickCheck $ \x -> functorIdentity (x :: Identity String)
         quickCheck (functorCompose :: IdFC)
+        quickCheck $ \x -> functorIdentity (x :: Pair String)
+        quickCheck (functorCompose :: PairFC)
