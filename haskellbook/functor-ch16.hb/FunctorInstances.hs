@@ -29,6 +29,11 @@ data Two a b =
     deriving (Eq, Show)
 
 
+data Three a b c =
+    Three a b c
+    deriving (Eq, Show)
+
+
 instance Functor Identity where
     fmap f (Identity a) =
         Identity (f a)
@@ -42,6 +47,11 @@ instance Functor Pair where
 instance Functor (Two a) where
     fmap f (Two a b) =
         Two a (f b)
+
+
+instance Functor (Three a b) where
+    fmap f (Three a b c) =
+        Three a b (f c)
 
 
 instance Arbitrary a => Arbitrary (Identity a) where
@@ -64,6 +74,15 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
             return $ Two x y
 
 
+instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
+    Arbitrary (Three a b c) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            z <- arbitrary
+            return $ Three x y z
+
+
 type StrToInt = Fun String Int
 
 
@@ -79,6 +98,9 @@ type PairFC = Pair String -> StrToInt -> IntToStr -> Bool
 type TwoFC = Two Char String -> StrToInt -> IntToStr -> Bool
 
 
+type ThreeFC = Three Bool Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  quickCheck $ \x -> functorIdentity (x :: Identity String)
@@ -87,3 +109,5 @@ main =
         quickCheck (functorCompose :: PairFC)
         quickCheck $ \x -> functorIdentity (x :: Two Char String)
         quickCheck (functorCompose :: TwoFC)
+        quickCheck $ \x -> functorIdentity (x :: Three Bool Char String)
+        quickCheck (functorCompose :: ThreeFC)
