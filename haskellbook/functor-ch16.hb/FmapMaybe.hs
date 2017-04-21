@@ -45,6 +45,19 @@ liftedShow =
     fmap show
 
 
+data Possibly a =
+    LolNope
+    | Yeppers a
+    deriving (Eq, Show)
+
+
+instance Functor Possibly where
+    fmap f LolNope =
+        LolNope
+    fmap f (Yeppers a) =
+        Yeppers (f a)
+
+
 main :: IO ()
 main =
     do  print $ incIfJust (Just 1) -- Just 2
@@ -59,3 +72,5 @@ main =
         print $ liftedShow (Nothing :: Maybe String) -- Nothing
         print $ liftedInc [1..5]
         print $ liftedShow [1..5]
+        print $ fmap (+1) LolNope
+        print $ fmap (+1) (Yeppers 1)
