@@ -49,6 +49,11 @@ data Four' a b =
     deriving (Eq, Show)
 
 
+data Trivial =
+    Trivial
+    deriving (Eq, Show)
+
+
 instance Functor Identity where
     fmap f (Identity a) =
         Identity (f a)
@@ -82,6 +87,12 @@ instance Functor (Four a b c) where
 instance Functor (Four' a) where
     fmap f (Four' a a' a'' b) =
         Four' a a' a'' (f b)
+
+-- • Expected kind ‘* -> *’, but ‘Trivial’ has kind ‘*’
+-- So, no Functor can be defined for Trivial
+-- instance Functor Trivial where
+--     fmap f Trivial =
+--         Trivial
 
 
 instance Arbitrary a => Arbitrary (Identity a) where
