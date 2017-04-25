@@ -92,6 +92,7 @@ data Quant a b =
     | Bloor b
     deriving (Eq, Show)
 
+
 instance Functor (Quant a) where
     fmap f Finance =
         Finance
@@ -111,9 +112,30 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Quant a b) where
 type QuantFC = Quant Bool String -> StrToInt -> IntToStr -> Bool
 
 
+data K a b =
+    K a
+    deriving (Eq, Show)
+
+
+instance Functor (K a) where
+    fmap f (K a) =
+        K a
+
+
+instance (Arbitrary a, Arbitrary b) => Arbitrary (K a b) where
+    arbitrary =
+        do  a <- arbitrary
+            return $ K a
+
+
+type KFC = K Bool String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
         print $ fmap (+1) (R 1 2 3) -- R 1 3 3
         quickCheck $ \x -> functorIdentity (x :: Quant Bool String)
         quickCheck (functorCompose :: QuantFC)
+        quickCheck $ \x -> functorIdentity (x :: K Bool String)
+        quickCheck (functorCompose :: KFC)
