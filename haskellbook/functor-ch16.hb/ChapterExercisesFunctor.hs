@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module ChapterExercisesFunctor where
 
 import GHC.Arr
@@ -131,6 +133,31 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (K a b) where
 type KFC = K Bool String -> StrToInt -> IntToStr -> Bool
 
 
+newtype Flip f a b =
+    Flip (f b a)
+    deriving (Eq, Show)
+
+newtype K' a b =
+    K' a
+    deriving (Eq, Show)
+
+
+-- should remind you of an
+-- instance you've written before
+instance Functor (Flip K' a) where
+    fmap f (Flip (K' a)) =
+        Flip $ K' (f a)
+
+
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Flip K' a b) where
+    arbitrary =
+        do  a <- arbitrary
+            return $ Flip (K' a)
+
+
+type FlipK'FC = Flip K' Bool String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -139,3 +166,5 @@ main =
         quickCheck (functorCompose :: QuantFC)
         quickCheck $ \x -> functorIdentity (x :: K Bool String)
         quickCheck (functorCompose :: KFC)
+        quickCheck $ \x -> functorIdentity (x :: Flip K' Bool String)
+        quickCheck (functorCompose :: FlipK'FC)
