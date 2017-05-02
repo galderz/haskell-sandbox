@@ -158,6 +158,32 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Flip K' a b) where
 type FlipK'FC = Flip K' Bool String -> StrToInt -> IntToStr -> Bool
 
 
+data EvilGoateeConst a b =
+    GoatyConst b
+    deriving (Eq, Show)
+
+
+instance Functor (EvilGoateeConst a) where
+    fmap f (GoatyConst b) =
+        GoatyConst (f b)
+
+
+-- instance (Arbitrary a, Arbitrary b) => Arbitrary (EvilGoateeConst a b) where
+--     arbitrary =
+--         do  a <- arbitrary
+--             b <- arbitrary
+--             return $ GoatyConst b
+--
+
+instance Arbitrary b => Arbitrary (EvilGoateeConst a b) where
+    arbitrary =
+        do  b <- arbitrary
+            return $ GoatyConst b
+
+
+type EvilGoatFC = EvilGoateeConst Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -168,3 +194,5 @@ main =
         quickCheck (functorCompose :: KFC)
         quickCheck $ \x -> functorIdentity (x :: Flip K' Bool String)
         quickCheck (functorCompose :: FlipK'FC)
+        quickCheck $ \x -> functorIdentity (x :: EvilGoateeConst Char String)
+        quickCheck (functorCompose :: EvilGoatFC)
