@@ -184,6 +184,16 @@ instance Arbitrary b => Arbitrary (EvilGoateeConst a b) where
 type EvilGoatFC = EvilGoateeConst Char String -> StrToInt -> IntToStr -> Bool
 
 
+data LiftItOut f a =
+    LiftItOut (f a)
+    deriving (Eq, Show)
+
+
+instance Functor f => Functor (LiftItOut f) where
+    fmap f (LiftItOut fa) =
+        LiftItOut (fmap f fa)
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
