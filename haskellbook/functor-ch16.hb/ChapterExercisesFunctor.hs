@@ -258,6 +258,30 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (IgnoreOne Maybe Pair a b) wher
 type IgnoreOneFC = IgnoreOne Maybe Pair Char String -> StrToInt -> IntToStr -> Bool
 
 
+data Notorious g o a t =
+    Notorious (g o) (g a) (g t)
+    deriving (Eq, Show)
+
+
+instance Functor g => Functor (Notorious g o a) where
+    fmap f (Notorious o a gt) =
+        Notorious o a (fmap f gt)
+
+
+
+instance (Arbitrary o, Arbitrary a, Arbitrary t) =>
+    Arbitrary (Notorious Pair o a t) where
+    arbitrary =
+        do  o <- arbitrary
+            a <- arbitrary
+            t <- arbitrary
+            return $ Notorious (Pair o o) (Pair a a) (Pair t t)
+
+
+type NotoriousFC =
+    Notorious Pair Bool Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -276,3 +300,5 @@ main =
         quickCheck (functorCompose :: ParappaFC)
         quickCheck $ \x -> functorIdentity (x :: IgnoreOne Maybe Pair Char String)
         quickCheck (functorCompose :: IgnoreOneFC)
+        quickCheck $ \x -> functorIdentity (x :: Notorious Pair Bool Char String)
+        quickCheck (functorCompose :: NotoriousFC)
