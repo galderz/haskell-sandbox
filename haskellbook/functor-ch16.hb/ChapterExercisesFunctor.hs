@@ -235,6 +235,29 @@ instance Arbitrary a => Arbitrary (Parappa Maybe Pair a) where
 type ParappaFC = Parappa Maybe Pair String -> StrToInt -> IntToStr -> Bool
 
 
+data IgnoreOne f g a b =
+    IgnoreSomething (f a) (g b)
+    deriving (Eq, Show)
+
+
+instance Functor g => Functor (IgnoreOne f g a) where
+    fmap f (IgnoreSomething a ga) =
+        IgnoreSomething a (fmap f ga)
+
+
+instance (Arbitrary a, Arbitrary b) => Arbitrary (IgnoreOne Maybe Pair a b) where
+    arbitrary =
+        do  a <- arbitrary
+            b <- arbitrary
+            oneof [
+                return $ IgnoreSomething (Just a) (Pair b b)
+                , return $ IgnoreSomething Nothing (Pair b b)
+                ]
+
+
+type IgnoreOneFC = IgnoreOne Maybe Pair Char String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -251,3 +274,5 @@ main =
         quickCheck (functorCompose :: LiftItOutFC)
         quickCheck $ \x -> functorIdentity (x :: Parappa Maybe Pair String)
         quickCheck (functorCompose :: ParappaFC)
+        quickCheck $ \x -> functorIdentity (x :: IgnoreOne Maybe Pair Char String)
+        quickCheck (functorCompose :: IgnoreOneFC)
