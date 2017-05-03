@@ -203,6 +203,38 @@ instance Arbitrary a => Arbitrary (LiftItOut Maybe a) where
 type LiftItOutFC = LiftItOut Maybe String -> StrToInt -> IntToStr -> Bool
 
 
+data Parappa f g a =
+    DaWrappa (f a) (g a)
+    deriving (Eq, Show)
+
+
+data Pair a =
+    Pair a a
+    deriving (Eq, Show)
+
+
+instance Functor Pair where
+    fmap f (Pair a a') =
+        Pair (f a) (f a')
+
+
+instance (Functor f, Functor g) => Functor (Parappa f g) where
+    fmap f (DaWrappa fa ga) =
+        DaWrappa (fmap f fa) (fmap f ga)
+
+
+instance Arbitrary a => Arbitrary (Parappa Maybe Pair a) where
+    arbitrary =
+        do  a <- arbitrary
+            oneof [
+                return $ DaWrappa (Just a) (Pair a a)
+                , return $ DaWrappa Nothing (Pair a a)
+                ]
+
+
+type ParappaFC = Parappa Maybe Pair String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -217,3 +249,5 @@ main =
         quickCheck (functorCompose :: EvilGoatFC)
         quickCheck $ \x -> functorIdentity (x :: LiftItOut Maybe String)
         quickCheck (functorCompose :: LiftItOutFC)
+        quickCheck $ \x -> functorIdentity (x :: Parappa Maybe Pair String)
+        quickCheck (functorCompose :: ParappaFC)
