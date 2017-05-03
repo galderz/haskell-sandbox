@@ -194,6 +194,15 @@ instance Functor f => Functor (LiftItOut f) where
         LiftItOut (fmap f fa)
 
 
+instance Arbitrary a => Arbitrary (LiftItOut Maybe a) where
+    arbitrary =
+        do  a <- arbitrary
+            oneof [return $ LiftItOut (Just a), return $ LiftItOut Nothing]
+
+
+type LiftItOutFC = LiftItOut Maybe String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -206,3 +215,5 @@ main =
         quickCheck (functorCompose :: FlipK'FC)
         quickCheck $ \x -> functorIdentity (x :: EvilGoateeConst Char String)
         quickCheck (functorCompose :: EvilGoatFC)
+        quickCheck $ \x -> functorIdentity (x :: LiftItOut Maybe String)
+        quickCheck (functorCompose :: LiftItOutFC)
