@@ -282,6 +282,49 @@ type NotoriousFC =
     Notorious Pair Bool Char String -> StrToInt -> IntToStr -> Bool
 
 
+data List a =
+    Nil
+    | Cons a (List a)
+    deriving (Eq, Show)
+
+
+instance Functor List where
+    fmap f Nil =
+        Nil
+    fmap f (Cons a l) =
+        Cons (f a) (fmap f l)
+
+
+-- Simple solution, only generates lists of one element max
+-- instance Arbitrary a => Arbitrary (List a) where
+--     arbitrary =
+--         do  a <- arbitrary
+--             oneof [
+--                 return Nil
+--                 , return $ Cons a Nil
+--                 ]
+
+
+instance Arbitrary a => Arbitrary (List a) where
+    arbitrary =
+        sized arbList
+
+
+-- Not yet know what "<*>" does exactly, but it's neat :)
+arbList :: Arbitrary a => Int -> Gen (List a)
+arbList 0 =
+    return Nil
+arbList n =
+    frequency [
+        (1, return Nil)
+        , (4, fmap Cons arbitrary <*> (arbList (n - 1)))
+    ]
+
+
+type ListFC =
+    List String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -302,3 +345,5 @@ main =
         quickCheck (functorCompose :: IgnoreOneFC)
         quickCheck $ \x -> functorIdentity (x :: Notorious Pair Bool Char String)
         quickCheck (functorCompose :: NotoriousFC)
+        quickCheck $ \x -> functorIdentity (x :: List String)
+        quickCheck (functorCompose :: ListFC)
