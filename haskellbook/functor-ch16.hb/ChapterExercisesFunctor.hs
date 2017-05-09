@@ -362,6 +362,22 @@ type GoatLordFC =
     GoatLord String -> StrToInt -> IntToStr -> Bool
 
 
+data TalkToMe a =
+    Halt
+    | Print String a
+    | Read (String -> a)
+
+
+instance Functor TalkToMe where
+    fmap f Halt =
+        Halt
+    fmap f (Print s a) =
+        Print s (f a)
+    fmap f (Read g) =
+        -- Read (\s -> f (g s))
+        Read (fmap f g)
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
