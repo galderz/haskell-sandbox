@@ -366,6 +366,25 @@ data TalkToMe a =
     Halt
     | Print String a
     | Read (String -> a)
+    -- deriving (Eq, Show)
+
+
+instance (Show a) => Show (TalkToMe a) where
+    show Halt =
+        "Halt"
+    show (Print s a) =
+        "Print(" ++ s ++ "," ++ show a ++")"
+    show (Read f) =
+        "Read(f)"
+
+
+instance (Eq a) => Eq (TalkToMe a) where
+    Halt == Halt =
+        Prelude.True
+    (Print x a) == (Print y b) =
+        (x == y) && (a == b)
+    (Read f) == (Read g) =
+        Prelude.True -- TODO: Hack!?
 
 
 instance Functor TalkToMe where
@@ -376,6 +395,21 @@ instance Functor TalkToMe where
     fmap f (Read g) =
         -- Read (\s -> f (g s))
         Read (fmap f g)
+
+
+instance Arbitrary a => Arbitrary (TalkToMe a) where
+    arbitrary =
+        do  a <- arbitrary
+            s <- arbitrary
+            oneof [
+                return Halt
+                , return (Print s a)
+                , return (Read (\_ -> a))
+                ]
+
+
+type TalkToMeFC =
+    TalkToMe String -> StrToInt -> IntToStr -> Bool
 
 
 main :: IO ()
@@ -402,3 +436,5 @@ main =
         quickCheck (functorCompose :: ListFC)
         quickCheck $ \x -> functorIdentity (x :: GoatLord String)
         quickCheck (functorCompose :: GoatLordFC)
+        quickCheck $ \x -> functorIdentity (x :: TalkToMe String)
+        quickCheck (functorCompose :: TalkToMeFC)
