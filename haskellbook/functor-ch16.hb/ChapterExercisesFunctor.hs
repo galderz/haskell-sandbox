@@ -325,6 +325,43 @@ type ListFC =
     List String -> StrToInt -> IntToStr -> Bool
 
 
+data GoatLord a =
+    NoGoat
+    | OneGoat a
+    | MoreGoats (GoatLord a) (GoatLord a) (GoatLord a)
+    deriving (Eq, Show)
+
+
+instance Functor GoatLord where
+    fmap f NoGoat =
+        NoGoat
+    fmap f (OneGoat a) =
+        OneGoat (f a)
+    fmap f (MoreGoats x y z) =
+        MoreGoats (fmap f x) (fmap f y) (fmap f z)
+
+
+instance Arbitrary a => Arbitrary (GoatLord a) where
+    arbitrary =
+        sized arbGoatLord
+
+
+-- Not yet know what "<*>" does exactly, but it's neat :)
+arbGoatLord :: Arbitrary a => Int -> Gen (GoatLord a)
+arbGoatLord 0 =
+    return NoGoat
+arbGoatLord n =
+    frequency [
+        (1, return NoGoat)
+        , (2, fmap OneGoat arbitrary)
+        , (1, fmap MoreGoats arbitrary <*> arbitrary <*> (arbGoatLord (n - 1)))
+        ]
+
+
+type GoatLordFC =
+    GoatLord String -> StrToInt -> IntToStr -> Bool
+
+
 main :: IO ()
 main =
     do  print $ fmap (+1) (L 1 2 3) -- L 2 2 4
@@ -347,3 +384,5 @@ main =
         quickCheck (functorCompose :: NotoriousFC)
         quickCheck $ \x -> functorIdentity (x :: List String)
         quickCheck (functorCompose :: ListFC)
+        quickCheck $ \x -> functorIdentity (x :: GoatLord String)
+        quickCheck (functorCompose :: GoatLordFC)
