@@ -1,9 +1,29 @@
+import Control.Applicative
 
 
 added :: Maybe Integer
-added = fmap (+3) (lookup 3 $ zip [1, 2, 3] [4, 5, 6])
+added =
+    fmap (+3) (lookup 3 $ zip [1, 2, 3] [4, 5, 6])
+
+
+y :: Maybe Integer
+y =
+    lookup 3 $ zip [1,2,3] [4,5,6]
+
+
+z :: Maybe Integer
+z =
+    lookup 2 $ zip [1,2,3] [4,5,6]
+
+
+tupled :: Maybe (Integer, Integer)
+tupled =
+    liftA2 (,) y z
+    -- fmap (,) y <*> z
+    -- (,) <$> y <*> z
 
 
 main :: IO ()
 main =
     do  print $ added
+        print $ tupled
