@@ -41,7 +41,31 @@ max' =
 
 maxed :: Maybe Int
 maxed =
-    fmap max' x' <*> y'
+    liftA2 max' x' y'
+    -- fmap max' x' <*> y'
+
+
+xs =
+    [1, 2, 3]
+
+
+ys =
+    [4, 5, 6]
+
+
+x'' :: Maybe Integer
+x'' =
+    lookup 3 $ zip xs ys
+
+
+y'' :: Maybe Integer
+y'' =
+    lookup 2 $ zip xs ys
+
+
+summed :: Maybe Integer
+summed =
+    fmap sum $ fmap (,) x'' <*> y''
 
 
 main :: IO ()
@@ -49,3 +73,4 @@ main =
     do  print $ added
         print $ tupled
         print $ maxed
+        print $ summed
