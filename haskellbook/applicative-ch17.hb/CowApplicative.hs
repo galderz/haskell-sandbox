@@ -37,6 +37,14 @@ cowFromString name' age' weight' =
                         Just weighty ->
                             Just (Cow nammy agey weighty)
 
+
+cowFromString' :: String -> Int -> Int -> Maybe Cow
+cowFromString' name' age' weight' =
+    Cow <$> noEmpty name'
+        <*> noNegative age'
+        <*> noNegative weight'
+
+
 main :: IO ()
 main =
     undefined
