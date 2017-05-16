@@ -31,8 +31,8 @@ data Person =
     deriving (Eq, Show)
 
 
-mkPerson :: String -> String -> Maybe Person
-mkPerson n a =
+mkPerson' :: String -> String -> Maybe Person
+mkPerson' n a =
     case mkName n of
         Nothing ->
             Nothing
@@ -44,7 +44,19 @@ mkPerson n a =
                     Just $ Person n' a'
 
 
+mkPerson :: String -> String -> Maybe Person
+mkPerson n a =
+    Person <$> mkName n <*> mkAddress a
+
+
+maybeAddy =
+    mkAddress "old macdonald's"
+
+
 main :: IO ()
 main =
     do  print $ validateLength 5 "basel"
         print $ validateLength 2 "basel"
+        print $ validateLength 10 "basel"
+        print $ (fmap Person (mkName "Babe")) <*> maybeAddy
+        print $ Person <$> mkName "Babe" <*> maybeAddy
