@@ -1,3 +1,5 @@
+import Control.Applicative
+
 
 data Cow = Cow {
     name :: String
@@ -43,6 +45,13 @@ cowFromString' name' age' weight' =
     Cow <$> noEmpty name'
         <*> noNegative age'
         <*> noNegative weight'
+
+
+cowFromString'' :: String -> Int -> Int -> Maybe Cow
+cowFromString'' name' age' weight' =
+    liftA3 Cow (noEmpty name')
+                (noNegative age')
+                (noNegative weight')
 
 
 main :: IO ()
