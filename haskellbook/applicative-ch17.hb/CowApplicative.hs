@@ -54,6 +54,40 @@ cowFromString'' name' age' weight' =
                 (noNegative weight')
 
 
+cow1 :: Maybe (Int -> Int -> Cow)
+cow1 =
+    Cow <$> noEmpty "Bess"
+
+
+cow2 :: Maybe (Int -> Cow)
+cow2 =
+    cow1 <*> noNegative 1
+
+
+cow3 :: Maybe Cow
+cow3 =
+    cow2 <*> noNegative 2
+
+cow1' :: Applicative f => f String -> f Int -> f Int -> f Cow
+cow1' =
+    liftA3 Cow
+
+
+cow2' :: Maybe Int -> Maybe Int -> Maybe Cow
+cow2' =
+    cow1' (noEmpty "blah")
+
+
+cow3' :: Maybe Int -> Maybe Cow
+cow3' =
+    cow2' (noNegative 1)
+
+
+cow4' :: Maybe Cow
+cow4' =
+    cow3' (noNegative 2)
+
+
 main :: IO ()
 main =
     undefined
