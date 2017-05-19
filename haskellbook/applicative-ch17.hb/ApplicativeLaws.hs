@@ -1,4 +1,5 @@
 
+
 main :: IO ()
 main =
     do  -- Identity laws
@@ -16,3 +17,10 @@ main =
             ([(+1)] <*> ([(*2)] <*> [1, 2, 3]))
         print $ (pure (.) <*> Just (+1) <*> Just (*2) <*> Just 1) ==
             (Just (+1) <*> (Just (*2) <*> Just 1))
+        -- Homomorphism laws
+        -- print $ (pure (+1) <*> pure 1) == (pure ((+1) 1))
+        print $ (pure (+1) <*> pure 1 :: Maybe Int) ==
+            (pure ((+1) 1) :: Maybe Int)
+        print $ (pure (+1) <*> pure 1 :: Maybe Int)
+        print $ (pure (+1) <*> pure 1 :: [Int])
+        -- print $ (pure (+1) <*> pure 1 :: Either a Int)
