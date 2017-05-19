@@ -24,3 +24,10 @@ main =
         print $ (pure (+1) <*> pure 1 :: Maybe Int)
         print $ (pure (+1) <*> pure 1 :: [Int])
         -- print $ (pure (+1) <*> pure 1 :: Either a Int)
+        -- Interchange laws
+        -- ($ 2) == \f-> f $ 2
+        print $ (Just (+2) <*> pure 2) == (pure ($ 2) <*> Just (+ 2))
+        print $ ([(+1), (*2)] <*> pure 1) ==
+            (pure ($ 1) <*> [(+1), (*2)])
+        print $ (Just (+3) <*> pure 1) ==
+            (pure ($ 1) <*> Just (+3))
