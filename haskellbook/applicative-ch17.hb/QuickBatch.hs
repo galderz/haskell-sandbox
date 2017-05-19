@@ -4,6 +4,11 @@ import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes
 
 
+trigger =
+    undefined :: [(String, String, Int)]
+
+
 main :: IO ()
 main =
-    quickBatch $ applicative [("b", "w", 1 :: Int)]
+    do  quickBatch $ applicative [("b", "w", 1 :: Int)]
+        quickBatch $ applicative trigger
