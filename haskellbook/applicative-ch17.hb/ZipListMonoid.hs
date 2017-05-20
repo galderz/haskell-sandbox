@@ -14,7 +14,7 @@ import Test.QuickCheck.Classes
 -- n * 1 == n
 instance Monoid a => Monoid (ZipList a) where
     mempty =
-        ZipList []
+        pure mempty
     mappend =
         liftA2 mappend
 
