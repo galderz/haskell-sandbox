@@ -33,6 +33,18 @@ drop' n l@(Cons _ xs)
         drop' (n - 1) xs
 
 
+append :: List a -> List a -> List a
+append Nil ys =
+    ys
+append (Cons x xs) ys =
+    Cons x $ xs `append` ys
+
+
+takeDrop :: Eq a => Int -> List a -> Bool
+takeDrop n l =
+    append (take' n l) (drop' n l) == l
+
+
 instance Functor List where
     fmap =
         undefined
@@ -71,17 +83,24 @@ instance Applicative ZipList' where
         undefined
 
 
+instance Arbitrary a => Arbitrary (List a) where
+    arbitrary =
+        sized arbList
+
+
+-- Not yet know what "<*>" does exactly, but it's neat :)
+arbList :: Arbitrary a => Int -> Gen (List a)
+arbList 0 =
+    return Nil
+arbList n =
+    frequency [
+        (1, return Nil)
+        , (4, fmap Cons arbitrary <*> (arbList (n - 1)))
+    ]
+
+
 main :: IO ()
 main =
     do
-        print $ drop' 2 (Cons 1 Nil)
-        print $ drop' 2 (Cons 1 (Cons 2 (Cons 3 Nil)))
-        print $ drop' 2 (Nil :: List String)
-        print $ drop' (-1) (Cons 1 Nil)
-        print $ drop' (0) (Cons 1 Nil)
-        print $ take' 2 (Cons 1 Nil)
-        print $ take' 2 (Cons 1 (Cons 2 (Cons 3 Nil)))
-        print $ take' 2 (Nil :: List String)
-        print $ take' (-1) (Cons 1 Nil)
-        print $ take' (0) (Cons 1 Nil)
+        quickCheck (takeDrop :: Int -> List Int -> Bool)
         --quickBatch $ functor (undefined :: List (String, String, Int))
