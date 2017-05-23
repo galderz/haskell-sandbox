@@ -14,8 +14,13 @@ data List a =
 
 
 take' :: Int -> List a -> List a
-take' =
-    undefined
+take' _ Nil =
+    Nil
+take' n (Cons a xs)
+    | n <= 0 =
+        Nil
+    | otherwise =
+        Cons a (take' (n - 1) xs)
 
 
 instance Functor List where
@@ -54,3 +59,13 @@ instance Applicative ZipList' where
         undefined
     (<*>) =
         undefined
+
+
+main :: IO ()
+main =
+    do  print $ take' 2 (Cons 1 Nil)
+        print $ take' 2 (Cons 1 (Cons 2 (Cons 3 Nil)))
+        print $ take' 2 (Nil :: List String)
+        print $ take' (-1) (Cons 1 Nil)
+        print $ take' (0) (Cons 1 Nil)
+        --quickBatch $ functor (undefined :: List (String, String, Int))
