@@ -23,6 +23,16 @@ take' n (Cons a xs)
         Cons a (take' (n - 1) xs)
 
 
+drop' :: Int -> List a -> List a
+drop' _ Nil =
+    Nil
+drop' n l@(Cons _ xs)
+    | n <= 0 =
+        l
+    | otherwise =
+        drop' (n - 1) xs
+
+
 instance Functor List where
     fmap =
         undefined
@@ -63,7 +73,13 @@ instance Applicative ZipList' where
 
 main :: IO ()
 main =
-    do  print $ take' 2 (Cons 1 Nil)
+    do
+        print $ drop' 2 (Cons 1 Nil)
+        print $ drop' 2 (Cons 1 (Cons 2 (Cons 3 Nil)))
+        print $ drop' 2 (Nil :: List String)
+        print $ drop' (-1) (Cons 1 Nil)
+        print $ drop' (0) (Cons 1 Nil)
+        print $ take' 2 (Cons 1 Nil)
         print $ take' 2 (Cons 1 (Cons 2 (Cons 3 Nil)))
         print $ take' 2 (Nil :: List String)
         print $ take' (-1) (Cons 1 Nil)
