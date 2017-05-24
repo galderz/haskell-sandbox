@@ -45,9 +45,16 @@ takeDrop n l =
     append (take' n l) (drop' n l) == l
 
 
+instance Eq a => EqProp (List a) where
+    (=-=) =
+        eq
+
+
 instance Functor List where
-    fmap =
-        undefined
+    fmap _ Nil =
+        Nil
+    fmap f (Cons x xs) =
+        Cons (f x) (fmap f xs)
 
 
 instance Applicative List where
@@ -103,4 +110,4 @@ main :: IO ()
 main =
     do
         quickCheck (takeDrop :: Int -> List Int -> Bool)
-        --quickBatch $ functor (undefined :: List (String, String, Int))
+        quickBatch $ functor (undefined :: List (String, String, Int))
