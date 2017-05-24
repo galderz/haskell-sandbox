@@ -57,6 +57,17 @@ instance Functor List where
         Cons (f x) (fmap f xs)
 
 
+instance Monoid (List a) where
+    mempty =
+        Nil
+    mappend xs Nil =
+        xs
+    mappend Nil xs =
+        xs
+    mappend (Cons x xs) cy =
+        Cons x (mappend xs cy)
+
+
 instance Applicative List where
     pure =
         undefined
@@ -111,3 +122,4 @@ main =
     do
         quickCheck (takeDrop :: Int -> List Int -> Bool)
         quickBatch $ functor (undefined :: List (String, String, Int))
+        quickBatch $ monoid (undefined :: List (String, String, Int))
