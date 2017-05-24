@@ -69,10 +69,14 @@ instance Monoid (List a) where
 
 
 instance Applicative List where
-    pure =
-        undefined
-    (<*>) =
-        undefined
+    pure x =
+        Cons x Nil
+    (<*>) Nil _ =
+        Nil
+    (<*>) _ Nil =
+        Nil
+    (<*>) (Cons f xs) ca =
+        mappend (fmap f ca) (xs <*> ca)
 
 
 newtype ZipList' a =
@@ -123,3 +127,4 @@ main =
         quickCheck (takeDrop :: Int -> List Int -> Bool)
         quickBatch $ functor (undefined :: List (String, String, Int))
         quickBatch $ monoid (undefined :: List (String, String, Int))
+        quickBatch $ applicative (undefined :: List (String, String, Int))
