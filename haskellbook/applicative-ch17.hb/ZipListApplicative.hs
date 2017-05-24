@@ -98,6 +98,17 @@ instance Functor ZipList' where
         ZipList' $ fmap f xs
 
 
+instance Monoid (ZipList' a) where
+    mempty =
+        ZipList' Nil
+    mappend xs (ZipList' Nil) =
+        xs
+    mappend (ZipList' Nil) xs =
+        xs
+    mappend (ZipList' xs) (ZipList' ys) =
+        ZipList' (mappend xs ys)
+
+
 instance Applicative ZipList' where
     pure =
         undefined
@@ -142,3 +153,4 @@ main =
         -- quickBatch $ monoid l
         quickBatch $ applicative l
         quickBatch $ functor (undefined :: ZipList' (String, String, Int))
+        quickBatch $ monoid (undefined :: ZipList' (String, String, Int))
