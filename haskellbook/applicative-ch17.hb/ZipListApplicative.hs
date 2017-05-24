@@ -110,7 +110,6 @@ instance Arbitrary a => Arbitrary (List a) where
         sized arbList
 
 
--- Not yet know what "<*>" does exactly, but it's neat :)
 arbList :: Arbitrary a => Int -> Gen (List a)
 arbList 0 =
     return Nil
@@ -121,10 +120,25 @@ arbList n =
     ]
 
 
+-- A great example of the applicative use:
+-- When you find yourself wanting to do an fmap
+-- on something that's contained within a container.
+-- In this case, the container is Gen
+instance Arbitrary a => Arbitrary (ZipList' a) where
+    arbitrary =
+        pure ZipList' <*> sized arbList
+
+
+l :: List (String, String, Int)
+l =
+    undefined :: List (String, String, Int)
+
 main :: IO ()
 main =
     do
         quickCheck (takeDrop :: Int -> List Int -> Bool)
-        quickBatch $ functor (undefined :: List (String, String, Int))
-        quickBatch $ monoid (undefined :: List (String, String, Int))
-        quickBatch $ applicative (undefined :: List (String, String, Int))
+        -- For confidence building, already tested by applicative
+        -- quickBatch $ functor l
+        -- quickBatch $ monoid l
+        quickBatch $ applicative l
+        quickBatch $ functor (undefined :: ZipList' (String, String, Int))
