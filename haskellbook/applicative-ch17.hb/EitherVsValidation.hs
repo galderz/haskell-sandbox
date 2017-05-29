@@ -49,6 +49,13 @@ v =
     undefined :: Validation (String, String, [Int]) (String, String, [Int])
 
 
+data Errors =
+    DividedByZero
+    | StackOverflow
+    | MooglesChewedWires
+    deriving (Eq, Show)
+
+
 main :: IO ()
 main =
     do  print (pure 1 :: Either String Int)
@@ -58,3 +65,7 @@ main =
         print ((Left ":(" <*> Left "sadface.png") :: Either String Int)
         quickBatch $ functor v
         quickBatch $ applicative v
+        print ((Success (+1) <*> Success (1) :: Validation String Int) == Success 2)
+        print ((Success (+1) <*> Failure [StackOverflow]) == Failure [StackOverflow])
+        print ((Failure [StackOverflow] <*> Success (+1) :: Validation [Errors] Int) == Failure [StackOverflow])
+        print $ (Failure [MooglesChewedWires] <*> Failure [StackOverflow] :: Validation [Errors] Int) == Failure [MooglesChewedWires, StackOverflow]
