@@ -10,9 +10,19 @@ data Pair a =
     deriving (Eq, Show)
 
 
+data Two a b =
+    Two a b
+    deriving (Eq, Show)
+
+
 instance Functor Pair where
     fmap f (Pair x y) =
         Pair (f x) (f y)
+
+
+instance Functor (Two a) where
+    fmap f (Two x y) =
+        Two x (f y)
 
 
 instance Applicative Pair where
@@ -29,12 +39,26 @@ instance Arbitrary a => Arbitrary (Pair a) where
             return $ Pair x y
 
 
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            return $ Two x y
+
+
 instance Eq a => EqProp (Pair a) where
+    (=-=) =
+        eq
+
+
+instance (Eq a, Eq b) => EqProp (Two a b) where
     (=-=) =
         eq
 
 
 main :: IO ()
 main =
-    -- quickBatch $ functor (undefined :: Pair (String, String, Int))
-    quickBatch $ applicative (undefined :: Pair (String, String, Int))
+    do
+        -- quickBatch $ functor (undefined :: Pair (String, String, Int))
+        quickBatch $ applicative (undefined :: Pair (String, String, Int))
+        quickBatch $ functor (undefined :: Two (String, String, Int) (String, String, Int))
