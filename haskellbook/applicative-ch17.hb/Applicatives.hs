@@ -32,6 +32,13 @@ instance Applicative Pair where
         Pair (f x) (g y)
 
 
+instance Monoid a => Applicative (Two a) where
+    pure x =
+        Two mempty x
+    (<*>) (Two a f) (Two a' x) =
+        Two (mappend a a') (f x)
+
+
 instance Arbitrary a => Arbitrary (Pair a) where
     arbitrary =
         do  x <- arbitrary
@@ -61,4 +68,5 @@ main =
     do
         -- quickBatch $ functor (undefined :: Pair (String, String, Int))
         quickBatch $ applicative (undefined :: Pair (String, String, Int))
-        quickBatch $ functor (undefined :: Two (String, String, Int) (String, String, Int))
+        -- quickBatch $ functor (undefined :: Two (String, String, Int) (String, String, Int))
+        quickBatch $ applicative (undefined :: Two (String, String, [Int]) (String, String, [Int]))
