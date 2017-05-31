@@ -15,6 +15,11 @@ data Two a b =
     deriving (Eq, Show)
 
 
+data Three a b c =
+    Three a b c
+    deriving (Eq, Show)
+
+
 instance Functor Pair where
     fmap f (Pair x y) =
         Pair (f x) (f y)
@@ -23,6 +28,11 @@ instance Functor Pair where
 instance Functor (Two a) where
     fmap f (Two x y) =
         Two x (f y)
+
+
+instance Functor (Three a b) where
+    fmap f (Three x y z)=
+        Three x y (f z)
 
 
 instance Applicative Pair where
@@ -53,12 +63,25 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Two a b) where
             return $ Two x y
 
 
+instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            z <- arbitrary
+            return $ Three x y z
+
+
 instance Eq a => EqProp (Pair a) where
     (=-=) =
         eq
 
 
 instance (Eq a, Eq b) => EqProp (Two a b) where
+    (=-=) =
+        eq
+
+
+instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
     (=-=) =
         eq
 
@@ -70,3 +93,4 @@ main =
         quickBatch $ applicative (undefined :: Pair (String, String, Int))
         -- quickBatch $ functor (undefined :: Two (String, String, Int) (String, String, Int))
         quickBatch $ applicative (undefined :: Two (String, String, [Int]) (String, String, [Int]))
+        quickBatch $ functor (undefined :: Three (String, String, Int) (String, String, Int) (String, String, Int))
