@@ -16,10 +16,10 @@ instance Functor Pair where
 
 
 instance Applicative Pair where
-    pure =
-        undefined
-    (<*>) =
-        undefined
+    pure x =
+        Pair x x
+    (<*>) (Pair f g) (Pair x y) =
+        Pair (f x) (g y)
 
 
 instance Arbitrary a => Arbitrary (Pair a) where
@@ -36,5 +36,5 @@ instance Eq a => EqProp (Pair a) where
 
 main :: IO ()
 main =
-    quickBatch $ functor (undefined :: Pair (String, String, Int))
-    -- quickBatch $ applicative (undefined :: Pair (String, String, Int))
+    -- quickBatch $ functor (undefined :: Pair (String, String, Int))
+    quickBatch $ applicative (undefined :: Pair (String, String, Int))
