@@ -20,19 +20,29 @@ data Three a b c =
     deriving (Eq, Show)
 
 
+data Three' a b =
+    Three' a b b
+    deriving (Eq, Show)
+
+
 instance Functor Pair where
     fmap f (Pair x y) =
         Pair (f x) (f y)
 
 
 instance Functor (Two a) where
-    fmap f (Two x y) =
-        Two x (f y)
+    fmap f (Two a x) =
+        Two a (f x)
 
 
 instance Functor (Three a b) where
-    fmap f (Three x y z)=
-        Three x y (f z)
+    fmap f (Three a b x)=
+        Three a b (f x)
+
+
+instance Functor (Three' a) where
+    fmap f (Three' a x y) =
+        Three' a (f x) (f y)
 
 
 instance Applicative Pair where
@@ -47,6 +57,13 @@ instance Monoid a => Applicative (Two a) where
         Two mempty x
     (<*>) (Two a f) (Two a' x) =
         Two (mappend a a') (f x)
+
+
+instance (Monoid a, Monoid b) => Applicative (Three a b) where
+    pure x =
+        Three mempty mempty x
+    (<*>) (Three a b f) (Three a' b' x) =
+        Three (mappend a a') (mappend b b') (f x)
 
 
 instance Arbitrary a => Arbitrary (Pair a) where
@@ -71,6 +88,13 @@ instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) wher
             return $ Three x y z
 
 
+instance (Arbitrary a, Arbitrary b) => Arbitrary (Three' a b) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            return $ Three' x y y
+
+
 instance Eq a => EqProp (Pair a) where
     (=-=) =
         eq
@@ -86,6 +110,11 @@ instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
         eq
 
 
+instance (Eq a, Eq b) => EqProp (Three' a b) where
+    (=-=) =
+        eq
+
+
 main :: IO ()
 main =
     do
@@ -93,4 +122,6 @@ main =
         quickBatch $ applicative (undefined :: Pair (String, String, Int))
         -- quickBatch $ functor (undefined :: Two (String, String, Int) (String, String, Int))
         quickBatch $ applicative (undefined :: Two (String, String, [Int]) (String, String, [Int]))
-        quickBatch $ functor (undefined :: Three (String, String, Int) (String, String, Int) (String, String, Int))
+        -- quickBatch $ functor (undefined :: Three (String, String, Int) (String, String, Int) (String, String, Int))
+        quickBatch $ applicative (undefined :: Three (String, String, [Int]) (String, String, [Int]) (String, String, [Int]))
+        quickBatch $ functor (undefined :: Three' (String, String, Int) (String, String, Int))
