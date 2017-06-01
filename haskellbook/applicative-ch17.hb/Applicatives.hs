@@ -25,6 +25,11 @@ data Three' a b =
     deriving (Eq, Show)
 
 
+data Four a b c d =
+    Four a b c d
+    deriving (Eq, Show)
+
+
 instance Functor Pair where
     fmap f (Pair x y) =
         Pair (f x) (f y)
@@ -43,6 +48,11 @@ instance Functor (Three a b) where
 instance Functor (Three' a) where
     fmap f (Three' a x y) =
         Three' a (f x) (f y)
+
+
+instance Functor (Four a b c) where
+    fmap f (Four a b c x) =
+        Four a b c (f x)
 
 
 instance Applicative Pair where
@@ -102,6 +112,16 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Three' a b) where
             return $ Three' x y y
 
 
+instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
+    Arbitrary (Four a b c d) where
+    arbitrary =
+        do  x <- arbitrary
+            y <- arbitrary
+            z <- arbitrary
+            z' <- arbitrary
+            return $ Four x y z z'
+
+
 instance Eq a => EqProp (Pair a) where
     (=-=) =
         eq
@@ -122,6 +142,11 @@ instance (Eq a, Eq b) => EqProp (Three' a b) where
         eq
 
 
+instance (Eq a, Eq b, Eq c, Eq d) => EqProp (Four a b c d) where
+    (=-=) =
+        eq
+
+
 main :: IO ()
 main =
     do
@@ -133,3 +158,4 @@ main =
         quickBatch $ applicative (undefined :: Three (String, String, [Int]) (String, String, [Int]) (String, String, [Int]))
         -- quickBatch $ functor (undefined :: Three' (String, String, Int) (String, String, Int))
         quickBatch $ applicative (undefined :: Three' (String, String, [Int]) (String, String, [Int]))
+        quickBatch $ functor (undefined :: Four (String, String, [Int]) (String, String, [Int]) (String, String, [Int]) (String, String, [Int]))
