@@ -66,6 +66,13 @@ instance (Monoid a, Monoid b) => Applicative (Three a b) where
         Three (mappend a a') (mappend b b') (f x)
 
 
+instance (Monoid a) => Applicative (Three' a) where
+    pure x =
+        Three' mempty x x
+    (<*>) (Three' a f g) (Three' a' x y) =
+        Three' (mappend a a') (f x) (g y)
+
+
 instance Arbitrary a => Arbitrary (Pair a) where
     arbitrary =
         do  x <- arbitrary
@@ -124,4 +131,5 @@ main =
         quickBatch $ applicative (undefined :: Two (String, String, [Int]) (String, String, [Int]))
         -- quickBatch $ functor (undefined :: Three (String, String, Int) (String, String, Int) (String, String, Int))
         quickBatch $ applicative (undefined :: Three (String, String, [Int]) (String, String, [Int]) (String, String, [Int]))
-        quickBatch $ functor (undefined :: Three' (String, String, Int) (String, String, Int))
+        -- quickBatch $ functor (undefined :: Three' (String, String, Int) (String, String, Int))
+        quickBatch $ applicative (undefined :: Three' (String, String, [Int]) (String, String, [Int]))
