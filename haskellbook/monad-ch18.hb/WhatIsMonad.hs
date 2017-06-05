@@ -23,3 +23,5 @@ main =
         print $ concat $ fmap andOne [4, 5, 6]
         -- liftA is just fmap with Applicative typeclass constraint
         print $ liftA andOne [4, 5, 6]
+        -- liftM is just fmap with Monad typeclass constraint
+        print $ liftM andOne [4, 5, 6]
