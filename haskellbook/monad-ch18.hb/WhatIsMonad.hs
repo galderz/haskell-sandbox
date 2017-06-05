@@ -1,4 +1,4 @@
-import Control.Applicative (liftA)
+import Control.Applicative (liftA, liftA2)
 import Control.Monad (join, liftM)
 
 andOne x =
@@ -25,3 +25,5 @@ main =
         print $ liftA andOne [4, 5, 6]
         -- liftM is just fmap with Monad typeclass constraint
         print $ liftM andOne [4, 5, 6]
+        -- liftA2
+        print $ liftA2 (,) (Just 3) (Just 5)
