@@ -1,5 +1,5 @@
 import Control.Applicative (liftA, liftA2)
-import Control.Monad (join, liftM, liftM2)
+import Control.Monad (join, liftM, liftM2, liftM3)
 
 andOne x =
     [x, 1]
@@ -33,3 +33,6 @@ main =
         -- differ in how the list monoid is used
         print $ zipWith (+) [3, 4] [5, 6]
         print $ liftA2 (+) [3, 4] [5, 6]
+        -- liftM3 vs zipWith3
+        print $ zipWith3 (,,) [1, 2] [3] [5, 6]
+        print $ liftM3 (,,) [1, 2] [3] [5, 6]
