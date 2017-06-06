@@ -29,3 +29,7 @@ main =
         print $ liftA2 (,) (Just 3) (Just 5)
         -- liftM2
         print $ liftM2 (,) (Just 3) (Just 5)
+        -- liftA2 vs zipWith
+        -- differ in how the list monoid is used
+        print $ zipWith (+) [3, 4] [5, 6]
+        print $ liftA2 (+) [3, 4] [5, 6]
