@@ -1,5 +1,5 @@
 import Control.Applicative (liftA, liftA2)
-import Control.Monad (join, liftM)
+import Control.Monad (join, liftM, liftM2)
 
 andOne x =
     [x, 1]
@@ -27,3 +27,5 @@ main =
         print $ liftM andOne [4, 5, 6]
         -- liftA2
         print $ liftA2 (,) (Just 3) (Just 5)
+        -- liftM2
+        print $ liftM2 (,) (Just 3) (Just 5)
