@@ -1,5 +1,8 @@
 module DoSyntax where
 
+import Control.Monad (join)
+
+
 sequencing :: IO ()
 sequencing =
     do  putStrLn "blah"
@@ -48,3 +51,12 @@ g x =
 h :: IO (IO ())
 h =
     putStrLn <$> getLine
+
+
+-- join merges the effects of getLine and putStrLn
+-- into a single IO action.
+-- This merged IO action performs the effects
+-- in the order determined by the nesting of the IO actions.
+h' :: IO ()
+h' =
+    join $ putStrLn <$> getLine
