@@ -67,6 +67,13 @@ twoActions =
     (putStrLn "1", putStrLn "2")
 
 
+bindingAndSequencing :: IO ()
+bindingAndSequencing =
+    do  putStrLn "name pls:"
+        name <- getLine
+        putStrLn ("y helo thar: " ++ name)
+
+
 main :: IO ()
 main =
     do  fst twoActions
