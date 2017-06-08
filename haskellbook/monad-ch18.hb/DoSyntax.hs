@@ -74,6 +74,13 @@ bindingAndSequencing =
         putStrLn ("y helo thar: " ++ name)
 
 
+bindingAndSequencing' :: IO ()
+bindingAndSequencing' =
+    putStrLn "name pls:" >>
+    getLine >>=
+    \name -> putStrLn ("y helo thar: " ++ name)
+
+
 main :: IO ()
 main =
     do  fst twoActions
