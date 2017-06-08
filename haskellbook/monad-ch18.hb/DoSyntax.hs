@@ -92,6 +92,19 @@ twoBinds =
             ++ age ++ " years old.")
 
 
+twoBinds' :: IO ()
+twoBinds' =
+    putStrLn "name pls:" >>
+    getLine >>=
+    \name ->
+    putStrLn "age pls:" >>
+    getLine >>=
+    \age ->
+    putStrLn ("y helo thar: "
+        ++ name ++ " who is:"
+        ++ age ++ " years old.")
+
+
 main :: IO ()
 main =
     do  fst twoActions
