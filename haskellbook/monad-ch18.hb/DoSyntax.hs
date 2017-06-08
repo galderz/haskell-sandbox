@@ -60,3 +60,16 @@ h =
 h' :: IO ()
 h' =
     join $ putStrLn <$> getLine
+
+
+twoActions :: (IO (), IO ())
+twoActions =
+    (putStrLn "1", putStrLn "2")
+
+
+main :: IO ()
+main =
+    do  fst twoActions
+        snd twoActions
+        -- We're able to evaluate IO actions multiple times!
+        fst twoActions
