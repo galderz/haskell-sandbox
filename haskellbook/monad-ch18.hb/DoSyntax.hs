@@ -81,6 +81,17 @@ bindingAndSequencing' =
     \name -> putStrLn ("y helo thar: " ++ name)
 
 
+twoBinds :: IO ()
+twoBinds =
+    do  putStrLn "name pls:"
+        name <- getLine
+        putStrLn "age pls:"
+        age <- getLine
+        putStrLn ("y helo thar: "
+            ++ name ++ " who is:"
+            ++ age ++ " years old.")
+
+
 main :: IO ()
 main =
     do  fst twoActions
