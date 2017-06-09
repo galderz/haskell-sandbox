@@ -1,3 +1,4 @@
+import Control.Applicative (liftA3)
 
 twiceWhenEven :: [Integer] -> [Integer]
 twiceWhenEven xs =
@@ -70,6 +71,50 @@ mkSphericalCow' name' age' weight' =
         weightCheck (Cow nammy agey weighty)
 
 
+f :: Integer -> Maybe Integer
+f 0 =
+    Nothing
+f n =
+    Just n
+
+
+g :: Integer -> Maybe Integer
+g i =
+    if even i
+    then Just (i + 1)
+    else Nothing
+
+
+h :: Integer -> Maybe String
+h i =
+    Just ("10191" ++ show i)
+
+-- Can't be re-written with Applicative because you need previous value
+doSomething :: Integer -> Maybe (Integer, Integer, String)
+doSomething n =
+    do  a <- f n
+        b <- g a
+        c <- h b
+        pure (a, b, c)
+
+
+doSomething' :: Integer -> Maybe (Integer, Integer, String)
+doSomething' n =
+    case f n of
+        Nothing ->
+            Nothing
+        Just x ->
+            case g x of
+                Nothing ->
+                    Nothing
+                Just y ->
+                    case h y of
+                        Nothing ->
+                            Nothing
+                        Just z ->
+                            Just (x, y, z)
+
+
 main :: IO ()
 main =
     do  print $ twiceWhenEven [1..3]
@@ -78,3 +123,9 @@ main =
         print $ mkSphericalCow "Bess" 5 500
         print $ mkSphericalCow' "Bess" 5 499
         print $ mkSphericalCow' "Bess" 5 500
+        print $ doSomething 2
+        print $ doSomething 0
+        print $ doSomething 1
+        print $ doSomething' 2
+        print $ doSomething' 0
+        print $ doSomething' 1
