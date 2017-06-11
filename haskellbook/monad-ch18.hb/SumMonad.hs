@@ -31,6 +31,15 @@ instance (Monoid a) => Applicative (Sum a) where
         Second (f x)
 
 
+instance (Monoid a) => Monad (Sum a) where
+    return =
+        pure
+    (>>=) (First a) _ =
+        First a
+    (>>=) (Second x) f =
+        f x
+
+
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Sum a b) where
     arbitrary =
         do  x <- arbitrary
@@ -50,3 +59,4 @@ main :: IO ()
 main =
     do  -- quickBatch $ functor (undefined :: TestSum)
         quickBatch $ applicative (undefined :: TestSum)
+        quickBatch $ monad (undefined :: TestSum)
