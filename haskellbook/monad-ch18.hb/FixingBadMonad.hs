@@ -12,7 +12,7 @@ data CountMe a =
 
 instance Functor CountMe where
     fmap f (CountMe i a) =
-        CountMe (i + 1) (f a)
+        CountMe i (f a)
 
 
 instance Applicative CountMe where
