@@ -18,6 +18,19 @@ instance Functor (Sum a) where
         Second (f x)
 
 
+instance (Monoid a) => Applicative (Sum a) where
+    pure x =
+        Second x
+    (<*>) (First a) (First a') =
+        (First $ mappend a a')
+    (<*>) (First a) (Second _) =
+        First a
+    (<*>) (Second _) (First a) =
+        First a
+    (<*>) (Second f) (Second x) =
+        Second (f x)
+
+
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Sum a b) where
     arbitrary =
         do  x <- arbitrary
@@ -30,9 +43,10 @@ instance (Eq a, Eq b) => EqProp (Sum a b) where
         eq
 
 
-type TestSum = Sum (String, String, Int) (String, String, Int)
+type TestSum = Sum (String, String, [Int]) (String, String, [Int])
 
 
 main :: IO ()
 main =
-    quickBatch $ functor (undefined :: TestSum)
+    do  -- quickBatch $ functor (undefined :: TestSum)
+        quickBatch $ applicative (undefined :: TestSum)
