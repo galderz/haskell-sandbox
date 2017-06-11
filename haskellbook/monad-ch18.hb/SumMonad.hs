@@ -30,6 +30,9 @@ instance (Eq a, Eq b) => EqProp (Sum a b) where
         eq
 
 
+type TestSum = Sum (String, String, Int) (String, String, Int)
+
+
 main :: IO ()
 main =
-    quickBatch $ functor (undefined :: Sum (String, String, Int) (String, String, Int))
+    quickBatch $ functor (undefined :: TestSum)
