@@ -22,6 +22,13 @@ instance Applicative Nope where
         NopeDotJpg
 
 
+instance Monad Nope where
+    return =
+        pure
+    (>>=) _ _ =
+        NopeDotJpg
+
+
 instance Arbitrary (Nope a) where
     arbitrary =
         return NopeDotJpg
@@ -39,3 +46,4 @@ main =
             testNode = undefined :: Nope (String, String, [Int])
         quickBatch $ functor testNode
         quickBatch $ applicative testNode
+        quickBatch $ monad testNode
