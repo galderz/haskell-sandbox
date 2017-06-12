@@ -15,6 +15,13 @@ instance Functor Nope where
         NopeDotJpg
 
 
+instance Applicative Nope where
+    pure _ =
+        NopeDotJpg
+    (<*>) _ _ =
+        NopeDotJpg
+
+
 instance Arbitrary (Nope a) where
     arbitrary =
         return NopeDotJpg
@@ -31,3 +38,4 @@ main =
         let
             testNode = undefined :: Nope (String, String, [Int])
         quickBatch $ functor testNode
+        quickBatch $ applicative testNode
