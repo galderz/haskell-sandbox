@@ -28,10 +28,10 @@ instance Monad CountMe where
        pure
 
    CountMe n a >>= f =
-     let CountMe _ b =
+     let CountMe n' b =
            f a
      in
-           CountMe (n + 1) b
+           CountMe (n + n') b
 
 
 instance Arbitrary a => Arbitrary (CountMe a) where
