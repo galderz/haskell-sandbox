@@ -21,6 +21,12 @@ newtype Identity a =
     deriving (Eq, Ord, Show)
 
 
+data List a =
+    Nil
+    | Cons a (List a)
+    deriving (Eq, Show)
+
+
 instance Functor Nope where
     fmap _ _ =
         NopeDotJpg
@@ -36,6 +42,13 @@ instance Functor (PhhhbbtttEither b) where
 instance Functor Identity where
     fmap f (Identity x) =
         Identity (f x)
+
+
+instance Functor List where
+    fmap _ Nil =
+        Nil
+    fmap f (Cons x xs) =
+        Cons (f x) (fmap f xs)
 
 
 instance Applicative Nope where
@@ -104,6 +117,21 @@ instance (Arbitrary a) => Arbitrary (Identity a) where
             return $ Identity x
 
 
+instance Arbitrary a => Arbitrary (List a) where
+    arbitrary =
+        sized arbList
+
+
+arbList :: Arbitrary a => Int -> Gen (List a)
+arbList 0 =
+    return Nil
+arbList n =
+    frequency [
+        (1, return Nil)
+        , (4, fmap Cons arbitrary <*> (arbList (n - 1)))
+    ]
+
+
 instance (Eq a) => EqProp (Nope a) where
     (=-=) =
         eq
@@ -119,6 +147,11 @@ instance (Eq a) => EqProp (Identity a) where
         eq
 
 
+instance (Eq a) => EqProp (List a) where
+    (=-=) =
+        eq
+
+
 main :: IO ()
 main =
     do
@@ -127,12 +160,14 @@ main =
             testEither = undefined :: PhhhbbtttEither
                 (String, String, [Int]) (String, String, [Int])
             testIdentity = undefined :: Identity (String, String, [Int])
+            testList = undefined :: List (String, String, [Int])
         -- quickBatch $ functor testNope
         -- quickBatch $ applicative testNope
         quickBatch $ monad testNope
         -- quickBatch $ functor testEither
         -- quickBatch $ applicative testEither
         quickBatch $ monad testEither
-        quickBatch $ functor testIdentity
-        quickBatch $ applicative testIdentity
+        -- quickBatch $ functor testIdentity
+        -- quickBatch $ applicative testIdentity
         quickBatch $ monad testIdentity
+        quickBatch $ functor testList
