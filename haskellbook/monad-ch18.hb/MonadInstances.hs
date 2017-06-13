@@ -56,6 +56,13 @@ instance Monoid b => Applicative (PhhhbbtttEither b) where
         Lft (f x)
 
 
+instance Applicative Identity where
+    pure =
+        Identity
+    (<*>) (Identity f) (Identity x) =
+        Identity (f x)
+
+
 instance Monad Nope where
     return =
         pure
@@ -120,3 +127,4 @@ main =
         -- quickBatch $ applicative testEither
         quickBatch $ monad testEither
         quickBatch $ functor testIdentity
+        quickBatch $ applicative testIdentity
