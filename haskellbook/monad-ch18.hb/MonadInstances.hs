@@ -35,6 +35,17 @@ instance Applicative Nope where
         NopeDotJpg
 
 
+instance Monoid b => Applicative (PhhhbbtttEither b) where
+    pure x =
+        Lft x
+    (<*>) _ (Rght b) =
+        Rght b
+    (<*>) (Rght b) _ =
+        Rght b
+    (<*>) (Lft f) (Lft x) =
+        Lft (f x)
+
+
 instance Monad Nope where
     return =
         pure
@@ -75,3 +86,4 @@ main =
         -- quickBatch $ applicative testNope
         quickBatch $ monad testNope
         quickBatch $ functor testEither
+        quickBatch $ applicative testEither
