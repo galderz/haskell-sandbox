@@ -1,5 +1,7 @@
 module MonadInstances where
 
+-- import Prelude hiding (Left, Right)
+
 import Test.QuickCheck
 import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes
@@ -74,6 +76,29 @@ instance Applicative Identity where
         Identity
     (<*>) (Identity f) (Identity x) =
         Identity (f x)
+
+
+instance Monoid (List a) where
+    mempty =
+        Nil
+    mappend Nil ca =
+        ca
+    mappend ca Nil =
+        ca
+    mappend (Cons x xs) ys =
+        Cons x (mappend xs ys)
+
+
+instance Applicative List where
+    pure x =
+        Cons x Nil
+    (<*>) _ Nil =
+        Nil
+    (<*>) Nil _ =
+        Nil
+    (<*>) (Cons f fs) ca =
+        -- Cons (f x) (fs <*> xs)
+        mappend (fmap f ca) (fs <*> ca)
 
 
 instance Monad Nope where
@@ -163,11 +188,15 @@ main =
             testList = undefined :: List (String, String, [Int])
         -- quickBatch $ functor testNope
         -- quickBatch $ applicative testNope
-        quickBatch $ monad testNope
+        -- quickBatch $ monad testNope
+        --
         -- quickBatch $ functor testEither
         -- quickBatch $ applicative testEither
-        quickBatch $ monad testEither
+        -- quickBatch $ monad testEither
+        --
         -- quickBatch $ functor testIdentity
         -- quickBatch $ applicative testIdentity
-        quickBatch $ monad testIdentity
+        -- quickBatch $ monad testIdentity
+        --
         quickBatch $ functor testList
+        quickBatch $ applicative testList
