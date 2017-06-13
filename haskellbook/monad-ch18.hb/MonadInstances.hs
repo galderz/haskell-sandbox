@@ -79,6 +79,13 @@ instance Monoid b => Monad (PhhhbbtttEither b) where
         f x
 
 
+instance Monad Identity where
+    return =
+        pure
+    (>>=) (Identity x) f =
+        f x
+
+
 instance Arbitrary (Nope a) where
     arbitrary =
         return NopeDotJpg
@@ -128,3 +135,4 @@ main =
         quickBatch $ monad testEither
         quickBatch $ functor testIdentity
         quickBatch $ applicative testIdentity
+        quickBatch $ monad testIdentity
