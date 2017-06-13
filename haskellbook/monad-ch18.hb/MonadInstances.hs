@@ -53,6 +53,15 @@ instance Monad Nope where
         NopeDotJpg
 
 
+instance Monoid b => Monad (PhhhbbtttEither b) where
+    return =
+        pure
+    (>>=) (Rght b) _ =
+        Rght b
+    (>>=) (Lft x) f =
+        f x
+
+
 instance Arbitrary (Nope a) where
     arbitrary =
         return NopeDotJpg
@@ -87,3 +96,4 @@ main =
         quickBatch $ monad testNope
         quickBatch $ functor testEither
         quickBatch $ applicative testEither
+        quickBatch $ monad testEither
