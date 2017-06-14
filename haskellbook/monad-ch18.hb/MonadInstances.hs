@@ -124,6 +124,15 @@ instance Monad Identity where
         f x
 
 
+instance Monad List where
+    return =
+        pure
+    (>>=) Nil _ =
+        Nil
+    (>>=) (Cons a ca) f =
+        mappend (f a) (ca >>= f)
+
+
 instance Arbitrary (Nope a) where
     arbitrary =
         return NopeDotJpg
@@ -200,3 +209,4 @@ main =
         --
         quickBatch $ functor testList
         quickBatch $ applicative testList
+        quickBatch $ monad testList
