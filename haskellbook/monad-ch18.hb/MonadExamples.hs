@@ -27,7 +27,9 @@ meh :: Monad m => [a] -> (a -> m b) -> m [b]
 meh [] _ =
     pure []
 meh (x:xs) f =
-    (fmap (++) (fmap (: []) (f x))) <*> (meh xs f)
+    (fmap (:) (f x)) <*> (meh xs f)
+    -- (fmap (++) (fmap (: []) (f x))) <*> (meh xs f)
+    --
     -- fmap (++) (fmap (: []) (f x)) (meh xs f)
     -- mappend (meh xs f) (fmap (: []) (f x))
     -- mappend ((pure insert) <*> (f x)) (meh xs f)
