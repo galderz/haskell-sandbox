@@ -39,6 +39,11 @@ meh' =
     forM
 
 
+flipType :: (Monad m) => [m a] -> m [a]
+flipType xs =
+    meh xs id
+
+
 main :: IO ()
 main =
     do  print $ j [[1, 2], [], [3]]
@@ -54,3 +59,4 @@ main =
         print $ a Nothing (Just (+1))
         print $ meh [1..10] (Just)
         print $ meh' [1..10] (Just)
+        print $ flipType [Just 1, Just 2, Just 3]
