@@ -17,6 +17,11 @@ l2 =
     liftM2
 
 
+a :: Monad m => m a -> m (a -> b) -> m b
+a ma mf =
+    mf <*> ma
+
+
 main :: IO ()
 main =
     do  print $ j [[1, 2], [], [3]]
@@ -28,3 +33,5 @@ main =
         print $ l2 (+) (Just 1) (Just 2)
         print $ l2 (+) (Just 1) Nothing
         print $ l2 (+) Nothing Nothing
+        print $ a (Just 1) (Just (+1))
+        print $ a Nothing (Just (+1))
