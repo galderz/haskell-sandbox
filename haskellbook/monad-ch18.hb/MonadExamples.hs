@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 import Control.Monad (join, liftM2)
+import Data.List
 
 
 j :: Monad m => m (m a) -> m a
@@ -22,6 +23,17 @@ a ma mf =
     mf <*> ma
 
 
+meh :: Monad m => [a] -> (a -> m b) -> m [b]
+meh [] _ =
+    pure []
+meh (x:xs) f =
+    (fmap (++) (fmap (: []) (f x))) <*> (meh xs f)
+    -- fmap (++) (fmap (: []) (f x)) (meh xs f)
+    -- mappend (meh xs f) (fmap (: []) (f x))
+    -- mappend ((pure insert) <*> (f x)) (meh xs f)
+    -- mappend (f x) (meh xs f)
+
+
 main :: IO ()
 main =
     do  print $ j [[1, 2], [], [3]]
@@ -35,3 +47,4 @@ main =
         print $ l2 (+) Nothing Nothing
         print $ a (Just 1) (Just (+1))
         print $ a Nothing (Just (+1))
+        print $ meh [1..10] (Just)
