@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
-import Control.Monad (join)
+import Control.Monad (join, liftM2)
 
 
 j :: Monad m => m (m a) -> m a
@@ -12,6 +12,11 @@ l1 f m =
     fmap f m
 
 
+l2 :: Monad m => (a -> b -> c) -> m a -> m b -> m c
+l2 =
+    liftM2
+
+
 main :: IO ()
 main =
     do  print $ j [[1, 2], [], [3]]
@@ -20,3 +25,6 @@ main =
         print $ j (Nothing :: Maybe (Maybe Int))
         print $ l1 (+1) (Just 1)
         print $ l1 (+1) Nothing
+        print $ l2 (+) (Just 1) (Just 2)
+        print $ l2 (+) (Just 1) Nothing
+        print $ l2 (+) Nothing Nothing
