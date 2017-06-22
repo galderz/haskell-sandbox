@@ -74,6 +74,17 @@ shortyFound tbs =
     TL.concat ["<a href=\"", tbs, "\">", tbs, "</a>"]
 
 
+saveUriIfAbsent :: R.Connection
+    -> BC.ByteString
+    -> BC.ByteString
+    -> String
+    -> ActionM ()
+saveUriIfAbsent rConn shorty uri' shawty =
+    do
+        resp <- liftIO (saveURI rConn shorty uri')
+        html (shortyCreated resp shawty)
+
+
 app :: R.Connection -> ScottyM ()
 app rConn =
     do
@@ -88,8 +99,9 @@ app rConn =
                         shawty <- liftIO shortyGen
                         let shorty = BC.pack shawty
                             uri' = encodeUtf8 (TL.toStrict uri)
-                        resp <- liftIO (saveURI rConn shorty uri')
-                        html (shortyCreated resp shawty)
+                        saveUriIfAbsent rConn shorty uri' shawty
+                        -- resp <- liftIO (saveURI rConn shorty uri')
+                        -- html (shortyCreated resp shawty)
                     Nothing -> text (shortyAintUri uri)
         get "/:short" $ do
             short <- param "short"
@@ -103,7 +115,7 @@ app rConn =
                               tbs = TL.fromStrict (decodeUtf8 bs)
 
 
--- To use: http://localhost:3000/?uri=http://google.cmo
+-- To use: http://localhost:3000/?uri=http://google.com
 main :: IO ()
 main =
     do
