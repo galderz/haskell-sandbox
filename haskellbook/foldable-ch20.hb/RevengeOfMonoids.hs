@@ -14,3 +14,5 @@ main =
         print $ foldMap Product [1, 2, 3, 4]
         print $ foldMap All [True, False, True]
         print $ foldMap Any [(3 == 4), (9 > 5)]
+        print $ foldMap First [Just 1, Nothing, Just 5]
+        print $ foldMap Last [Just 1, Nothing, Just 5]
