@@ -74,6 +74,13 @@ shortyFound tbs =
     TL.concat ["<a href=\"", tbs, "\">", tbs, "</a>"]
 
 
+shortyAlreadyUsed :: TL.Text -> TL.Text
+shortyAlreadyUsed uri =
+    TL.concat [ uri
+              , " already in use, try again"
+              ]
+
+
 saveUriIfAbsent :: R.Connection
     -> BC.ByteString
     -> BC.ByteString
@@ -81,8 +88,23 @@ saveUriIfAbsent :: R.Connection
     -> ActionM ()
 saveUriIfAbsent rConn shorty uri' shawty =
     do
-        resp <- liftIO (saveURI rConn shorty uri')
-        html (shortyCreated resp shawty)
+        -- Before adding a short URL, verify it's not present
+        uri <- liftIO (getURI rConn shorty)
+        case uri of
+            Left reply ->
+                text (TL.pack (show reply))
+            Right mbBS ->
+                case mbBS of
+                    Nothing ->
+                        do
+                            -- Not present, so store it
+                            resp <- liftIO (saveURI rConn shorty uri')
+                            html (shortyCreated resp shawty)
+                    Just bs ->
+                        -- Short URL present
+                        html (shortyAlreadyUsed tbs)
+                        where tbs :: TL.Text
+                              tbs = TL.fromStrict (decodeUtf8 bs)
 
 
 app :: R.Connection -> ScottyM ()
@@ -100,8 +122,6 @@ app rConn =
                         let shorty = BC.pack shawty
                             uri' = encodeUtf8 (TL.toStrict uri)
                         saveUriIfAbsent rConn shorty uri' shawty
-                        -- resp <- liftIO (saveURI rConn shorty uri')
-                        -- html (shortyCreated resp shawty)
                     Nothing -> text (shortyAintUri uri)
         get "/:short" $ do
             short <- param "short"
