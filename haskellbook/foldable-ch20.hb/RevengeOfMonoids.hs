@@ -12,3 +12,5 @@ main =
         print $ fold ["hello", "julie"]
         print $ foldMap Sum [1, 2, 3, 4]
         print $ foldMap Product [1, 2, 3, 4]
+        print $ foldMap All [True, False, True]
+        print $ foldMap Any [(3 == 4), (9 > 5)]
