@@ -10,3 +10,5 @@ main =
         print $ fold [1, 2, 3, 4, 5 :: Product Integer]
         print $ foldr (++) "" ["hello", "julie"]
         print $ fold ["hello", "julie"]
+        print $ foldMap Sum [1, 2, 3, 4]
+        print $ foldMap Product [1, 2, 3, 4]
