@@ -22,3 +22,7 @@ main =
     do  print $ foldr (*) 1 (Identity 5)
         print $ foldl (*) 5 (Identity 5)
         print (foldMap (*5) (Identity 100) :: Product Integer)
+        print $ foldr (+) 1 Nothing
+        print (foldMap (+1) Nothing :: Sum Integer)
+        print $ foldr (+) 1 (Just 3)
+        print (foldMap (+1) $ Just 3 :: Sum Integer)
