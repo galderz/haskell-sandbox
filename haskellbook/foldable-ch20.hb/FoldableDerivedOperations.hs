@@ -9,3 +9,8 @@ main =
         print $ concatMap toList [Just 1, Just 2, Just 3]
         print $ concatMap toList [Just 1, Just 2, Nothing]
         print $ toList (1, 2)
+        print $ null (Left 3)
+        print $ null []
+        print $ null Nothing
+        print $ null (1, 2)
+        print $ fmap null [Just 1, Just 2, Nothing]
