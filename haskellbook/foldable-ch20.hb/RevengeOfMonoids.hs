@@ -27,3 +27,6 @@ main =
         -- With one fold element, the same applies to foldMap
         print (foldMap (*5) (Just 100) :: Product Integer)
         print (foldMap (*5) (Just 5) :: Sum Integer)
+        -- mempty value used
+        print (foldMap (*5) Nothing :: Sum Integer)
+        print (foldMap (*5) Nothing :: Product Integer)
