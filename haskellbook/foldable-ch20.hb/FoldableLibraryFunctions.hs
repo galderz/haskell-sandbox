@@ -1,6 +1,6 @@
 import Data.Foldable (foldMap, foldr)
 import Data.Monoid
-import Prelude hiding (sum, product)
+import Prelude hiding (elem, product, sum)
 
 
 -- Nicer with foldMap than foldr
@@ -17,6 +17,11 @@ product =
     -- foldr (*) 1
 
 
+elem :: (Foldable t, Eq a) => a -> t a -> Bool
+elem x =
+    foldr (\a z -> (a == x) || z) False
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -25,3 +30,9 @@ main =
         print $ 1 == product Nothing
         print $ Just 1 == fmap product (Just [])
         print $ Right 6 == fmap product (Right [1, 2, 3] :: Either String [Int])
+        print $ False == elem 2 (Just 3)
+        print $ False == elem True (Left False)
+        print $ False == elem True (Left True)
+        print $ False == elem True (Right False)
+        print $ True == elem True (Right True)
+        print $ [False, False, True] == fmap (elem 3) [Right 1, Right 2, Right 3]
