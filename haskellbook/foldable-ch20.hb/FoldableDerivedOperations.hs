@@ -39,3 +39,6 @@ main =
         -- Error: [4,3,*** Exception: minimum: empty structure
         -- print $ minimum ((Left 3) :: Either Int String)
         -- Error: *** Exception: minimum: empty structure
+        print $ sum (7, 5)
+        print $ fmap sum [(7, 5), (3, 4)]
+        print $ fmap sum (Just [1, 2, 3, 4, 5])
