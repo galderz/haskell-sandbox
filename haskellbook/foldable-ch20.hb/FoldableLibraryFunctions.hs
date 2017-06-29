@@ -19,7 +19,8 @@ product =
 
 elem :: (Foldable t, Eq a) => a -> t a -> Bool
 elem x =
-    foldr (\a z -> (a == x) || z) False
+    getAny . foldMap (\a -> Any (x == a))
+    -- foldr (\a z -> (a == x) || z) False
 
 
 main :: IO ()
