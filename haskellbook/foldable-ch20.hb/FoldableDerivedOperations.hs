@@ -26,3 +26,16 @@ main =
         print $ elem True (Right False)
         print $ elem True (Right True)
         print $ fmap (elem 3) [Right 1, Right 2, Right 3]
+        print $ maximum [10, 12, 33, 5]
+        -- Left and Nothing (and similar) values are empty
+        -- for the purpouses of these functions
+        print $ maximum [Just 2, Just 10, Just 4]
+        print $ fmap maximum (Just [3, 7, 10, 2])
+        print $ minimum "julie"
+        print $ fmap minimum (Just "julie")
+        print $ minimum (Just 'j')
+        print $ fmap minimum [Just 'j', Just 'u', Just 'l']
+        -- print $ fmap minimum [Just 4, Just 3, Nothing]
+        -- Error: [4,3,*** Exception: minimum: empty structure
+        -- print $ minimum ((Left 3) :: Either Int String)
+        -- Error: *** Exception: minimum: empty structure
