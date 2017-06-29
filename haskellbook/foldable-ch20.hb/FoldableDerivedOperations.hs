@@ -20,3 +20,9 @@ main =
         print $ fmap length Just [1, 2, 3]
         print $ fmap length [Just 1, Just 2, Just 3]
         print $ fmap length [Just 1, Just 2, Nothing]
+        print $ elem 2 (Just 3)
+        print $ elem True (Left False)
+        print $ elem True (Left True)
+        print $ elem True (Right False)
+        print $ elem True (Right True)
+        print $ fmap (elem 3) [Right 1, Right 2, Right 3]
