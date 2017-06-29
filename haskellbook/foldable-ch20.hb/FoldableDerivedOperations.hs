@@ -42,3 +42,6 @@ main =
         print $ sum (7, 5)
         print $ fmap sum [(7, 5), (3, 4)]
         print $ fmap sum (Just [1, 2, 3, 4, 5])
+        print $ product Nothing
+        print $ fmap product (Just [])
+        print $ fmap product (Right [1, 2, 3] :: Either String [Int])
