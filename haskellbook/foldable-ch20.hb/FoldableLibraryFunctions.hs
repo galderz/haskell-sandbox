@@ -23,12 +23,33 @@ elem x =
     -- foldr (\a z -> (a == x) || z) False
 
 
+newtype Min a =
+    Min {
+        getMin :: Maybe a
+    }
+
+
+instance Ord a => Monoid (Min a) where
+    mempty =
+        Min Nothing
+
+    mappend m (Min Nothing) =
+        m
+    mappend (Min Nothing) n =
+        n
+    mappend (Min m@(Just x)) (Min n@(Just y))
+        | x <= y =
+              Min m
+        | otherwise =
+              Min n
+
+
 minimum :: (Foldable t, Ord a) => t a -> Maybe a
-minimum xs =
-    foldr f Nothing xs
-    -- foldr (\a z -> if ((Just a) < z) then (Just a) else z) Nothing xs
-    where f a Nothing = Just a
-          f a (Just x) = if (a < x) then Just a else Just x
+minimum =
+    getMin . foldMap (\a -> Min $ Just a)
+    -- foldr f Nothing xs
+    -- where f a Nothing = Just a
+    --       f a (Just x) = if (a < x) then Just a else Just x
 
 
 main :: IO ()
