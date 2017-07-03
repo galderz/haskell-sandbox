@@ -101,7 +101,7 @@ toList =
 
 fold :: (Foldable t, Monoid m) => t m -> m
 fold =
-    undefined
+    foldMap id
 
 
 main :: IO ()
@@ -147,3 +147,4 @@ main =
         print $ [1, 2, 3] == concatMap toList [Just 1, Just 2, Just 3]
         print $ [1, 2] == concatMap toList [Just 1, Just 2, Nothing]
         print $ [2] == toList (1, 2)
+        print $ "abc" == fold ["a", "b", "c"]
