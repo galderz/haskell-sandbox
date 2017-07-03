@@ -52,13 +52,35 @@ minimum =
     --       f a (Just x) = if (a < x) then Just a else Just x
 
 
+newtype Max a =
+    Max {
+        getMax :: Maybe a
+    }
+
+
+instance Ord a => Monoid (Max a) where
+    mempty =
+        Max Nothing
+
+    mappend m (Max Nothing) =
+        m
+    mappend (Max Nothing) n =
+        n
+    mappend (Max m@(Just x)) (Max n@(Just y))
+        | x >= y =
+              Max m
+        | otherwise =
+              Max n
+
+
 maximum :: (Foldable t, Ord a) => t a -> Maybe a
 maximum =
-    foldr f Nothing
-    where f a Nothing =
-              Just a
-          f a (Just x) =
-              if (a > x) then Just a else Just x
+    getMax . foldMap (\a -> Max $ Just a)
+    -- foldr f Nothing
+    -- where f a Nothing =
+    --           Just a
+    --       f a (Just x) =
+    --           if (a > x) then Just a else Just x
 
 
 main :: IO ()
