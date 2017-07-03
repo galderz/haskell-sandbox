@@ -99,6 +99,11 @@ toList =
     foldr (\a z -> a : z) []
 
 
+fold :: (Foldable t, Monoid m) => t m -> m
+fold =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -138,3 +143,7 @@ main =
         print $ [] == (toList (Left 3 :: Either Int String))
         print $ ["a"] == (toList (Right "a" :: Either Int String))
         print $ [1] == fmap toList Just 1
+        print $ [[1], [2], [3]] == map toList [Just 1, Just 2, Just 3]
+        print $ [1, 2, 3] == concatMap toList [Just 1, Just 2, Just 3]
+        print $ [1, 2] == concatMap toList [Just 1, Just 2, Nothing]
+        print $ [2] == toList (1, 2)
