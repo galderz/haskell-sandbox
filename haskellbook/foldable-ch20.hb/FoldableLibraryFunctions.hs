@@ -94,6 +94,11 @@ length =
     -- foldr (\a z -> z + 1) 0
 
 
+toList :: (Foldable t) => t a -> [a]
+toList =
+    foldr (\a z -> a : z) []
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -128,3 +133,8 @@ main =
         print $ 1 == fmap length Just [1, 2, 3]
         print $ [1, 1, 1] == fmap length [Just 1, Just 2, Just 3]
         print $ [1, 1, 0] == fmap length [Just 1, Just 2, Nothing]
+        print $ [] == toList (Nothing :: Maybe String)
+        print $ [1] == (toList $ Just 1)
+        print $ [] == (toList (Left 3 :: Either Int String))
+        print $ ["a"] == (toList (Right "a" :: Either Int String))
+        print $ [1] == fmap toList Just 1
