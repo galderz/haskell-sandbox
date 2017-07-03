@@ -1,6 +1,6 @@
 import Data.Foldable (foldMap, foldr)
 import Data.Monoid
-import Prelude hiding (elem, maximum, minimum, null, product, sum)
+import Prelude hiding (elem, length, maximum, minimum, null, product, sum)
 
 
 -- Nicer with foldMap than foldr
@@ -88,6 +88,11 @@ null =
     foldr (\a z -> False) True
 
 
+length :: (Foldable t) => t a -> Int
+length =
+    foldr (\a z -> z + 1) 0
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -116,3 +121,9 @@ main =
         print $ True == null Nothing
         print $ False == null (1, 2)
         print $ [False, False, True] == fmap null [Just 1, Just 2, Nothing]
+        print $ 1 == length (1, 2)
+        print $ 3 == length [(1, 2), (3, 4), (5, 6)]
+        print $ [1, 1, 1] == fmap length [(1, 2), (3, 4), (5, 6)]
+        print $ 1 == fmap length Just [1, 2, 3]
+        print $ [1, 1, 1] == fmap length [Just 1, Just 2, Just 3]
+        print $ [1, 1, 0] == fmap length [Just 1, Just 2, Nothing]
