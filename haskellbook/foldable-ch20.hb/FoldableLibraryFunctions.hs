@@ -90,7 +90,8 @@ null =
 
 length :: (Foldable t) => t a -> Int
 length =
-    foldr (\a z -> z + 1) 0
+    getSum . foldMap (\_ -> Sum 1)
+    -- foldr (\a z -> z + 1) 0
 
 
 main :: IO ()
