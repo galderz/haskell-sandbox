@@ -1,6 +1,6 @@
 import Data.Foldable (foldMap, foldr)
 import Data.Monoid
-import Prelude hiding (elem, minimum, product, sum)
+import Prelude hiding (elem, maximum, minimum, product, sum)
 
 
 -- Nicer with foldMap than foldr
@@ -52,6 +52,15 @@ minimum =
     --       f a (Just x) = if (a < x) then Just a else Just x
 
 
+maximum :: (Foldable t, Ord a) => t a -> Maybe a
+maximum =
+    foldr f Nothing
+    where f a Nothing =
+              Just a
+          f a (Just x) =
+              if (a > x) then Just a else Just x
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -72,3 +81,6 @@ main =
         print $ Just 'j' == minimum (Just 'j')
         print $ [Just 'j', Just 'u', Just 'l'] ==
             fmap minimum [Just 'j', Just 'u', Just 'l']
+        print $ Just 33 == maximum [10, 12, 33, 5]
+        print $ [Just 2, Just 10, Just 4] == fmap maximum [Just 2, Just 10, Just 4]
+        print $ Just (Just 10) == fmap maximum (Just [3, 7, 10, 2])
