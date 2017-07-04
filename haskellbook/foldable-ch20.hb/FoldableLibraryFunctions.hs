@@ -104,6 +104,11 @@ fold =
     foldMap id
 
 
+foldMap' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+foldMap' f xs =
+    foldr (\a z -> mappend (f a) z) mempty xs
+
+
 main :: IO ()
 main =
     do  print $ 5 == sum (7, 5)
@@ -148,3 +153,6 @@ main =
         print $ [1, 2] == concatMap toList [Just 1, Just 2, Nothing]
         print $ [2] == toList (1, 2)
         print $ "abc" == fold ["a", "b", "c"]
+        print $ 5 == getSum (foldMap' Sum (7, 5))
+        print $ [5, 4] == fmap (getSum . foldMap' Sum) [(7, 5), (3, 4)]
+        print $ Just 15 == fmap (getSum . foldMap' Sum) (Just [1, 2, 3, 4, 5])
