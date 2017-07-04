@@ -1,3 +1,6 @@
+import Data.Monoid
+
+
 data Constant a b =
     Constant a
 
@@ -14,11 +17,13 @@ instance Foldable (Constant a) where
         -- Same as for foldl
         z
 
-    foldMap =
-        undefined
+    foldMap f (Constant _) =
+        mempty
 
 
 main :: IO ()
 main =
     do  print $ 5 == foldl (*) 5 (Constant 5)
         print $ 5 == foldr (*) 5 (Constant 5)
+        print $ Product 1 == (foldMap (*5) (Constant 100) :: Product Integer)
+        print $ Sum 0 == (foldMap (*5) (Constant 100) :: Sum Integer)
