@@ -10,8 +10,9 @@ instance Foldable (Constant a) where
         -- , so the only thing you can do is return z
         z
 
-    foldr =
-        undefined
+    foldr f z (Constant _) =
+        -- Same as for foldl
+        z
 
     foldMap =
         undefined
@@ -20,3 +21,4 @@ instance Foldable (Constant a) where
 main :: IO ()
 main =
     do  print $ 5 == foldl (*) 5 (Constant 5)
+        print $ 5 == foldr (*) 5 (Constant 5)
