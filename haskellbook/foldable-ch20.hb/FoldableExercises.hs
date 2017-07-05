@@ -29,8 +29,8 @@ instance Foldable (Two a) where
     foldl f z (Two a x) =
         f z x
 
-    foldr =
-        undefined
+    foldr f z (Two a x) =
+        f x z
 
     foldMap =
         undefined
@@ -44,3 +44,5 @@ main =
         print $ Sum 0 == (foldMap (*5) (Constant 100) :: Sum Integer)
         print $ 25 == (foldl (*) 5 $ Two 1 5)
         print $ 5 == (foldl (*) 5 $ Two 5 1)
+        print $ 25 == (foldr (*) 5 $ Two 1 5)
+        print $ 5 == (foldr (*) 5 $ Two 5 1)
