@@ -44,8 +44,8 @@ instance Foldable (Three a b) where
     foldl f z (Three a b x)=
         f z x
 
-    foldr =
-        undefined
+    foldr f z (Three a b x) =
+        f x z
 
     foldMap =
         undefined
@@ -67,3 +67,5 @@ main =
         print $ Sum 500 == (foldMap (*5) (Two 1 100) :: Sum Integer)
         print $ 25 == (foldl (*) 5 $ Three 1 2 5)
         print $ 5 == (foldl (*) 5 $ Three 5 2 1)
+        print $ 25 == (foldr (*) 5 $ Three 1 2 5)
+        print $ 5 == (foldr (*) 5 $ Three 5 2 1)
