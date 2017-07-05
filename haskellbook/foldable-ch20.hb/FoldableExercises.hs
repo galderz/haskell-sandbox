@@ -32,8 +32,8 @@ instance Foldable (Two a) where
     foldr f z (Two a x) =
         f x z
 
-    foldMap =
-        undefined
+    foldMap f (Two a x) =
+        f x
 
 
 main :: IO ()
@@ -46,3 +46,7 @@ main =
         print $ 5 == (foldl (*) 5 $ Two 5 1)
         print $ 25 == (foldr (*) 5 $ Two 1 5)
         print $ 5 == (foldr (*) 5 $ Two 5 1)
+        print $ Product 25 == (foldMap (*5) (Two 1 5) :: Product Integer)
+        print $ Product 5 == (foldMap (*5) (Two 5 1) :: Product Integer)
+        print $ Sum 5 == (foldMap (*5) (Two 100 1) :: Sum Integer)
+        print $ Sum 500 == (foldMap (*5) (Two 1 100) :: Sum Integer)
