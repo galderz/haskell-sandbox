@@ -13,6 +13,10 @@ data Three a b c =
     Three a b c
 
 
+data Three' a b =
+    Three' a b b
+
+
 instance Foldable (Constant a) where
     foldl f z (Constant x) =
         -- Can't be `f z x` because x is part of the container
@@ -51,6 +55,17 @@ instance Foldable (Three a b) where
         f x
 
 
+instance Foldable (Three' a) where
+    foldl f z (Three' a x x') =
+        f (f z x) x'
+
+    foldr =
+        undefined
+
+    foldMap =
+        undefined
+
+
 main :: IO ()
 main =
     do  print $ 5 == foldl (*) 5 (Constant 5)
@@ -73,3 +88,5 @@ main =
         print $ Product 5 == (foldMap (*5) (Three 5 2 1) :: Product Integer)
         print $ Sum 5 == (foldMap (*5) (Three 100 2 1) :: Sum Integer)
         print $ Sum 500 == (foldMap (*5) (Three 1 2 100) :: Sum Integer)
+        print $ 50 == (foldl (*) 5 $ Three' 1 2 5)
+        print $ 10 == (foldl (*) 5 $ Three' 5 2 1)
