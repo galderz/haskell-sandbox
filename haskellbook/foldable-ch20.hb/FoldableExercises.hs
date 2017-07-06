@@ -74,8 +74,8 @@ instance Foldable (Four' a) where
     foldl f z (Four' a x x' x'')=
         f (f (f z x) x') x''
 
-    foldr =
-        undefined
+    foldr f z (Four' a x x' x'') =
+        f x (f x' (f x'' z))
 
     foldMap =
         undefined
@@ -107,7 +107,9 @@ main =
         print $ (-2) == (foldl (-) 5 $ Three' 1 2 5)
         -- (-) ((-) 5 2) 1 = (5 - 2) - 1
         print $ 2 == (foldl (-) 5 $ Three' 5 2 1)
+        -- (-) 2 ((-) 5 5) = 2 - (5 - 5)
         print $ 2 == (foldr (-) 5 $ Three' 1 2 5)
+        -- (-) 2 ((-) 1 5) = 2 - (1 - 5)
         print $ 6 == (foldr (-) 5 $ Three' 5 2 1)
         -- 7 == (5 - 2) + (5 - 1)
         print $ Sum 7 == (foldMap ((-) 5) (Three' 100 2 1) :: Sum Integer)
@@ -117,3 +119,7 @@ main =
         print $ (-5) == (foldl (-) 5 $ Four' 1 2 5 3)
         -- (-) ((-) ((-) 5 2) 1) 3 = ((5 - 2) - 1) - 3
         print $ (-1) == (foldl (-) 5 $ Four' 5 2 1 3)
+        -- (-) 2 ((-) 5 ((-) 3 5)) = 2 - (5 - (3 - 5))
+        print $ (-5) == (foldr (-) 5 $ Four' 1 2 5 3)
+        -- (-) 2 ((-) 1 ((-) 3 5)) = 2 - (1 - (3 - 5))
+        print $ (-1) == (foldr (-) 5 $ Four' 5 2 1 3)
