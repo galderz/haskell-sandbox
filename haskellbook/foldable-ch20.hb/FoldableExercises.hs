@@ -62,8 +62,8 @@ instance Foldable (Three' a) where
     foldr f z (Three' a x x') =
         f x (f x' z)
 
-    foldMap =
-        undefined
+    foldMap f (Three' a x x')=
+        mappend (f x) (f x')
 
 
 main :: IO ()
@@ -92,3 +92,7 @@ main =
         print $ 2 == (foldl (-) 5 $ Three' 5 2 1)
         print $ 2 == (foldr (-) 5 $ Three' 1 2 5)
         print $ 6 == (foldr (-) 5 $ Three' 5 2 1)
+        -- 7 == (5 - 2) + (5 - 1)
+        print $ Sum 7 == (foldMap ((-) 5) (Three' 100 2 1) :: Sum Integer)
+        -- -92 = (5 - 100) + (5 - 2)
+        print $ Sum (-92) == (foldMap ((-) 5) (Three' 1 2 100) :: Sum Integer)
