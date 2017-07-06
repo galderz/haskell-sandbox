@@ -1,4 +1,5 @@
 import Data.Monoid
+import Data.Foldable
 
 
 data Constant a b =
@@ -81,6 +82,12 @@ instance Foldable (Four' a) where
         mappend (f x) (mappend (f x') (f x''))
 
 
+filterF :: (Applicative f, Foldable f, Monoid (f a))
+    => (a -> Bool) -> f a -> f a
+filterF pred t =
+    foldMap (\x -> if (pred x) then pure x else mempty) t
+
+
 main :: IO ()
 main =
     do  print $ 5 == foldl (*) 5 (Constant 5)
@@ -127,3 +134,4 @@ main =
         print $ Sum 9 == (foldMap ((-) 5) (Four' 100 2 1 3) :: Sum Integer)
         -- -90 = (5 - 2) + (5 - 100) + (5 - 3)
         print $ Sum (-90) == (foldMap ((-) 5) (Four' 1 2 100 3) :: Sum Integer)
+        print $ [1, 3, 5, 7, 9] == filterF odd [1..10]
