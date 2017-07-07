@@ -10,3 +10,5 @@ main =
         print $ sequenceA $ fmap Just [1, 2, 3]
         print $ sequenceA [Just 1, Just 2, Just 3]
         print $ sequenceA [Just 1, Just 2, Nothing]
+        print $ fmap sum $ sequenceA [Just 1, Just 2, Just 3]
+        print $ fmap product (sequenceA [Just 3, Just 4, Nothing])
