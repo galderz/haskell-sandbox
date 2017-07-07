@@ -1,4 +1,5 @@
 import Data.Map
+import Data.Maybe
 
 
 f =
@@ -98,3 +99,6 @@ main =
         -- traverse f xs :: Maybe [b]
         print $ morseToChar "gobbledegook"
         print $ morseToChar "-.-."
+        print $ fromMaybe ' ' (morseToChar "-.-.")
+        print $ stringToMorse "chris"
+        print $ fromMaybe [] (stringToMorse "chris")
