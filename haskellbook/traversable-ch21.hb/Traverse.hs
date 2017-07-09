@@ -76,6 +76,10 @@ morseToChar m =
     Data.Map.lookup m morseToLetter
 
 
+morse s =
+    fromMaybe [] (stringToMorse s)
+
+
 main :: IO ()
 main =
     do  print $ fmap Just [1, 2, 3]
@@ -102,3 +106,11 @@ main =
         print $ fromMaybe ' ' (morseToChar "-.-.")
         print $ stringToMorse "chris"
         print $ fromMaybe [] (stringToMorse "chris")
+        print $ fmap morseToChar (morse "chris")
+        -- (sequence .) . fmap
+        print $ sequence $ fmap morseToChar (morse "chris")
+        print $ sequence $ fmap morseToChar (morse "julie")
+        -- composition of sequence and fmap is so common
+        -- that traverse has been added to standard Prelude
+        print $ traverse morseToChar (morse "chris")
+        print $ traverse morseToChar (morse "julie")
