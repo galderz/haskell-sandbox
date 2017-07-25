@@ -32,11 +32,11 @@ instance Foldable Identity where
 
 
 instance Foldable (Constant a) where
-    foldr =
-        undefined
+    foldr f z (Constant a) =
+        z
 
-    foldMap =
-        undefined
+    foldMap f (Constant a) =
+        mempty
 
 
 instance Traversable Identity where
@@ -45,8 +45,8 @@ instance Traversable Identity where
 
 
 instance Traversable (Constant a) where
-    traverse =
-        undefined
+    traverse _ (Constant a) =
+        pure (Constant a)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -86,4 +86,5 @@ main =
                 undefined :: TC (Int, Int, [Int]) (Int, Int, [Int])
         -- quickBatch (functor ti)
         -- quickBatch (traversable ti)
-        quickBatch (functor tc)
+        -- quickBatch (functor tc)
+        quickBatch (traversable tc)
