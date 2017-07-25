@@ -52,6 +52,18 @@ instance Foldable (Constant a) where
         mempty
 
 
+instance Foldable Optional where
+    foldr _ z Nada =
+        z
+    foldr f z (Yep x) =
+        f x z
+
+    foldMap _ Nada =
+        mempty
+    foldMap f (Yep x) =
+        f x
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -60,6 +72,13 @@ instance Traversable Identity where
 instance Traversable (Constant a) where
     traverse _ (Constant a) =
         pure (Constant a)
+
+
+instance Traversable Optional where
+    traverse _ Nada =
+        pure Nada
+    traverse f (Yep x) =
+        fmap Yep (f x)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -121,4 +140,5 @@ main =
         -- quickBatch (traversable ti)
         -- quickBatch (functor tc)
         -- quickBatch (traversable tc)
-        quickBatch (functor to)
+        -- quickBatch (functor to)
+        quickBatch (traversable to)
