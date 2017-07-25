@@ -77,6 +77,18 @@ instance Foldable Optional where
         f x
 
 
+instance Foldable List where
+    foldr _ z Nil =
+        z
+    foldr f z (Cons x l) =
+        foldr f (f x z) l
+
+    foldMap _ Nil =
+        mempty
+    foldMap f (Cons x l) =
+        mappend (f x) (foldMap f l)
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -92,6 +104,13 @@ instance Traversable Optional where
         pure Nada
     traverse f (Yep x) =
         fmap Yep (f x)
+
+
+instance Traversable List where
+    traverse _ Nil =
+        pure Nil
+    traverse f (Cons x l) =
+        (fmap Cons (f x)) <*> (traverse f l)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -182,4 +201,5 @@ main =
         -- quickBatch (traversable tc)
         -- quickBatch (functor to)
         -- quickBatch (traversable to)
-        quickBatch (functor tl)
+        -- quickBatch (functor tl)
+        quickBatch (traversable tl)
