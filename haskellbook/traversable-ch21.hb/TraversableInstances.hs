@@ -13,6 +13,12 @@ newtype Constant a b =
     deriving (Eq, Ord, Show)
 
 
+data Optional a =
+    Nada
+    | Yep a
+    deriving (Eq, Ord, Show)
+
+
 instance Functor Identity where
     fmap f (Identity x) =
         Identity (f x)
@@ -21,6 +27,13 @@ instance Functor Identity where
 instance Functor (Constant a) where
     fmap _ (Constant a) =
         Constant a
+
+
+instance Functor Optional where
+    fmap _ Nada =
+        Nada
+    fmap f (Yep x) =
+        Yep (f x)
 
 
 instance Foldable Identity where
@@ -61,6 +74,13 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Constant a b) where
             return $ Constant x
 
 
+instance (Arbitrary a) => Arbitrary (Optional a) where
+    arbitrary =
+        do  x <- arbitrary
+            oneof [ return Nada
+                  , return $ Yep x]
+
+
 instance (Eq a) => EqProp (Identity a) where
     (=-=) =
         eq
@@ -71,10 +91,21 @@ instance (Eq a, Eq b) => EqProp (Constant a b) where
         eq
 
 
-type TI = Identity
+instance (Eq a) => EqProp (Optional a) where
+    (=-=) =
+        eq
 
 
-type TC = Constant
+type TI =
+    Identity
+
+
+type TC =
+    Constant
+
+
+type TO =
+    Optional
 
 
 main :: IO ()
@@ -84,7 +115,10 @@ main =
                 undefined :: TI (Int, Int, [Int])
             tc =
                 undefined :: TC (Int, Int, [Int]) (Int, Int, [Int])
+            to =
+                undefined :: TO (Int, Int, [Int])
         -- quickBatch (functor ti)
         -- quickBatch (traversable ti)
         -- quickBatch (functor tc)
-        quickBatch (traversable tc)
+        -- quickBatch (traversable tc)
+        quickBatch (functor to)
