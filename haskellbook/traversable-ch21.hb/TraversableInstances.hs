@@ -14,16 +14,16 @@ instance Functor Identity where
 
 
 instance Foldable Identity where
-    foldr =
-        undefined
+    foldr f z (Identity x) =
+        f x z
 
-    foldMap =
-        undefined
+    foldMap f (Identity x) =
+        f x
 
 
 instance Traversable Identity where
-    traverse =
-        undefined
+    traverse f (Identity x) =
+        fmap Identity (f x)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -43,4 +43,5 @@ type TI = Identity
 main :: IO ()
 main =
     do  let trigger = undefined :: TI (Int, Int, [Int])
-        quickBatch (functor trigger)
+        -- quickBatch (functor trigger)
+        quickBatch (traversable trigger)
