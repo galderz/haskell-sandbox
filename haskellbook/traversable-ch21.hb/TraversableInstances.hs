@@ -136,6 +136,14 @@ instance Foldable (Three' a) where
         mappend (f x) (f x')
 
 
+instance Foldable n => Foldable (S n) where
+    foldr f z (S na x) =
+        f x (foldr f z na)
+
+    foldMap f (S na x) =
+        mappend (foldMap f na) (f x)
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -168,6 +176,11 @@ instance Traversable (Three a b) where
 instance Traversable (Three' a) where
     traverse f (Three' a x x') =
         liftA2 (Three' a) (f x) (f x')
+
+
+instance Traversable n => Traversable (S n) where
+    traverse f (S na x)=
+        liftA2 S (traverse f na) (f x)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -314,4 +327,5 @@ main =
         -- quickBatch (traversable tt)
         -- quickBatch (functor tt')
         -- quickBatch (traversable tt')
-        quickBatch (functor ts)
+        -- quickBatch (functor ts)
+        quickBatch (traversable ts)
