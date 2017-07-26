@@ -99,6 +99,14 @@ instance Foldable List where
         mappend (f x) (foldMap f l)
 
 
+instance Foldable (Three a b) where
+    foldr f z (Three a b x) =
+        f x z
+
+    foldMap f (Three a b x) =
+        f x
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -121,6 +129,11 @@ instance Traversable List where
         pure Nil
     traverse f (Cons x l) =
         (fmap Cons (f x)) <*> (traverse f l)
+
+
+instance Traversable (Three a b) where
+    traverse f (Three a b x) =
+        fmap (Three a b) (f x)
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -232,4 +245,5 @@ main =
         -- quickBatch (traversable to)
         -- quickBatch (functor tl)
         -- quickBatch (traversable tl)
-        quickBatch (functor tt)
+        -- quickBatch (functor tt)
+        quickBatch (traversable tt)
