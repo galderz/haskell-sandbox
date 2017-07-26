@@ -87,6 +87,15 @@ instance Functor n => Functor (S n) where
         S (fmap f n) (f x)
 
 
+instance Functor Tree where
+    fmap _ Empty =
+        Empty
+    fmap f (Leaf x) =
+        Leaf (f x)
+    fmap f (Node t1 x t2) =
+        Node (fmap f t1) (f x) (fmap f t2)
+
+
 instance Foldable Identity where
     foldr f z (Identity x) =
         f x z
@@ -246,6 +255,23 @@ instance (Arbitrary a, Arbitrary (n a)) => Arbitrary (S n a) where
         liftA2 S arbitrary arbitrary
 
 
+instance Arbitrary a => Arbitrary (Tree a) where
+    arbitrary =
+        sized arbTree
+
+
+-- Not yet know what "<*>" does exactly, but it's neat :)
+arbTree :: Arbitrary a => Int -> Gen (Tree a)
+arbTree 0 =
+    return Empty
+arbTree n =
+    frequency [
+        (1, return Empty)
+        , (1, fmap Leaf arbitrary)
+        , (2, liftA3 Node (arbTree (n - 1)) arbitrary (arbTree (n -1)))
+    ]
+
+
 instance (Eq a) => EqProp (Identity a) where
     (=-=) =
         eq
@@ -281,6 +307,11 @@ instance (Eq a, Eq (n a)) => EqProp (S n a) where
         eq
 
 
+instance (Eq a) => EqProp (Tree a) where
+    (=-=) =
+        eq
+
+
 type TI =
     Identity
 
@@ -305,6 +336,10 @@ type TH' =
     Three'
 
 
+type TR =
+    Tree
+
+
 main :: IO ()
 main =
     do  let
@@ -322,6 +357,8 @@ main =
                 undefined :: TH' (Int, Int, [Int]) (Int, Int, [Int])
             ts =
                 undefined :: S [] (Int, Int, [Int])
+            tr =
+                undefined :: TR (Int, Int, [Int])
         -- quickBatch (functor ti)
         -- quickBatch (traversable ti)
         -- quickBatch (functor tc)
@@ -335,4 +372,5 @@ main =
         -- quickBatch (functor tt')
         -- quickBatch (traversable tt')
         -- quickBatch (functor ts)
-        quickBatch (traversable ts)
+        -- quickBatch (traversable ts)
+        quickBatch (functor tr)
