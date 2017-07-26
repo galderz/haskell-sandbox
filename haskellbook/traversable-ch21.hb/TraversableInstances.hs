@@ -36,6 +36,11 @@ data Three' a b =
     deriving (Eq, Ord, Show)
 
 
+data S n a =
+    S (n a) a
+    deriving (Eq, Ord, Show)
+
+
 instance Functor Identity where
     fmap f (Identity x) =
         Identity (f x)
@@ -68,6 +73,11 @@ instance Functor (Three a b) where
 instance Functor (Three' a) where
     fmap f (Three' a x x')=
         Three' a (f x) (f x')
+
+
+instance Functor n => Functor (S n) where
+    fmap f (S n x) =
+        S (fmap f n) (f x)
 
 
 instance Foldable Identity where
@@ -211,6 +221,11 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Three' a b) where
             return $ Three' x y y'
 
 
+instance (Arbitrary a, Arbitrary (n a)) => Arbitrary (S n a) where
+    arbitrary =
+        liftA2 S arbitrary arbitrary
+
+
 instance (Eq a) => EqProp (Identity a) where
     (=-=) =
         eq
@@ -237,6 +252,11 @@ instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
 
 
 instance (Eq a, Eq b) => EqProp (Three' a b) where
+    (=-=) =
+        eq
+
+
+instance (Eq a, Eq (n a)) => EqProp (S n a) where
     (=-=) =
         eq
 
@@ -280,6 +300,8 @@ main =
                 undefined :: TH (Int, Int, [Int]) (Int, Int, [Int]) (Int, Int, [Int])
             tt' =
                 undefined :: TH' (Int, Int, [Int]) (Int, Int, [Int])
+            ts =
+                undefined :: S [] (Int, Int, [Int])
         -- quickBatch (functor ti)
         -- quickBatch (traversable ti)
         -- quickBatch (functor tc)
@@ -291,4 +313,5 @@ main =
         -- quickBatch (functor tt)
         -- quickBatch (traversable tt)
         -- quickBatch (functor tt')
-        quickBatch (traversable tt')
+        -- quickBatch (traversable tt')
+        quickBatch (functor ts)
