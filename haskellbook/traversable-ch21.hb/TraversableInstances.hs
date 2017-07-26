@@ -1,3 +1,4 @@
+import Control.Applicative
 import Test.QuickCheck
 import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes
@@ -117,6 +118,14 @@ instance Foldable (Three a b) where
         f x
 
 
+instance Foldable (Three' a) where
+    foldr f z (Three' a x x')=
+        f x' (f x z)
+
+    foldMap f (Three' a x x') =
+        mappend (f x) (f x')
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -144,6 +153,11 @@ instance Traversable List where
 instance Traversable (Three a b) where
     traverse f (Three a b x) =
         fmap (Three a b) (f x)
+
+
+instance Traversable (Three' a) where
+    traverse f (Three' a x x') =
+        liftA2 (Three' a) (f x) (f x')
 
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
@@ -276,4 +290,5 @@ main =
         -- quickBatch (traversable tl)
         -- quickBatch (functor tt)
         -- quickBatch (traversable tt)
-        quickBatch (functor tt')
+        -- quickBatch (functor tt')
+        quickBatch (traversable tt')
