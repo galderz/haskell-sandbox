@@ -41,6 +41,13 @@ data S n a =
     deriving (Eq, Ord, Show)
 
 
+data Tree a =
+    Empty
+    | Leaf a
+    | Node (Tree a) a (Tree a)
+    deriving (Eq, Ord, Show)
+
+
 instance Functor Identity where
     fmap f (Identity x) =
         Identity (f x)
