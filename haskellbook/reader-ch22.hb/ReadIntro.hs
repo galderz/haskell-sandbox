@@ -42,4 +42,9 @@ main =
     do  print $ bip 5 -- 30
         print $ bloop 5 -- 30
         print $ bloop' 5 -- 30
+        --
         print $ bbop 5 -- 25
+        print $ ((+) <$> (*2) <*> (+10)) 5
+        -- it's just function composition
+        print $ ((+) . (*2)) 10 5
+        print $ ((+) <$> (*2)) 10 5
