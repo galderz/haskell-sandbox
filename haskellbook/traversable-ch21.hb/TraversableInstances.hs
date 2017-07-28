@@ -160,6 +160,18 @@ instance Foldable n => Foldable (S n) where
         mappend (foldMap f na) (f x)
 
 
+instance Foldable Tree where
+    foldr =
+        undefined
+
+    foldMap _ Empty =
+        mempty
+    foldMap f (Leaf x) =
+        f x
+    foldMap f (Node t1 x t2) =
+        mappend (mappend (foldMap f t1) (f x)) (foldMap f t2)
+
+
 instance Traversable Identity where
     traverse f (Identity x) =
         fmap Identity (f x)
@@ -198,6 +210,14 @@ instance Traversable n => Traversable (S n) where
     traverse f (S na x)=
         liftA2 S (traverse f na) (f x)
 
+
+instance Traversable Tree where
+    traverse _ Empty =
+        pure Empty
+    traverse f (Leaf x) =
+        fmap Leaf (f x)
+    traverse f (Node t1 x t2) =
+        liftA3 Node (traverse f t1) (f x) (traverse f t2)
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
     arbitrary =
@@ -373,4 +393,5 @@ main =
         -- quickBatch (traversable tt')
         -- quickBatch (functor ts)
         -- quickBatch (traversable ts)
-        quickBatch (functor tr)
+        -- quickBatch (functor tr)
+        quickBatch (traversable tr)
