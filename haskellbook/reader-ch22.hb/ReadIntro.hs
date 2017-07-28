@@ -46,5 +46,6 @@ main =
         print $ bbop 5 -- 25
         print $ ((+) <$> (*2) <*> (+10)) 5
         -- it's just function composition
-        print $ ((+) . (*2)) 10 5
         print $ ((+) <$> (*2)) 10 5
+        print $ ((+) . (*2)) 10 5
+        print $ (\x -> (+) (2 * x)) 10 5
