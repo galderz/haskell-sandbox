@@ -161,8 +161,12 @@ instance Foldable n => Foldable (S n) where
 
 
 instance Foldable Tree where
-    foldr =
-        undefined
+    foldr _ z Empty =
+        z
+    foldr f z (Leaf x) =
+        f x z
+    foldr f z (Node t1 x t2) =
+        foldr f (f x (foldr f z t1)) t2
 
     foldMap _ Empty =
         mempty
