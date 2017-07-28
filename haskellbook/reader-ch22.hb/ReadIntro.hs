@@ -37,6 +37,13 @@ duwop =
     liftA2 (+) boop doop
 
 
+boopDoop :: Integer -> Integer
+boopDoop =
+    do  a <- boop
+        b <- doop
+        return (a + b)
+
+
 main :: IO ()
 main =
     do  print $ bip 5 -- 30
@@ -49,3 +56,4 @@ main =
         print $ ((+) <$> (*2)) 10 5
         print $ ((+) . (*2)) 10 5
         print $ (\x -> (+) (2 * x)) 10 5
+        print $ boopDoop 5
