@@ -1,3 +1,4 @@
+import Control.Applicative
 import Data.Char
 
 
@@ -22,8 +23,9 @@ fmapped =
 
 
 tupled :: [Char] -> ([Char], [Char])
-tupled xs =
-    (cap xs, rev xs)
+tupled =
+    -- (cap xs, rev xs)
+    liftA2 ((,)) cap rev
 
 
 main :: IO ()
