@@ -13,7 +13,7 @@ rev =
 
 composed :: [Char] -> [Char]
 composed =
-    undefined
+    rev . cap
 
 
 fmapped :: [Char] -> [Char]
