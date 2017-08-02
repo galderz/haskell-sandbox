@@ -24,6 +24,11 @@ fmapped =
 
 tupled :: [Char] -> ([Char], [Char])
 tupled =
+    cap >>= (\x -> rev >>= (\y -> return (x, y)))
+
+
+tupledDo :: [Char] -> ([Char], [Char])
+tupledDo =
     do  x <- cap
         y <- rev
         return (x, y)
@@ -46,3 +51,4 @@ main =
         print $ tupled "Julie"
         print $ tupledBasic "Julie"
         print $ tupledLift "Julie"
+        print $ tupledDo "Julie"
