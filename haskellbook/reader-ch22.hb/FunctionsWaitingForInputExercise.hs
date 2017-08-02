@@ -25,7 +25,10 @@ fmapped =
 tupled :: [Char] -> ([Char], [Char])
 tupled =
     -- (cap xs, rev xs)
-    liftA2 ((,)) cap rev
+    -- liftA2 ((,)) cap rev
+    do  x <- cap
+        y <- rev
+        return (x, y)
 
 
 main :: IO ()
