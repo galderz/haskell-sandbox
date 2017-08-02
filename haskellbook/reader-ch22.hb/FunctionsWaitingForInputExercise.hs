@@ -18,9 +18,10 @@ composed =
 
 fmapped :: [Char] -> [Char]
 fmapped =
-    undefined
+    fmap rev cap
 
 
 main :: IO ()
 main =
     do  print $ composed "Julie"
+        print $ fmapped "Chris"
