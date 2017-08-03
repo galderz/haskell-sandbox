@@ -1,3 +1,6 @@
+import Control.Applicative (liftA2)
+
+
 newtype HumanName =
     HumanName String
     deriving (Eq, Show)
@@ -56,3 +59,8 @@ getDog p =
 getDogR :: Person -> Dog
 getDogR =
     Dog <$> dogName <*> address
+
+
+getDogR' :: Person -> Dog
+getDogR' =
+    liftA2 Dog dogName address
