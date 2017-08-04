@@ -22,6 +22,7 @@ instance Functor (Reader r) where
     fmap f (Reader r) =
         Reader (f . r)
 
+-- TODO: Use Arbitrary and quickBatch
 
 instance Applicative (Reader r) where
     pure :: a -> Reader r a
