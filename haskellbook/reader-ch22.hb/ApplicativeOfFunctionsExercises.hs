@@ -18,6 +18,11 @@ asks f =
     Reader f
 
 
+instance Functor (Reader r) where
+    fmap f (Reader r) =
+        Reader (f . r)
+
+
 instance Applicative (Reader r) where
     pure :: a -> Reader r a
     pure a =
