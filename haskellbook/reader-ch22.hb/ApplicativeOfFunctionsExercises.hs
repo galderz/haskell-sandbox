@@ -1,6 +1,12 @@
 -- you'll need this pragma
 {-# LANGUAGE InstanceSigs #-}
 
+module ApplicativeOfFunctionsExercise where
+
+-- import Test.QuickCheck
+-- import Test.QuickCheck.Checkers
+-- import Test.QuickCheck.Classes
+
 
 myLiftA2 :: Applicative f =>
     (a -> b -> c)
@@ -11,6 +17,7 @@ myLiftA2 f fa fb =
 
 newtype Reader r a =
     Reader { runReader :: r -> a }
+    -- deriving (Eq, Ord, Show)
 
 
 asks :: (r -> a) -> Reader r a
@@ -22,7 +29,6 @@ instance Functor (Reader r) where
     fmap f (Reader r) =
         Reader (f . r)
 
--- TODO: Use Arbitrary and quickBatch
 
 instance Applicative (Reader r) where
     pure :: a -> Reader r a
@@ -33,3 +39,14 @@ instance Applicative (Reader r) where
     (<*>) (Reader rab) (Reader ra) =
         undefined
         -- Reader $ \r -> ???
+
+
+-- type TR =
+--     Reader
+
+
+-- main :: IO ()
+-- main =
+--     do  let
+--             tr = undefined :: TR (Int, Int, [Int]) (Int, Int,)
+--         quickBatch (functor tr)
