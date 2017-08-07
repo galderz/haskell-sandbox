@@ -64,3 +64,11 @@ getDogR =
 getDogR' :: Person -> Dog
 getDogR' =
     liftA2 Dog dogName address
+
+
+-- with Reader Monad
+getDogRM :: Person -> Dog
+getDogRM =
+    do  name <- dogName
+        addy <- address
+        return $ Dog name addy
