@@ -36,9 +36,8 @@ instance Applicative (Reader r) where
         Reader $ (\r -> a)
 
     (<*>) :: Reader r (a -> b) -> Reader r a -> Reader r b
-    (<*>) (Reader rab) (Reader ra) =
-        undefined
-        -- Reader $ \r -> ???
+    (<*>) (Reader f) (Reader ra) =
+        Reader $ \r -> (f r) (ra r)
 
 
 -- type TR =
