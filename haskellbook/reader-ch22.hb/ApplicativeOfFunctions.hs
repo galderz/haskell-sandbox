@@ -1,4 +1,8 @@
+-- you'll need this pragma
+{-# LANGUAGE InstanceSigs #-}
+
 import Control.Applicative (liftA2)
+import Control.Monad (liftM2)
 
 
 newtype HumanName =
@@ -72,3 +76,36 @@ getDogRM =
     do  name <- dogName
         addy <- address
         return $ Dog name addy
+
+
+newtype Reader r a =
+    Reader { runReader :: r -> a }
+
+
+instance Functor (Reader r) where
+    fmap f (Reader r) =
+        Reader (f . r)
+
+
+instance Applicative (Reader r) where
+    pure :: a -> Reader r a
+    pure a =
+        Reader $ (\r -> a)
+
+    (<*>) :: Reader r (a -> b) -> Reader r a -> Reader r b
+    (<*>) (Reader f) (Reader ra) =
+        Reader $ \r -> (f r) (ra r)
+
+
+instance Monad (Reader r) where
+    return =
+        pure
+
+    (>>=) :: Reader r a -> (a -> Reader r b) -> Reader r b
+    (>>=) (Reader ra) aRb =
+        Reader $ \r -> runReader (aRb (ra r)) r
+
+
+getDogRM' :: Reader Person Dog
+getDogRM' =
+    Reader (liftM2 Dog dogName address)
