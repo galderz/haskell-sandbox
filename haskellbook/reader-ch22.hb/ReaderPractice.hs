@@ -46,7 +46,7 @@ zs =
 -- now zip x and z using a variable lookup key
 z' :: Integer -> Maybe Integer
 z' n =
-    undefined
+    lookup n $ zip x z
 
 
 main :: IO ()
@@ -54,3 +54,5 @@ main =
     do  print $ xs
         print $ ys
         print $ zs
+        print $ z' 2
+        print $ z' 5
