@@ -119,3 +119,8 @@ getDogRM'' =
             addy <- address
             return $ Dog name addy
     )
+
+
+getDogRM''' :: Reader Person Dog
+getDogRM''' =
+    Reader $ dogName >>= (\name -> address >>= (\addy -> return $ Dog name addy))
