@@ -32,7 +32,7 @@ xs =
 -- zip y and z using 6 as the lookup key
 ys :: Maybe Integer
 ys =
-    undefined
+    lookup 6 $ zip y z
 
 
 -- it's also nice to have one tha
@@ -52,3 +52,4 @@ z' n =
 main :: IO ()
 main =
     do  print $ xs
+        print $ ys
