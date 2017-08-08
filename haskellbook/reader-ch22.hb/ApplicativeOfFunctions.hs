@@ -109,3 +109,13 @@ instance Monad (Reader r) where
 getDogRM' :: Reader Person Dog
 getDogRM' =
     Reader (liftM2 Dog dogName address)
+
+
+getDogRM'' :: Reader Person Dog
+getDogRM'' =
+    Reader
+    (
+        do  name <- dogName
+            addy <- address
+            return $ Dog name addy
+    )
