@@ -66,6 +66,11 @@ x3 n =
     (z' n, z' n)
 
 
+summed :: Num c => (c, c) -> c
+summed =
+    uncurry (+)
+
+
 main :: IO ()
 main =
     do  print $ xs
@@ -76,3 +81,5 @@ main =
         print $ x1
         print $ x2
         print $ x3 3
+        print $ summed (0, 0)
+        print $ summed (1, 2)
