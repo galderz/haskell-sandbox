@@ -61,6 +61,11 @@ x2 =
     liftA2 (,) ys zs
 
 
+x3 :: Integer -> (Maybe Integer, Maybe Integer)
+x3 n =
+    (z' n, z' n)
+
+
 main :: IO ()
 main =
     do  print $ xs
@@ -70,3 +75,4 @@ main =
         print $ z' 5
         print $ x1
         print $ x2
+        print $ x3 3
