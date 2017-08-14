@@ -71,6 +71,11 @@ summed =
     uncurry (+)
 
 
+bolt :: Integer -> Bool
+bolt =
+    liftA2 (&&) (>3) (<8)
+
+
 main :: IO ()
 main =
     do  print $ xs
@@ -83,3 +88,6 @@ main =
         print $ x3 3
         print $ summed (0, 0)
         print $ summed (1, 2)
+        print $ bolt 7
+        print $ bolt 2
+        print $ bolt 8
