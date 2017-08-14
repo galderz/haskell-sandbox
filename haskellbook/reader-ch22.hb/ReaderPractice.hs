@@ -52,6 +52,8 @@ z' n =
 x1 :: Maybe (Integer, Integer)
 x1 =
     liftA2 (,) xs ys
+    -- (fmap (,) xs) <*> ys
+    -- (,) <$> xs <*> ys
 
 
 main :: IO ()
