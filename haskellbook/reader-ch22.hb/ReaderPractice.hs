@@ -56,6 +56,11 @@ x1 =
     -- (,) <$> xs <*> ys
 
 
+x2 :: Maybe (Integer, Integer)
+x2 =
+    liftA2 (,) ys zs
+
+
 main :: IO ()
 main =
     do  print $ xs
@@ -64,3 +69,4 @@ main =
         print $ z' 2
         print $ z' 5
         print $ x1
+        print $ x2
