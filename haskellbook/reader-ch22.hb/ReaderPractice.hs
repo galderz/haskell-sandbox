@@ -49,6 +49,11 @@ z' n =
     lookup n $ zip x z
 
 
+x1 :: Maybe (Integer, Integer)
+x1 =
+    liftA2 (,) xs ys
+
+
 main :: IO ()
 main =
     do  print $ xs
@@ -56,3 +61,4 @@ main =
         print $ zs
         print $ z' 2
         print $ z' 5
+        print $ x1
