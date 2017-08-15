@@ -76,6 +76,15 @@ bolt =
     liftA2 (&&) (>3) (<8)
 
 
+sequA :: Integral a => a -> [Bool]
+sequA m =
+    sequenceA [(>3), (<8), even] m
+
+
+s' =
+    summed <$> ((,) <$> xs <*> ys)
+
+
 main :: IO ()
 main =
     do  print $ xs
