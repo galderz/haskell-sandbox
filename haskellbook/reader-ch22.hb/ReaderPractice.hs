@@ -91,3 +91,5 @@ main =
         print $ bolt 7
         print $ bolt 2
         print $ bolt 8
+        print $ fromMaybe 0 xs
+        print $ fromMaybe 0 zs
