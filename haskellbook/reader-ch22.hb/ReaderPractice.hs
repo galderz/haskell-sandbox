@@ -113,3 +113,5 @@ main =
         -- -- f ~ (->) a, and t ~ []
         -- so, you end up calling f (t a) with 7
         print $ sequenceA [(>3), (<8), even] 7
+        print $ foldr (&&) True (sequA 7)
+        print $ foldr (&&) True (sequA 6)
