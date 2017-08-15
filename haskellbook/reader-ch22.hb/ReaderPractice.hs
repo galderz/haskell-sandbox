@@ -100,4 +100,7 @@ main =
         print $ fmap summed ((,) <$> xs <*> zs)
         print $ bolt 7
         print $ fmap bolt z
+        -- sequenceA :: (Applicative f, Traversable t) => t (f a) -> f (t a)
+        -- -- f ~ (->) a, and t ~ []
+        -- so, you end up calling f (t a) with 7
         print $ sequenceA [(>3), (<8), even] 7
