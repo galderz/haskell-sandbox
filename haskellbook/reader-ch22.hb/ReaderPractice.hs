@@ -93,3 +93,10 @@ main =
         print $ bolt 8
         print $ fromMaybe 0 xs
         print $ fromMaybe 0 zs
+        print $ sequenceA [Just 3, Just 2, Just 1]
+        print $ sequenceA [x, y]
+        print $ sequenceA [xs, ys]
+        print $ summed <$> ((,) <$> xs <*> ys)
+        print $ fmap summed ((,) <$> xs <*> zs)
+        print $ bolt 7
+        print $ fmap bolt z
