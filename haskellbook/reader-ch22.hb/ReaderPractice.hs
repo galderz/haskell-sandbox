@@ -1,17 +1,21 @@
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 module ReaderPractice where
 
 import Control.Applicative
 import Data.Maybe
 
 
+x :: [Integer]
 x =
     [1, 2, 3]
 
 
+y :: [Integer]
 y =
     [4, 5, 6]
 
 
+z :: [Integer]
 z =
     [7, 8, 9]
 
@@ -81,6 +85,7 @@ sequA m =
     sequenceA [(>3), (<8), even] m
 
 
+s' :: Maybe Integer
 s' =
     summed <$> ((,) <$> xs <*> ys)
 
@@ -115,3 +120,4 @@ main =
         print $ sequenceA [(>3), (<8), even] 7
         print $ foldr (&&) True (sequA 7)
         print $ foldr (&&) True (sequA 6)
+        print $ sequA (fromMaybe 0 s')
