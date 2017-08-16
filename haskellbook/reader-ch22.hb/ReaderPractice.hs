@@ -121,3 +121,4 @@ main =
         print $ foldr (&&) True (sequA 7)
         print $ foldr (&&) True (sequA 6)
         print $ sequA (fromMaybe 0 s')
+        print $ bolt (fromMaybe 0 ys)
