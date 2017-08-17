@@ -3,11 +3,9 @@ module Module where
 import System.Random
 
 
-mkStdGen :: Int -> StdGen
-mkStdGen =
-    undefined
-
-
 main :: IO ()
 main =
-    undefined
+    do  print $ mkStdGen 0
+        let sg = mkStdGen 0
+        print $ next sg
+        print $ next sg
