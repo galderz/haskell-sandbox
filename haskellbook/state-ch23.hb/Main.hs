@@ -12,3 +12,5 @@ main =
         print $ snd (next sg)
         let newSg = snd (next sg)
         print $ next newSg
+        print $ (random newSg :: (Int, StdGen))
+        print $ (random newSg :: (Double, StdGen))
