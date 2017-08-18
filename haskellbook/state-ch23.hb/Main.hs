@@ -16,3 +16,6 @@ main =
         print $ (random newSg :: (Double, StdGen))
         print $ (randomR (0, 3) newSg :: (Int, StdGen))
         print $ (randomR (0, 3) newSg :: (Double, StdGen))
+        let rx :: (Int, StdGen); rx = random newSg
+        print $ rx
+        print $ snd rx
