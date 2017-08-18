@@ -14,3 +14,5 @@ main =
         print $ next newSg
         print $ (random newSg :: (Int, StdGen))
         print $ (random newSg :: (Double, StdGen))
+        print $ (randomR (0, 3) newSg :: (Int, StdGen))
+        print $ (randomR (0, 3) newSg :: (Double, StdGen))
