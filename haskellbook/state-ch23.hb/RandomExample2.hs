@@ -58,3 +58,10 @@ rollDieThreeTimes' =
 infiniteDie :: State StdGen [Die]
 infiniteDie =
     repeat <$> rollDie
+
+
+-- Example of usage:
+-- evalState (nDie 5) (mkStdGen 0)
+nDie :: Int -> State StdGen [Die]
+nDie n =
+    replicateM n rollDie
