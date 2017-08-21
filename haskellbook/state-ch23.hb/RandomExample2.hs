@@ -49,3 +49,12 @@ rollDie' =
 rollDieThreeTimes' :: State StdGen (Die, Die, Die)
 rollDieThreeTimes' =
   liftA3 (,,) rollDie rollDie rollDie
+
+
+-- Example of usage:
+-- take 6 $ evalState infiniteDie (mkStdGen 0)
+-- ^ Not correct since all values printed out are same
+-- since it's using same seed in every call.
+infiniteDie :: State StdGen [Die]
+infiniteDie =
+    repeat <$> rollDie
