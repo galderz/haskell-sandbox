@@ -68,6 +68,8 @@ nDie n =
 
 
 
+-- Example of usage:
+-- rollsToGetTwenty (mkStdGen 0)
 rollsToGetTwenty :: StdGen -> Int
 rollsToGetTwenty g =
     go 0 0 g
