@@ -42,3 +42,10 @@ rollDie =
 rollDie' :: State StdGen Die
 rollDie' =
     intToDie <$> state (randomR (1, 6))
+
+
+-- Example of usage:
+-- evalState rollDieThreeTimes' (mkStdGen 0)
+rollDieThreeTimes' :: State StdGen (Die, Die, Die)
+rollDieThreeTimes' =
+  liftA3 (,,) rollDie rollDie rollDie
