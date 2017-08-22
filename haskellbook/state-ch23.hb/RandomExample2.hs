@@ -69,7 +69,13 @@ nDie n =
 
 
 -- Example of usage:
+--
 -- rollsToGetTwenty (mkStdGen 0)
+--
+-- Another way to use taking advantage of randomIO
+-- which generates a new value each time:
+--
+-- (rollsToGetTwenty . mkStdGen) <$> randomIO
 rollsToGetTwenty :: StdGen -> Int
 rollsToGetTwenty g =
     go 0 0 g
