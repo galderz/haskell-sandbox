@@ -9,7 +9,7 @@ newtype Moi s a =
 instance Functor (Moi s) where
     fmap :: (a -> b) -> Moi s a -> Moi s b
     fmap f (Moi g) =
-        undefined
+        Moi $ \s -> (f (fst (g s)), s)
 
 
 main :: IO ()
