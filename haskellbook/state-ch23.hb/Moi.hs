@@ -18,6 +18,16 @@ instance Functor (Moi s) where
         -- Moi $ \s -> (f (fst (g s)), s)
 
 
+instance Applicative (Moi s) where
+    pure :: a -> Moi s a
+    pure a =
+        undefined
+
+    (<*>) :: Moi s (a -> b) -> Moi s a -> Moi s b
+    (Moi f) <*> (Moi g) =
+        undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
