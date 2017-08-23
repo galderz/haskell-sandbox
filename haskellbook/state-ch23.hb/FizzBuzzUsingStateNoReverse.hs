@@ -17,14 +17,9 @@ fizzBuzz n
 
 
 
-fizzbuzzList :: [Integer] -> [String]
+fizzbuzzList :: [Integer] -> DL.DList String
 fizzbuzzList list =
-    let
-        dlist =
-            execState (mapM_ addResult list) DL.empty
-    -- convert back to normal list
-    in
-        DL.apply dlist []
+    execState (mapM_ addResult list) DL.empty
 
 
 addResult :: Integer -> State (DL.DList String) ()
