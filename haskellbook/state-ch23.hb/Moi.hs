@@ -35,6 +35,15 @@ instance Applicative (Moi s) where
                       (f' a, s'')
 
 
+instance Monad (Moi s) where
+    return =
+        pure
+
+    (>>=) :: Moi s a -> (a -> Moi s b) -> Moi s b
+    (Moi f) >>= g =
+        undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
