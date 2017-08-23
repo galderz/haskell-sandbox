@@ -25,7 +25,14 @@ instance Applicative (Moi s) where
 
     (<*>) :: Moi s (a -> b) -> Moi s a -> Moi s b
     (Moi f) <*> (Moi g) =
-        undefined
+        Moi $ \s ->
+                  let
+                      (f', s') =
+                          f s
+                      (a, s'') =
+                          g s'
+                  in
+                      (f' a, s'')
 
 
 main :: IO ()
