@@ -41,7 +41,14 @@ instance Monad (Moi s) where
 
     (>>=) :: Moi s a -> (a -> Moi s b) -> Moi s b
     (Moi f) >>= g =
-        undefined
+        Moi $ \s ->
+                  let
+                      (a, s') =
+                          f s
+                      m =
+                          g a
+                  in
+                      runMoi m s'
 
 
 main :: IO ()
