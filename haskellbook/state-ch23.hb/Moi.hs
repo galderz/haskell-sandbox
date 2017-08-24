@@ -61,8 +61,15 @@ put s =
     Moi $ \_ -> ((), s)
 
 
+exec :: Moi s a -> s -> s
+exec =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
         print $ ("curryIsAmaze", "curryIsAmaze") == runMoi get "curryIsAmaze"
         print $ ((), "blah") == runMoi (put "blah") "woot"
+        print $ "wilma" == exec (put "wilma") "daphne"
+        print $ "scooby papu" == exec get "scooby papu"
