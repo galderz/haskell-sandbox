@@ -53,10 +53,10 @@ instance Monad (Moi s) where
 
 get :: Moi s s
 get =
-    undefined
+    Moi $ \s -> (s, s)
 
 
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
-        print $ runMoi get "curryIsAmaze"
+        print $ ("curryIsAmaze", "curryIsAmaze") == runMoi get "curryIsAmaze"
