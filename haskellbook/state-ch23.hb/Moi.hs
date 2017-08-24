@@ -57,8 +57,8 @@ get =
 
 
 put :: s -> Moi s ()
-put =
-    undefined
+put s =
+    Moi $ \_ -> ((), s)
 
 
 main :: IO ()
