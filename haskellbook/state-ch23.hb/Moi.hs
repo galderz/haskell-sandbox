@@ -56,7 +56,13 @@ get =
     Moi $ \s -> (s, s)
 
 
+put :: s -> Moi s ()
+put =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
         print $ ("curryIsAmaze", "curryIsAmaze") == runMoi get "curryIsAmaze"
+        print $ ((), "blah") == runMoi (put "blah") "woot"
