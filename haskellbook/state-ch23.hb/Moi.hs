@@ -51,6 +51,12 @@ instance Monad (Moi s) where
                       runMoi m s'
 
 
+get :: Moi s s
+get =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
+        print $ runMoi get "curryIsAmaze"
