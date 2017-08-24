@@ -35,7 +35,8 @@ fizzbuzzFromTo from to =
 
 enumBackwards :: Integer -> Integer -> [Integer]
 enumBackwards from to =
-    foldr (\x z -> ((to + 1) - x) : z) [] [from..to]
+    enumFromThenTo to (to -1) from
+    -- foldr (\x z -> ((to + 1) - x) : z) [] [from..to]
 
 
 main :: IO ()
