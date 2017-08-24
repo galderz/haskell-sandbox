@@ -62,8 +62,8 @@ put s =
 
 
 exec :: Moi s a -> s -> s
-exec =
-    undefined
+exec (Moi sa) s =
+    snd $ sa s
 
 
 main :: IO ()
