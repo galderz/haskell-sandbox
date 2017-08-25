@@ -67,8 +67,8 @@ exec (Moi sa) s =
 
 
 eval :: Moi s a -> s -> a
-eval (Moi sa) =
-    undefined
+eval (Moi sa) s =
+    fst $ sa s
 
 
 main :: IO ()
