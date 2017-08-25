@@ -71,6 +71,11 @@ eval (Moi sa) s =
     fst $ sa s
 
 
+modify :: (s -> s) -> Moi s ()
+modify =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
@@ -80,3 +85,5 @@ main =
         print $ "scooby papu" == exec get "scooby papu"
         print $ "bunnicula" == eval get "bunnicula"
         print $ "stake a bunny" == eval get "stake a bunny"
+        print $ ((), 1) == runMoi (modify (+1)) 0
+        print $ ((), 2) == runMoi (modify (+1) >> modify (+1)) 0
