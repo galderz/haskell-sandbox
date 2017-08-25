@@ -72,8 +72,8 @@ eval (Moi sa) s =
 
 
 modify :: (s -> s) -> Moi s ()
-modify =
-    undefined
+modify f =
+    Moi $ \s -> ((), f s)
 
 
 main :: IO ()
