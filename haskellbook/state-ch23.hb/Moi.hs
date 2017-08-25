@@ -66,6 +66,11 @@ exec (Moi sa) s =
     snd $ sa s
 
 
+eval :: Moi s a -> s -> a
+eval (Moi sa) =
+    undefined
+
+
 main :: IO ()
 main =
     do  print $ (1, 0) == runMoi ((+1) <$> (Moi $ \s -> (0, s))) 0
@@ -73,3 +78,5 @@ main =
         print $ ((), "blah") == runMoi (put "blah") "woot"
         print $ "wilma" == exec (put "wilma") "daphne"
         print $ "scooby papu" == exec get "scooby papu"
+        print $ "bunnicula" == eval get "bunnicula"
+        print $ "stake a bunny" == eval get "stake a bunny"
