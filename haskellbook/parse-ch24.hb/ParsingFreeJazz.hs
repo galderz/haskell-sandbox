@@ -9,3 +9,5 @@ main =
         print $ parseString gimmeA mempty "b"
         print $ parseString (char 'b') mempty "b"
         print $ parseString (char 'b' >> char 'c') mempty "b"
+        print $ parseString (char 'b' >> char 'c') mempty "bc"
+        print $ parseString (char 'b' >> char 'c') mempty "abc"
