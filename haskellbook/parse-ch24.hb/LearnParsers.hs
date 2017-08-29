@@ -43,13 +43,18 @@ testParse p str =
     print $ parseString p mempty str
 
 
-oneTwoEof :: Parser b
+oneTwoEof :: Parser ()
 oneTwoEof =
-    oneTwo >> eof >> stop
+    oneTwo >> eof
 
 
 pNL s =
     putStrLn ('\n' : s)
+
+
+singleParser :: String -> Parser String
+singleParser s =
+    string s
 
 
 main :: IO ()
@@ -65,6 +70,12 @@ main =
         pNL "oneTwo':"
         testParse oneTwo' "123"
         pNL "oneTwoEof:"
-        testParse oneTwoEof "123"
+        print $ parseString oneTwoEof mempty "123"
         pNL "12<eof>:"
-        testParse oneTwoEof "12"
+        print $ parseString oneTwoEof mempty "12"
+        pNL "1:"
+        print $ parseString (singleParser "1") mempty "123"
+        pNL "12:"
+        print $ parseString (singleParser "12") mempty "123"
+        pNL "123:"
+        print $ parseString (singleParser "123") mempty "123"
