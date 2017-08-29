@@ -38,9 +38,14 @@ oneTwo' =
     oneTwo >> stop
 
 
-testParse :: Parser Char -> IO ()
-testParse p =
-    print $ parseString p mempty "123"
+testParse :: Parser Char -> String -> IO ()
+testParse p str =
+    print $ parseString p mempty str
+
+
+oneTwoEof :: Parser b
+oneTwoEof =
+    oneTwo >> eof >> stop
 
 
 pNL s =
@@ -50,12 +55,16 @@ pNL s =
 main :: IO ()
 main =
     do  pNL "stop:"
-        testParse stop
+        testParse stop "123"
         pNL "one:"
-        testParse one
+        testParse one "123"
         pNL "one':"
-        testParse one'
+        testParse one' "123"
         pNL "oneTwo:"
-        testParse oneTwo
+        testParse oneTwo "123"
         pNL "oneTwo':"
-        testParse oneTwo'
+        testParse oneTwo' "123"
+        pNL "oneTwoEof:"
+        testParse oneTwoEof "123"
+        pNL "12<eof>:"
+        testParse oneTwoEof "12"
