@@ -57,6 +57,22 @@ singleParser s =
     string s
 
 
+stringParserWithChar :: String -> Parser Char
+stringParserWithChar (y:ys) =
+    foldr (\x z -> z >> char x) (char y) ys
+
+
+stringParserWithChar' :: String -> Parser String
+stringParserWithChar' s =
+    -- foldr ((>>) . char) mempty s
+    -- foldr (\x z -> (char x) >> z) (string "") s
+    --
+    -- traverse :: Applicative f =>
+    -- (a -> f b)            -> t a      -> f      (t b)
+    -- (char -> Parser Char) -> [String] -> Parser [String]
+    traverse char s
+
+
 main :: IO ()
 main =
     do  pNL "stop:"
@@ -79,3 +95,15 @@ main =
         print $ parseString (singleParser "12") mempty "123"
         pNL "123:"
         print $ parseString (singleParser "123") mempty "123"
+        pNL "1<char>:"
+        print $ parseString (stringParserWithChar "1") mempty "123"
+        pNL "12<char>:"
+        print $ parseString (stringParserWithChar "12") mempty "123"
+        pNL "123<char>:"
+        print $ parseString (stringParserWithChar "123") mempty "123"
+        pNL "1<char>:"
+        print $ parseString (stringParserWithChar' "1") mempty "123"
+        pNL "12<char>:"
+        print $ parseString (stringParserWithChar' "12") mempty "123"
+        pNL "123<char>:"
+        print $ parseString (stringParserWithChar' "123") mempty "123"
