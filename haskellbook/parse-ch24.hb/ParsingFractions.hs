@@ -31,6 +31,16 @@ parseFraction =
         return (numerator % denominator)
 
 
+virtuousFraction :: Parser Rational
+virtuousFraction =
+    do  numerator <- decimal
+        char '/'
+        denominator <- decimal
+        case denominator of
+            0 -> fail "Denominator cannot be zero"
+            _ -> return (numerator % denominator)
+
+
 main :: IO ()
 main =
     do  let parseFraction' =
@@ -39,3 +49,13 @@ main =
         print $ parseFraction' shouldAlsoWork
         print $ parseFraction' alsoBad
         print $ parseFraction' badFraction
+
+
+testVirtuous :: IO ()
+testVirtuous =
+    do  let virtuousFraction' =
+                parseString virtuousFraction mempty
+        print $ virtuousFraction' badFraction
+        print $ virtuousFraction' alsoBad
+        print $ virtuousFraction' shouldWork
+        print $ virtuousFraction' shouldAlsoWork
