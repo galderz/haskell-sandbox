@@ -1,3 +1,4 @@
+import qualified Data.ByteString.Char8 as C
 import Text.Trifecta
 
 
@@ -19,3 +20,5 @@ main =
         print $ (parseString (char 'a' >> stop) mempty "abcdef" :: Result String)
         print $ parseString (string "abc") mempty "abcdef"
         print $ (parseString (string "abc" >> stop) mempty "abcdef" :: Result String)
+        print $ parseByteString (char 'a') mempty (C.singleton 'a')
+        print $ parseByteString (char 'a') mempty (C.pack "a")

@@ -16,5 +16,6 @@ library
                      , checkers
                      , trifecta
                      , transformers
+                     , bytestring
   hs-source-dirs:      .
   default-language:    Haskell2010
