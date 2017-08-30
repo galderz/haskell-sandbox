@@ -11,3 +11,6 @@ main =
         print $ parseString (char 'b' >> char 'c') mempty "b"
         print $ parseString (char 'b' >> char 'c') mempty "bc"
         print $ parseString (char 'b' >> char 'c') mempty "abc"
+        print $ parseString (string "abc") mempty "abc"
+        print $ parseString (string "abc") mempty "bc"
+        print $ parseString (string "abc") mempty "ab"
