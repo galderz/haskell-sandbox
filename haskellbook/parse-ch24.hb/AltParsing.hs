@@ -31,3 +31,6 @@ main =
     do  let p f i =
                 parseString f mempty i
         print $ p (some letter) a
+        print $ p integer b
+        print $ p parseNos a
+        print $ p parseNos b
