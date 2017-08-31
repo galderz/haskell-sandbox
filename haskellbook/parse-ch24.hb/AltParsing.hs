@@ -24,3 +24,10 @@ parseNos :: Parser NumberOrString
 parseNos =
     (Left <$> integer)
     <|> (Right <$> some letter)
+
+
+main :: IO ()
+main =
+    do  let p f i =
+                parseString f mempty i
+        print $ p (some letter) a
