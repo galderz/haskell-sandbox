@@ -7,3 +7,4 @@ main =
         print $ parseString (integer >> eof) mempty "123abc"
         print $ parseString (integer >> eof) mempty "123"
         print $ parseString (integer >>= (\x -> eof >> pure x)) mempty "123"
+        print $ parseString (integer >>= (\x -> eof >> pure x)) mempty "123abc"
