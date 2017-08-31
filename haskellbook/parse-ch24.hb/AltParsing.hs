@@ -34,3 +34,4 @@ main =
         print $ p integer b
         print $ p parseNos a
         print $ p parseNos b
+        print $ p (many parseNos) c
