@@ -34,4 +34,7 @@ main =
         print $ p integer b
         print $ p parseNos a
         print $ p parseNos b
+        -- many: zero or more
         print $ p (many parseNos) c
+        -- some: one or more
+        print $ p (some parseNos) c
