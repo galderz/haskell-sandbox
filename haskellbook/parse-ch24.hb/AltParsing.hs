@@ -38,3 +38,5 @@ main =
         print $ p (many parseNos) c
         -- some: one or more
         print $ p (some parseNos) c
+        print $ parseString (some integer) mempty "123"
+        print $ parseString (some integer) mempty ""
