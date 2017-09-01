@@ -25,10 +25,12 @@ c =
 
 parseNos :: Parser NumberOrString
 parseNos =
-    skipMany (oneOf "\n")
-    >>
-    (Left <$> integer)
-    <|> (Right <$> some letter)
+    do
+        skipMany (oneOf "\n")
+        v <- (Left <$> integer)
+            <|> (Right <$> some letter)
+        skipMany (oneOf "\n")
+        return v
 
 
 eitherOr :: String
@@ -36,7 +38,8 @@ eitherOr = [r|
 123
 abc
 456
-def|]
+def
+|]
 
 
 main :: IO ()
