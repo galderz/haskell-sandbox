@@ -36,8 +36,7 @@ eitherOr = [r|
 123
 abc
 456
-def
-|]
+def|]
 
 
 main :: IO ()
@@ -57,3 +56,4 @@ main =
         print $ parseString (many integer) mempty "123"
         print $ parseString (many integer) mempty ""
         print $ p parseNos eitherOr
+        print $ p (some parseNos) eitherOr
