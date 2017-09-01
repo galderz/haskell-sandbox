@@ -1,6 +1,9 @@
+{-# LANGUAGE QuasiQuotes #-}
+
 module AltParsing where
 
 import Control.Applicative
+import Text.RawString.QQ
 import Text.Trifecta
 
 
@@ -24,6 +27,16 @@ parseNos :: Parser NumberOrString
 parseNos =
     (Left <$> integer)
     <|> (Right <$> some letter)
+
+
+eitherOr :: String
+eitherOr =
+    [r|
+     123
+     abc
+     456
+     def
+    |]
 
 
 main :: IO ()
