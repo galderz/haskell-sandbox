@@ -30,13 +30,11 @@ parseNos =
 
 
 eitherOr :: String
-eitherOr =
-    [r|
-     123
-     abc
-     456
-     def
-    |]
+eitherOr = [r|123
+abc
+456
+def
+|]
 
 
 main :: IO ()
