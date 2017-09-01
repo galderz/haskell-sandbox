@@ -33,6 +33,14 @@ parseNos =
         return v
 
 
+parseNos' :: Parser NumberOrString
+parseNos' =
+    skipMany (oneOf "\n")
+    >>
+    (Left <$> integer)
+    <|> (Right <$> some letter)
+
+
 eitherOr :: String
 eitherOr = [r|
 123
@@ -60,3 +68,5 @@ main =
         print $ parseString (many integer) mempty ""
         print $ p parseNos eitherOr
         print $ p (some parseNos) eitherOr
+        -- tokenize to get rid of \n at the end
+        print $ p (some (token parseNos')) eitherOr
