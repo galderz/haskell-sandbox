@@ -25,12 +25,15 @@ c =
 
 parseNos :: Parser NumberOrString
 parseNos =
+    skipMany (oneOf "\n")
+    >>
     (Left <$> integer)
     <|> (Right <$> some letter)
 
 
 eitherOr :: String
-eitherOr = [r|123
+eitherOr = [r|
+123
 abc
 456
 def
