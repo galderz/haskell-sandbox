@@ -55,3 +55,4 @@ main =
         print $ parseString (some integer) mempty ""
         print $ parseString (many integer) mempty "123"
         print $ parseString (many integer) mempty ""
+        print $ p parseNos eitherOr
