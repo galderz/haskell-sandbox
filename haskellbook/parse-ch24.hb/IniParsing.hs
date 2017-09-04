@@ -38,3 +38,37 @@ parseBracketPair p =
 parseHeader :: Parser Header
 parseHeader =
     parseBracketPair (Header <$> some letter)
+
+
+assignmentEx :: ByteString
+assignmentEx =
+    "woot=1"
+
+
+type Name =
+    String
+
+
+type Value =
+    String
+
+
+type Assignments =
+    Map Name Value
+
+
+parseAssignment :: Parser (Name, Value)
+parseAssignment =
+    do
+        name <- some letter
+        _ <- char '='
+        val <- some (noneOf "\n")
+        skipEOL -- important!
+        return (name, val)
+
+
+-- | Skip end of line and
+--   whitespace beyond.
+skipEOL :: Parser ()
+skipEOL =
+    skipMany (oneOf "\n")
