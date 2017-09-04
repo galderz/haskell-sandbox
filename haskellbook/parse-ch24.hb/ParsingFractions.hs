@@ -59,3 +59,26 @@ testVirtuous =
         print $ virtuousFraction' alsoBad
         print $ virtuousFraction' shouldWork
         print $ virtuousFraction' shouldAlsoWork
+
+
+type FractionOrNumber =
+    Either Rational Integer
+
+
+parseFON :: Parser FractionOrNumber
+parseFON =
+    (Left <$> try parseFraction)
+    <|> (Right <$> try integer)
+
+
+testFractionOrNumber :: IO ()
+testFractionOrNumber =
+        do
+            let p f i =
+                    parseString f mempty i
+            print $ p parseFON "blah"
+            print $ p parseFON "123"
+            print $ p parseFON shouldWork
+            print $ p parseFON shouldAlsoWork
+            print $ p parseFON badFraction
+            print $ p parseFON alsoBad
