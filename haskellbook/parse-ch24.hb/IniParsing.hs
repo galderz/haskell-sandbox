@@ -98,3 +98,24 @@ testParseAssignmentVariant =
         let spa' = some parseAssignment'
             s = "key=value\nblah=123"
         print $ parseString spa' mempty s
+
+
+commentEx :: ByteString
+commentEx =
+  "; last modified 1 April\
+  \ 2001 by John Doe"
+
+
+commentEx' :: ByteString
+commentEx' =
+  "; blah\n; woot\n  \n;hah"
+
+
+-- | Skip comments starting at the
+-- beginning of the line.
+skipComments :: Parser ()
+skipComments =
+    skipMany (
+      do   _ <- char ';' <|> char '#'
+           skipMany (noneOf "\n")
+           skipEOL)
