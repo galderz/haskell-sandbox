@@ -72,3 +72,21 @@ parseAssignment =
 skipEOL :: Parser ()
 skipEOL =
     skipMany (oneOf "\n")
+
+
+-- Alternative variant that doesn't have skipEOL
+parseAssignment' :: Parser (Name, Value)
+parseAssignment' =
+    do
+        name <- some letter
+        _ <- char '='
+        val <- some (noneOf "\n")
+        return (name, val)
+
+
+testParseAssignmentVariant :: IO ()
+testParseAssignmentVariant =
+    do
+        let spa' = some parseAssignment'
+            s = "key=value\nblah=123"
+        print $ parseString spa' mempty s
