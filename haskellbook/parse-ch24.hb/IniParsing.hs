@@ -74,6 +74,14 @@ skipEOL =
     skipMany (oneOf "\n")
 
 
+testParseAssignment :: IO ()
+testParseAssignment =
+    do
+        let spa = some parseAssignment
+            s = "key=value\nblah=123"
+        print $ parseString spa mempty s
+
+
 -- Alternative variant that doesn't have skipEOL
 parseAssignment' :: Parser (Name, Value)
 parseAssignment' =
