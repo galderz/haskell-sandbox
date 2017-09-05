@@ -189,3 +189,8 @@ parseIni =
         let mapOfSections =
                 foldr rollup M.empty sections
         return (Config mapOfSections)
+
+
+testParseIni :: IO ()
+testParseIni =
+    print $ parseByteString parseIni mempty sectionEx
