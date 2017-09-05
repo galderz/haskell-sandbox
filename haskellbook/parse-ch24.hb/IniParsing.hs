@@ -194,3 +194,10 @@ parseIni =
 testParseIni :: IO ()
 testParseIni =
     print $ parseByteString parseIni mempty sectionEx
+
+
+maybeSuccess :: Result a -> Maybe a
+maybeSuccess (Success a) =
+    Just a
+maybeSuccess _ =
+    Nothing
