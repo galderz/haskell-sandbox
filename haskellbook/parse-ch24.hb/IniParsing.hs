@@ -119,3 +119,27 @@ skipComments =
       do   _ <- char ';' <|> char '#'
            skipMany (noneOf "\n")
            skipEOL)
+
+
+sectionEx :: ByteString
+sectionEx =
+    "; ignore me\n[states]\nChris=Texas"
+
+
+sectionEx' :: ByteString
+sectionEx' = [r|
+; ignore me
+[states]
+Chris=Texas
+|]
+
+sectionEx'' :: ByteString
+sectionEx'' = [r|
+; comment
+[section]
+host=wikipedia.org
+alias=claw
+
+[whatisit]
+red=intoothandclaw
+|]
