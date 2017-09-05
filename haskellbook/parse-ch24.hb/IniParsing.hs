@@ -143,3 +143,29 @@ alias=claw
 [whatisit]
 red=intoothandclaw
 |]
+
+
+data Section =
+    Section Header Assignments
+    deriving (Eq, Show)
+
+
+newtype Config =
+    Config (Map Header Assignments)
+    deriving (Eq, Show)
+
+
+skipWhitespace :: Parser ()
+skipWhitespace =
+    skipMany (char ' ' <|> char '\n')
+
+
+parseSection :: Parser Section
+parseSection =
+    do
+        skipWhitespace
+        skipComments
+        h <- parseHeader
+        skipEOL
+        assignments <- some parseAssignment
+        return $ Section h (M.fromList assignments)
