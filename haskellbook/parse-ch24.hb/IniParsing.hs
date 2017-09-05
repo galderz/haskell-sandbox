@@ -175,3 +175,17 @@ testParseSection :: IO ()
 testParseSection =
     do
         print $ parseByteString parseSection mempty sectionEx
+
+
+rollup :: Section -> Map Header Assignments -> Map Header Assignments
+rollup (Section h a) m =
+    M.insert h a m
+
+
+parseIni :: Parser Config
+parseIni =
+    do
+        sections <- some parseSection
+        let mapOfSections =
+                foldr rollup M.empty sections
+        return (Config mapOfSections)
