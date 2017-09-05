@@ -169,3 +169,9 @@ parseSection =
         skipEOL
         assignments <- some parseAssignment
         return $ Section h (M.fromList assignments)
+
+
+testParseSection :: IO ()
+testParseSection =
+    do
+        print $ parseByteString parseSection mempty sectionEx
