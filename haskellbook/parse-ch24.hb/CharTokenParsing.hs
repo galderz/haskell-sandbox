@@ -33,3 +33,14 @@ main =
         print $ parseString tknWhole mempty "a b"
         print $ parseString tknWhole mempty "ab ab"
         print $ parseString (some tknWhole) mempty "ab ab"
+        let tknCharA =
+                (token (char 'a')) >> char 'b'
+        print $ parseString tknCharA mempty "a b"
+        print $ parseString (some tknCharA) mempty "a ba b"
+        print $ parseString (some tknCharA) mempty "a b a b"
+        -- ^ stops at first "a b" because parser doesn't say
+        -- anything about a space after b and the tokenizing
+        -- behaviour only applies to what follow a
+        let tknBoth =
+                token (char 'a') >> token (char 'b')
+        print $ parseString (some tknBoth) mempty "a b a b"
