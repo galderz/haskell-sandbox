@@ -14,3 +14,5 @@ main =
                 "123 \n \n 456"
         print $ parseString (token (some digit)) mempty s
         print $ parseString (token (some (token digit))) mempty s
+        print $ parseString (some decimal) mempty s
+        print $ parseString (some (token decimal)) mempty s
