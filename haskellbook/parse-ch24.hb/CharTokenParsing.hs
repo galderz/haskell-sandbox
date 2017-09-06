@@ -1,5 +1,12 @@
 import Text.Trifecta
 
+p' :: Parser [Integer]
+p' =
+    some $
+    do  i <- token (some digit)
+        return (read i)
+
+
 main :: IO ()
 main =
     do
@@ -16,3 +23,8 @@ main =
         print $ parseString (token (some (token digit))) mempty s
         print $ parseString (some decimal) mempty s
         print $ parseString (some (token decimal)) mempty s
+        let s' =
+                "1\n2\n3"
+        print $ parseString p' mempty s'
+        print $ parseString (token (some digit)) mempty s'
+        print $ parseString (some (token (some digit))) mempty s'
