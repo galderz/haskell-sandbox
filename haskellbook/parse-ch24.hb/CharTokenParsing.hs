@@ -28,3 +28,8 @@ main =
         print $ parseString p' mempty s'
         print $ parseString (token (some digit)) mempty s'
         print $ parseString (some (token (some digit))) mempty s'
+        let tknWhole =
+                token $ char 'a' >> char 'b'
+        print $ parseString tknWhole mempty "a b"
+        print $ parseString tknWhole mempty "ab ab"
+        print $ parseString (some tknWhole) mempty "ab ab"
