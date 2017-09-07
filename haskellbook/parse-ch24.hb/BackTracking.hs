@@ -15,3 +15,9 @@ import Text.Parsec (Parsec, parseTest)
 trifP :: Show a => Parser a -> String -> IO ()
 trifP p i =
     print $ parseString p mempty i
+
+
+-- Helper function to run a parsec parser and print the result
+parsecP :: (Show a) => Parsec String () a -> String -> IO ()
+parsecP =
+    parseTest
