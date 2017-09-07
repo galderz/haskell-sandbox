@@ -48,3 +48,11 @@ main =
         print $ attoP shouldWork
         print $ attoP shouldAlsoWork
         print $ attoP alsoBad
+
+        -- parseString is Trifecta
+        let p f i =
+                parseString f mempty i
+        print $ p parseFraction badFraction
+        print $ p parseFraction shouldWork
+        print $ p parseFraction shouldAlsoWork
+        print $ p parseFraction alsoBad
