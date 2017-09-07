@@ -21,3 +21,9 @@ trifP p i =
 parsecP :: (Show a) => Parsec String () a -> String -> IO ()
 parsecP =
     parseTest
+
+
+-- Helper function to run a attoparsec parser and print the result
+attoP :: Show a => A.Parser a -> ByteString -> IO ()
+attoP p i =
+    print $ parseOnly p i
