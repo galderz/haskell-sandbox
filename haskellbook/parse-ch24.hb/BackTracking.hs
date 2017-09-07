@@ -9,3 +9,9 @@ import Data.Attoparsec.ByteString (parseOnly)
 import Data.ByteString (ByteString)
 import Text.Trifecta hiding (parseTest)
 import Text.Parsec (Parsec, parseTest)
+
+
+-- Helper function to run a trifecta parser and print the result
+trifP :: Show a => Parser a -> String -> IO ()
+trifP p i =
+    print $ parseString p mempty i
