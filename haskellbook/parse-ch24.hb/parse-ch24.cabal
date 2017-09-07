@@ -21,5 +21,6 @@ library
                      , text
                      , containers
                      , attoparsec
+                     , parsec
   hs-source-dirs:      .
   default-language:    Haskell2010
