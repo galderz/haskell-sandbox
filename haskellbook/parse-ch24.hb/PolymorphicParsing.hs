@@ -37,3 +37,14 @@ parseFraction =
         case denominator of
             0 -> fail "Denominator cannot be zero"
             _ -> return (numerator % denominator)
+
+
+main :: IO ()
+main =
+    do  -- parseOnly is Attoparsec
+        let attoP =
+                parseOnly parseFraction
+        print $ attoP badFraction
+        print $ attoP shouldWork
+        print $ attoP shouldAlsoWork
+        print $ attoP alsoBad
