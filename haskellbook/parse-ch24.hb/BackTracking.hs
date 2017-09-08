@@ -27,3 +27,8 @@ parsecP =
 attoP :: Show a => A.Parser a -> ByteString -> IO ()
 attoP p i =
     print $ parseOnly p i
+
+
+nobackParse :: (Monad f, CharParsing f) => f Char
+nobackParse =
+    (char '1' >> char '2') <|> char '3'
