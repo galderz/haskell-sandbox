@@ -32,3 +32,10 @@ attoP p i =
 nobackParse :: (Monad f, CharParsing f) => f Char
 nobackParse =
     (char '1' >> char '2') <|> char '3'
+
+
+-- Backtracks if the first parse fails
+tryParse :: (Monad f, CharParsing f) => f Char
+tryParse =
+    try (char '1' >> char '2')
+    <|> char '3'
