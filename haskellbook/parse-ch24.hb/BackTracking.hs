@@ -47,6 +47,10 @@ main =
         -- trifecta
         trifP nobackParse "13"
         trifP tryParse "13"
+        trifP nobackParse "12"
+        trifP nobackParse "3"
+        trifP tryParse "12"
+        trifP tryParse "3"
         -- parsec
         parsecP nobackParse "13"
         parsecP tryParse "13"
