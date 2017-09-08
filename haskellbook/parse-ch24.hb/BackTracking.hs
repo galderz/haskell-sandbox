@@ -41,6 +41,14 @@ tryParse =
     <|> char '3'
 
 
+-- Use <?> operator to annotate parse rules
+tryAnnot :: (Monad f, CharParsing f) => f Char
+tryAnnot =
+    (try (char '1' >> char '2')
+     <?> "Tried 12")
+    <|> (char '3' <?> "Tried 3")
+
+
 main :: IO ()
 main =
     do
@@ -51,6 +59,7 @@ main =
         trifP nobackParse "3"
         trifP tryParse "12"
         trifP tryParse "3"
+        trifP tryAnnot "13"
         -- parsec
         parsecP nobackParse "13"
         parsecP tryParse "13"
