@@ -39,3 +39,17 @@ tryParse :: (Monad f, CharParsing f) => f Char
 tryParse =
     try (char '1' >> char '2')
     <|> char '3'
+
+
+main :: IO ()
+main =
+    do
+        -- trifecta
+        trifP nobackParse "13"
+        trifP tryParse "13"
+        -- parsec
+        parsecP nobackParse "13"
+        parsecP tryParse "13"
+        -- attoparsec
+        attoP nobackParse "13"
+        attoP tryParse "13"
