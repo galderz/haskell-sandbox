@@ -45,3 +45,5 @@ eitherDec =
 main =
     do  print $ dec "blah"
         print $ eitherDec "blah"
+        print $ dec "123"
+        print $ dec "\"blah\""
