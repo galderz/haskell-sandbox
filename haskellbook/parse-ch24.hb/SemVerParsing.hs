@@ -51,8 +51,9 @@ main =
         print $ parseString parseSemVer mempty "2.1.1"
         -- Success (SemVer 2 1 1 [] [])
 
-        -- print $ parseString parseSemVer mempty "1.0.0-x.7.z.92"
-        --
+        print $ parseString parseSemVer mempty "1.0.0-x.7.z.92"
+        -- Success (SemVer 1 0 0
+        --      [NOSS "x", NOSI 7, NOSS "z", NOSI 92] [])
 
         -- print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
         --
