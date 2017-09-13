@@ -5,8 +5,9 @@ import Text.Trifecta
 
 
 data NumberOrString =
-         NOSS String
-       | NOSI Integer
+    NOSS String
+    | NOSI Integer
+    deriving (Eq, Show)
 
 
 type Major =
@@ -30,9 +31,18 @@ type Metadata =
 
 
 data SemVer =
-       SemVer Major Minor Patch Release Metadata
+    SemVer Major Minor Patch Release Metadata
+    deriving (Eq, Show)
 
 
 parseSemVer :: Parser SemVer
 parseSemVer =
     undefined
+
+
+main :: IO ()
+main =
+    do
+        print $ parseString parseSemVer mempty "2.1.1"
+        print $ parseString parseSemVer mempty "1.0.0-x.7.z.92"
+        -- print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
