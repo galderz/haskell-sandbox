@@ -1,3 +1,4 @@
+import Control.Applicative
 import Text.Trifecta
 
 -- Relevant to precedence/ordering,
@@ -42,7 +43,29 @@ parseSemVer =
         minor <- decimal
         char '.'
         patch <- decimal
-        return $ SemVer major minor patch [] []
+        release <- parseRelease
+        return $ SemVer major minor patch release []
+
+
+parseRelease :: Parser Release
+parseRelease =
+    (char '-' >> many parseNosDot)
+    <|> return []
+    -- do  char '-'
+    --     release <- many parseNos
+    --     return release
+
+parseNosDot :: Parser NumberOrString
+parseNosDot =
+    do  nos <- parseNos
+        skipMany (oneOf ".")
+        return nos
+
+
+parseNos :: Parser NumberOrString
+parseNos =
+    (NOSS <$> some letter)
+    <|> (NOSI <$> integer)
 
 
 main :: IO ()
