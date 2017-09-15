@@ -43,7 +43,9 @@ parseSemVer =
         minor <- decimal
         char '.'
         patch <- decimal
+        -- release <- try relP
         release <- parseRelease
+        -- meta <- parseMeta
         return $ SemVer major minor patch release []
 
 
@@ -51,9 +53,13 @@ parseRelease :: Parser Release
 parseRelease =
     (char '-' >> many parseNosDot)
     <|> return []
-    -- do  char '-'
-    --     release <- many parseNos
-    --     return release
+
+
+-- parseMeta :: Parser Metadata
+-- parseMeta =
+--     (char '+' >> many parseNosDot)
+--     <|> return []
+
 
 parseNosDot :: Parser NumberOrString
 parseNosDot =
@@ -65,7 +71,8 @@ parseNosDot =
 parseNos :: Parser NumberOrString
 parseNos =
     (NOSS <$> some letter)
-    <|> (NOSI <$> integer)
+    <|> (NOSI <$> decimal)
+    -- don't use integer here since it gets confused with +
 
 
 main :: IO ()
@@ -77,6 +84,12 @@ main =
         print $ parseString parseSemVer mempty "1.0.0-x.7.z.92"
         -- Success (SemVer 1 0 0
         --      [NOSS "x", NOSI 7, NOSS "z", NOSI 92] [])
+
+        print $ parseString parseSemVer mempty "1.0.0-alpha"
+        -- Success (SemVer 1 0 0 [NOSS "alpha"] [])
+
+        print $ parseString parseSemVer mempty "1.0.0-alpha+001"
+        -- Success (SemVer 1 0 0 [NOSS "alpha"] [NOSI 1])
 
         -- print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
         --
