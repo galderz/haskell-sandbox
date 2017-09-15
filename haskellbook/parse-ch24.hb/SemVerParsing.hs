@@ -43,10 +43,9 @@ parseSemVer =
         minor <- decimal
         char '.'
         patch <- decimal
-        -- release <- try relP
         release <- parseRelease
-        -- meta <- parseMeta
-        return $ SemVer major minor patch release []
+        metadata <- parseMetadata
+        return $ SemVer major minor patch release metadata
 
 
 parseRelease :: Parser Release
@@ -55,10 +54,10 @@ parseRelease =
     <|> return []
 
 
--- parseMeta :: Parser Metadata
--- parseMeta =
---     (char '+' >> many parseNosDot)
---     <|> return []
+parseMetadata :: Parser Metadata
+parseMetadata =
+    (char '+' >> many parseNosDot)
+    <|> return []
 
 
 parseNosDot :: Parser NumberOrString
