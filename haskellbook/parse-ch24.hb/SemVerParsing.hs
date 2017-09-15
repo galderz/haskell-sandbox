@@ -1,4 +1,5 @@
 import Control.Applicative
+import Data.Monoid
 import Text.Trifecta
 
 -- Relevant to precedence/ordering,
@@ -8,7 +9,7 @@ import Text.Trifecta
 data NumberOrString =
     NOSS String
     | NOSI Integer
-    deriving (Eq, Show)
+    deriving (Eq, Show, Ord)
 
 
 type Major =
@@ -36,9 +37,21 @@ data SemVer =
     deriving (Eq, Show)
 
 
+-- instance Ord NumberOrString where
+--     compare (NOSS s) (NOSS s') = compare s s'
+--     compare (NOIS n) (NOIS n') = compare n n'
+
+
 instance Ord SemVer where
-    compare (SemVer ma1 mi1 p1 r1 me1) (SemVer ma2 mi2 p2 r2 me2) =
-        undefined
+    compare (SemVer ma1 mi1 p1 r1 _) (SemVer ma2 mi2 p2 r2 _) =
+        let c = (compare ma1 ma2)
+                <> (compare mi1 mi2)
+                <> (compare p1 p2)
+        in case c of
+            EQ ->
+                compare r1 r2
+            _ ->
+                c
 
 
 parseSemVer :: Parser SemVer
@@ -96,4 +109,8 @@ main =
         -- Success (SemVer 1 0 0 [NOSS "alpha"] [NOSI 1])
 
         print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
+        -- True
+
+        -- print $ SemVer 1 0 0 [NOSS "alpha"] []
+        --     < SemVer 1 0 0 [] []
         -- True
