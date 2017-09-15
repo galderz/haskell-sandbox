@@ -36,6 +36,11 @@ data SemVer =
     deriving (Eq, Show)
 
 
+instance Ord SemVer where
+    compare (SemVer ma1 mi1 p1 r1 me1) (SemVer ma2 mi2 p2 r2 me2) =
+        undefined
+
+
 parseSemVer :: Parser SemVer
 parseSemVer =
     do  major <- decimal
@@ -90,5 +95,5 @@ main =
         print $ parseString parseSemVer mempty "1.0.0-alpha+001"
         -- Success (SemVer 1 0 0 [NOSS "alpha"] [NOSI 1])
 
-        -- print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
-        --
+        print $ SemVer 2 1 1 [] [] > SemVer 2 1 0 [] []
+        -- True
