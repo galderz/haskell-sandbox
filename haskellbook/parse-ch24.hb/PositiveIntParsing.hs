@@ -3,7 +3,7 @@ import Text.Trifecta
 
 parseDigit :: Parser Char
 parseDigit =
-    undefined
+    oneOf "1234567890"
 
 
 base10Integer :: Parser Integer
@@ -17,7 +17,7 @@ main =
         print $ parseString parseDigit mempty "123"
         -- Success '1'
 
-        -- print $ parseString parseDigit mempty "abc"
+        print $ parseString parseDigit mempty "abc"
         -- Failure (interactive):1:1: error: expected: parseDigit
         -- abc<EOF>
 
