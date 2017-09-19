@@ -1,0 +1,29 @@
+import Text.Trifecta
+
+
+parseDigit :: Parser Char
+parseDigit =
+    undefined
+
+
+base10Integer :: Parser Integer
+base10Integer =
+    undefined
+
+
+main :: IO ()
+main =
+    do
+        print $ parseString parseDigit mempty "123"
+        -- Success '1'
+
+        -- print $ parseString parseDigit mempty "abc"
+        -- Failure (interactive):1:1: error: expected: parseDigit
+        -- abc<EOF>
+
+        -- print $ parseString base10Integer mempty "123abc"
+        -- Success 123
+
+        -- print $ parseString base10Integer mempty "abc"
+        -- Failure (interactive):1:1: error: expected: integer
+        -- abc<EOF>
