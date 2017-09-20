@@ -8,7 +8,7 @@ parseDigit =
 
 base10Integer :: Parser Integer
 base10Integer =
-    undefined
+    fmap (\s -> read s) (some parseDigit)
 
 
 main :: IO ()
@@ -21,7 +21,7 @@ main =
         -- Failure (interactive):1:1: error: expected: parseDigit
         -- abc<EOF>
 
-        -- print $ parseString base10Integer mempty "123abc"
+        print $ parseString base10Integer mempty "123abc"
         -- Success 123
 
         -- print $ parseString base10Integer mempty "abc"
