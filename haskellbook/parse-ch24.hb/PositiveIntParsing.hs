@@ -1,4 +1,5 @@
 import Text.Trifecta
+import Data.Char (digitToInt)
 
 
 parseDigit :: Parser Char
@@ -8,7 +9,8 @@ parseDigit =
 
 base10Integer :: Parser Integer
 base10Integer =
-    fmap (\s -> read s) (some parseDigit)
+    -- fmap (\s -> read s) (some parseDigit)
+    fmap (\s -> toInteger $ foldl (\z x -> (z * 10) + digitToInt x) 0 s) (some parseDigit)
 
 
 main :: IO ()
