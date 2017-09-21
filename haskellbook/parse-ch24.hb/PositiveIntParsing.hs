@@ -44,3 +44,6 @@ main =
 
         print $ parseString base10Integer' mempty "-123abc"
         -- Success (-123)
+
+        print $ parseString base10Integer' mempty "123abc"
+        -- Success (123)
