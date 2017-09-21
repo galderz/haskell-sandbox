@@ -18,6 +18,11 @@ base10Integer =
     fmap stringToInt (some parseDigit)
 
 
+base10Integer' :: Parser Integer
+base10Integer' =
+    undefined
+
+
 main :: IO ()
 main =
     do
@@ -34,3 +39,6 @@ main =
         print $ parseString base10Integer mempty "abc"
         -- Failure (interactive):1:1: error: expected: integer
         -- abc<EOF>
+
+        print $ parseString base10Integer' mempty "-123abc"
+        -- Success (-123)
