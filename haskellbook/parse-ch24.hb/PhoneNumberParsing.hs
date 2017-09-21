@@ -21,7 +21,13 @@ data PhoneNumber =
 
 parsePhone :: Parser PhoneNumber
 parsePhone =
-    undefined
+    do  area <- decimal
+        char '-'
+        exchange <- decimal
+        char '-'
+        number <- decimal
+        return $ PhoneNumber
+            (fromInteger area) (fromInteger exchange) (fromInteger number)
 
 
 main :: IO ()
