@@ -1,3 +1,4 @@
+import Control.Applicative
 import Text.Trifecta
 import Data.Char (digitToInt)
 
@@ -20,7 +21,8 @@ base10Integer =
 
 base10Integer' :: Parser Integer
 base10Integer' =
-    undefined
+    (try (char '-' >> base10Integer >>= (\n -> pure $ negate n)))
+    <|> base10Integer
 
 
 main :: IO ()
