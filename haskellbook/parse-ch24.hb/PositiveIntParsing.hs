@@ -7,10 +7,15 @@ parseDigit =
     oneOf "1234567890"
 
 
+stringToInt :: String -> Integer
+stringToInt s =
+    toInteger $ foldl (\z x -> (z * 10) + digitToInt x) 0 s
+
+
 base10Integer :: Parser Integer
 base10Integer =
     -- fmap (\s -> read s) (some parseDigit)
-    fmap (\s -> toInteger $ foldl (\z x -> (z * 10) + digitToInt x) 0 s) (some parseDigit)
+    fmap stringToInt (some parseDigit)
 
 
 main :: IO ()
