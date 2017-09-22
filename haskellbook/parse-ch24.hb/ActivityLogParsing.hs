@@ -38,7 +38,9 @@ data Log =
 
 skipComments :: Parser ()
 skipComments =
-    undefined
+    do   _ <- string "--"
+         skipMany (noneOf "\n")
+         skipEOL)
 
 
 parseDate :: Parser Date
