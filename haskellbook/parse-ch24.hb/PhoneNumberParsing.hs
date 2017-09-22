@@ -41,7 +41,9 @@ stringToInt s =
 
 parsePhone :: Parser PhoneNumber
 parsePhone =
-    do  area <- parseThreeDigits
+    do  skipMany (oneOf "(")
+        area <- parseThreeDigits
+        skipMany (oneOf ") ")
         parseSeparator
         exchange <- parseThreeDigits
         parseSeparator
