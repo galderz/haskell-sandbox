@@ -60,4 +60,7 @@ main =
         -- Success (PhoneNumber 123 456 7890
 
         print $ parseString parsePhone mempty "(123) 456-7890"
-        --  Success (PhoneNumber 123 456 7890)
+        -- Success (PhoneNumber 123 456 7890)
+
+        print $ parseString parsePhone mempty "1-123-456-7890"
+        -- Success (PhoneNumber 123 456 7890)
