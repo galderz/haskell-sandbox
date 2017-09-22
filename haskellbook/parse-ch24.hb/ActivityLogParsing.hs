@@ -36,6 +36,13 @@ data Log =
     deriving (Eq, Show)
 
 
+-- | Skip end of line and
+--   whitespace beyond.
+skipEOL :: Parser ()
+skipEOL =
+    skipMany (oneOf "\n")
+
+
 skipComments :: Parser ()
 skipComments =
     do   _ <- string "--"
