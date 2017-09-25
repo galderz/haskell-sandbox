@@ -47,9 +47,10 @@ skipEOL =
 
 skipComments :: Parser ()
 skipComments =
+    skipMany (
     do  _ <- string "--"
         skipMany (noneOf "\n")
-        skipEOL
+        skipEOL)
 
 
 parseDate :: Parser Date
@@ -57,6 +58,7 @@ parseDate =
     do  _ <- char '#'
         skipMany (oneOf " ")
         date <- some anyChar
+        -- skipEOL -- important!
         return date
 
 
@@ -100,8 +102,8 @@ main :: IO ()
 main =
     hspec $
     do
-        describe "Comment parsing" $
-            it "Skips comment before date" $
+        describe "Comment parsing:" $
+            it "skips comment before date" $
             do
                 let p =
                         skipComments >> parseDate
@@ -114,19 +116,19 @@ main =
                 print m
                 r' `shouldBe` Just "2025-02-05"
 
-        describe "Day activities" $
-            it "Can parse a single activity" $
+        describe "Day activities:" $
+            it "can parse a single activity" $
             do
                 let p =
-                        skipComments >> parseDate >> parseActivities
+                        parseActivity
                     i =
-                        activityDay
+                        "08:00 Breakfast"
                     m =
                         parseByteString p mempty i
                     r' =
                         maybeSuccess m
                 print m
-                r' `shouldBe` Just [(800, "Breakfast")]
+                r' `shouldBe` Just (800, "Breakfast")
 
 
 activityDay :: ByteString
@@ -138,6 +140,8 @@ activityDay = [r|
 
 activitiesDay :: ByteString
 activitiesDay = [r|
+
+
 # 2025-02-05
 08:00 Breakfast
 09:00 Sanitizing moisture collector
