@@ -58,8 +58,10 @@ parseDate =
 
 
 maybeSuccess :: Result a -> Maybe a
-maybeSuccess =
-    undefined
+maybeSuccess (Success a) =
+    Just a
+maybeSuccess _ =
+    Nothing
 
 
 main :: IO ()
