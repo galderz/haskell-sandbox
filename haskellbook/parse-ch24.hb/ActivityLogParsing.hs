@@ -47,7 +47,7 @@ skipComments :: Parser ()
 skipComments =
     do   _ <- string "--"
          skipMany (noneOf "\n")
-         skipEOL)
+         skipEOL
 
 
 parseDate :: Parser Date
