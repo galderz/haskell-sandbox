@@ -2,6 +2,7 @@
 {-# LANGUAGE QuasiQuotes       #-}
 
 import Data.ByteString (ByteString)
+import Data.Char (digitToInt)
 import Test.Hspec
 import Text.RawString.QQ
 import Text.Trifecta
@@ -21,7 +22,7 @@ type Activity =
 
 
 type Time =
-    Integer
+    Int
 
 
 type Description =
@@ -57,6 +58,22 @@ parseDate =
         skipMany (oneOf " ")
         date <- some anyChar
         return date
+
+
+stringToInt :: String -> Int
+stringToInt s =
+    foldl (\z x -> (z * 10) + digitToInt x) 0 s
+
+
+parseTime :: Parser Time
+parseTime =
+    do  h1 <- digit
+        h2 <- digit
+        _ <- char ':'
+        m1 <- digit
+        m2 <- digit
+        return $ (100 * stringToInt (h1 : h2 : []))
+            + (stringToInt (m1 : m2 : []))
 
 
 parseActivities :: Parser Activities
