@@ -53,7 +53,8 @@ skipComments =
 parseDate :: Parser Date
 parseDate =
     do  _ <- char '#'
-        date <- some letter
+        skipMany (oneOf " ")
+        date <- some anyChar
         return date
 
 
