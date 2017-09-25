@@ -45,14 +45,16 @@ skipEOL =
 
 skipComments :: Parser ()
 skipComments =
-    do   _ <- string "--"
-         skipMany (noneOf "\n")
-         skipEOL
+    do  _ <- string "--"
+        skipMany (noneOf "\n")
+        skipEOL
 
 
 parseDate :: Parser Date
 parseDate =
-    undefined
+    do  _ <- char '#'
+        date <- some letter
+        return date
 
 
 maybeSuccess :: Result a -> Maybe a
