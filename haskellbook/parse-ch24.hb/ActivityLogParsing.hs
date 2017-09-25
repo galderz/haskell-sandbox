@@ -76,6 +76,14 @@ parseTime =
             + (stringToInt (m1 : m2 : []))
 
 
+parseActivity :: Parser Activity
+parseActivity =
+    do  time <- parseTime
+        _ <- char ' '
+        desc <- some anyChar
+        return (time, desc)
+
+
 parseActivities :: Parser Activities
 parseActivities =
     undefined
