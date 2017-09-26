@@ -99,6 +99,27 @@ parseActivities =
         return activities
 
 
+parseDateActivities :: Parser (Date, Activities)
+parseDateActivities =
+    do  date <- parseDate
+        activities <- parseActivities
+        return (date, activities)
+
+
+parseHistory :: Parser History
+parseHistory =
+    do  history <- some parseDateActivities
+        return history
+
+
+parseLog :: Parser Log
+parseLog =
+    do  skipWhitespace
+        skipComments
+        history <- parseHistory
+        return $ Log history
+
+
 maybeSuccess :: Result a -> Maybe a
 maybeSuccess (Success a) =
     Just a
@@ -110,6 +131,49 @@ main :: IO ()
 main =
     hspec $
     do
+        -- describe "Log parsing:" $ do
+        --     it "can parse a full log" $ do
+        --         let p =
+        --                 parseLog
+        --             i =
+        --                 sampleLog
+        --             m =
+        --                 parseByteString p mempty i
+        --             r' =
+        --                 maybeSuccess m
+        --         print m
+        --         r' `shouldBe` Just (
+        --             Log [
+        --                     ("2025-02-05",
+        --                      [
+        --                          (800, "Breakfast")
+        --                          , (900, "Sanitizing moisture collector")
+        --                          , (1100, "Exercising in high-grav gym")
+        --                          , (1200, "Lunch")
+        --                          , (1300, "Programming")
+        --                          , (1700, "Commuting home in rover")
+        --                          , (1730, "R&R")
+        --                          , (1900, "Dinner")
+        --                          , (2100, "Shower")
+        --                          , (2115, "Read")
+        --                          , (2200, "Sleep")
+        --                      ])
+        --                     , ("2025-02-07",
+        --                        [
+        --                            (800, "Breakfast")
+        --                            , (900, "Bumped head, passed out")
+        --                            , (1336, "Wake up, headache")
+        --                            , (1337, "Go to medbay")
+        --                            , (1340, "Patch self up")
+        --                            , (1345, "Commute home for rest")
+        --                            , (1415, "Read")
+        --                            , (2100, "Dinner")
+        --                            , (2115, "Read")
+        --                            , (2200, "Sleep")
+        --                        ])
+        --                 ]
+        --             )
+
         describe "Comment parsing:" $ do
             it "skips comment before date" $ do
                 let p =
@@ -123,7 +187,7 @@ main =
                 print m
                 r' `shouldBe` Just "2025-02-05"
 
-        describe "Day activities:" $ do
+        describe "Day activities parsing:" $ do
             it "can parse a single activity" $ do
                 let p =
                         parseActivity
@@ -182,4 +246,35 @@ activitiesDay = [r|
 09:00 Sanitizing moisture collector
 11:00 Exercising in high-grav gym
 17:30 R&R
+|]
+
+
+sampleLog :: ByteString
+sampleLog = [r|
+-- wheee a comment
+
+# 2025-02-05
+08:00 Breakfast
+09:00 Sanitizing moisture collector
+11:00 Exercising in high-grav gym
+12:00 Lunch
+13:00 Programming
+17:00 Commuting home in rover
+17:30 R&R
+19:00 Dinner
+21:00 Shower
+21:15 Read
+22:00 Sleep
+
+# 2025-02-07 -- dates not nececessarily sequential
+08:00 Breakfast -- should I try skippin bfast?
+09:00 Bumped head, passed out
+13:36 Wake up, headache
+13:37 Go to medbay
+13:40 Patch self up
+13:45 Commute home for rest
+14:15 Read
+21:00 Dinner
+21:15 Read
+22:00 Sleep
 |]
