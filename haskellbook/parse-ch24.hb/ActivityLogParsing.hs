@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes       #-}
 
+import Control.Applicative
 import Data.ByteString (ByteString)
 import Data.Char (digitToInt)
 import Test.Hspec
@@ -38,6 +39,11 @@ data Log =
     deriving (Eq, Show)
 
 
+skipWhitespace :: Parser ()
+skipWhitespace =
+    skipMany (char ' ' <|> char '\n')
+
+
 -- | Skip end of line and
 --   whitespace beyond.
 skipEOL :: Parser ()
@@ -57,8 +63,8 @@ parseDate :: Parser Date
 parseDate =
     do  _ <- char '#'
         skipMany (oneOf " ")
-        date <- some anyChar
-        -- skipEOL -- important!
+        date <- some (noneOf "\n")
+        skipEOL -- important!
         return date
 
 
@@ -82,7 +88,7 @@ parseActivity :: Parser Activity
 parseActivity =
     do  time <- parseTime
         _ <- char ' '
-        desc <- some anyChar
+        desc <- some (noneOf "\n")
         return (time, desc)
 
 
@@ -102,9 +108,8 @@ main :: IO ()
 main =
     hspec $
     do
-        describe "Comment parsing:" $
-            it "skips comment before date" $
-            do
+        describe "Comment parsing:" $ do
+            it "skips comment before date" $ do
                 let p =
                         skipComments >> parseDate
                     i =
@@ -116,13 +121,25 @@ main =
                 print m
                 r' `shouldBe` Just "2025-02-05"
 
-        describe "Day activities:" $
-            it "can parse a single activity" $
-            do
+        describe "Day activities:" $ do
+            it "can parse a single activity" $ do
                 let p =
                         parseActivity
                     i =
                         "08:00 Breakfast"
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just (800, "Breakfast")
+
+            it "can parse a day followed by a single activity" $ do
+                let p =
+                        skipWhitespace >> skipComments >> parseDate
+                        >> parseActivity
+                    i =
+                        activityDay
                     m =
                         parseByteString p mempty i
                     r' =
