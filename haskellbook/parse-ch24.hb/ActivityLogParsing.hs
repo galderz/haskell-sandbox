@@ -63,9 +63,19 @@ parseDate :: Parser Date
 parseDate =
     do  _ <- char '#'
         skipMany (oneOf " ")
-        date <- some (noneOf "\n")
+        -- date <- some (noneOf "\n")
+        y1 <- digit
+        y2 <- digit
+        y3 <- digit
+        y4 <- digit
+        _ <- char '-'
+        m1 <- digit
+        m2 <- digit
+        _ <- char '-'
+        d1 <- digit
+        d2 <- digit
         skipEOL -- important!
-        return date
+        return (y1 : y2 : y3 : y4 : '-' : m1 : m2 : '-' : d1 : d2 : [])
 
 
 stringToInt :: String -> Int
@@ -180,6 +190,31 @@ main =
                         skipComments >> parseDate
                     i =
                         "-- wheee a comment\n\n# 2025-02-05"
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just "2025-02-05"
+
+        describe "Date parsing:" $ do
+            it "can parse a date" $ do
+                let p =
+                        skipComments >> parseDate
+                    i =
+                        "# 2025-02-05"
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just "2025-02-05"
+
+            it "can parse a date followed by comment" $ do
+                let p =
+                        skipComments >> parseDate
+                    i =
+                        "# 2025-02-05 -- dates not nececessarily sequential"
                     m =
                         parseByteString p mempty i
                     r' =
