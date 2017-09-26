@@ -89,12 +89,14 @@ parseActivity =
     do  time <- parseTime
         _ <- char ' '
         desc <- some (noneOf "\n")
+        skipEOL -- important!
         return (time, desc)
 
 
 parseActivities :: Parser Activities
 parseActivities =
-    undefined
+    do  activities <- some parseActivity
+        return activities
 
 
 maybeSuccess :: Result a -> Maybe a
@@ -147,6 +149,24 @@ main =
                 print m
                 r' `shouldBe` Just (800, "Breakfast")
 
+            it "can parse a day followed by a multiple activities" $ do
+                let p =
+                        skipWhitespace >> skipComments >> parseDate
+                        >> parseActivities
+                    i =
+                        activitiesDay
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just [
+                    (800, "Breakfast")
+                    , (900, "Sanitizing moisture collector")
+                    , (1100, "Exercising in high-grav gym")
+                    , (1730, "R&R")
+                    ]
+
 
 activityDay :: ByteString
 activityDay = [r|
@@ -157,18 +177,9 @@ activityDay = [r|
 
 activitiesDay :: ByteString
 activitiesDay = [r|
-
-
 # 2025-02-05
 08:00 Breakfast
 09:00 Sanitizing moisture collector
 11:00 Exercising in high-grav gym
-12:00 Lunch
-13:00 Programming
-17:00 Commuting home in rover
 17:30 R&R
-19:00 Dinner
-21:00 Shower
-21:15 Read
-22:00 Sleep
 |]
