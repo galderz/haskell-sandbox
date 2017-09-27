@@ -74,6 +74,7 @@ parseDate =
         _ <- char '-'
         d1 <- digit
         d2 <- digit
+        skipMany (noneOf "\n")
         skipEOL -- important!
         return (y1 : y2 : y3 : y4 : '-' : m1 : m2 : '-' : d1 : d2 : [])
 
@@ -265,6 +266,18 @@ main =
                     , (1100, "Exercising in high-grav gym")
                     , (1730, "R&R")
                     ]
+
+            it "can parse a date followed by comment, followed by an activity" $ do
+                let p =
+                        skipComments >> parseDate >> parseActivity
+                    i =
+                        "# 2025-02-05 -- dates\n08:00 Gym"
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just (800, "Gym")
 
 
 activityDay :: ByteString
