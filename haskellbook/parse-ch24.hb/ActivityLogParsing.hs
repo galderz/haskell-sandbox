@@ -99,9 +99,16 @@ parseActivity :: Parser Activity
 parseActivity =
     do  time <- parseTime
         _ <- char ' '
-        desc <- some (noneOf "\n")
+        desc <- try
+            (manyTill (noneOf "\n") comment)
+            <|> many (noneOf "\n")
         skipEOL -- important!
         return (time, desc)
+
+
+comment :: Parser String
+comment =
+    try (someSpace >> string "--") <|> string "--"
 
 
 parseActivities :: Parser Activities
