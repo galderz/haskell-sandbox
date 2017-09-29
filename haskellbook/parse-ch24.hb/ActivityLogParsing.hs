@@ -298,6 +298,18 @@ main =
                         maybeSuccess m
                 print m
                 r' `shouldBe` Just (800, "Breakfast")
+            it "can parse a day -> activity -> comment -> activity" $ do
+                let p =
+                        skipWhitespace >> skipComments >> parseDate
+                        >> parseActivities
+                    i =
+                        "# 2025-02-05\n08:00 Breakfast -- are you sure?\n09:00 Gym"
+                    m =
+                        parseByteString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just [(800, "Breakfast"), (900, "Gym")]
 
 
 activityDay :: ByteString
