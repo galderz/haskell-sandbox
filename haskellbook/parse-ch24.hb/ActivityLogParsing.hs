@@ -102,8 +102,13 @@ parseActivity =
         desc <- try
             (manyTill (noneOf "\n") comment)
             <|> many (noneOf "\n")
-        skipEOL -- important!
+        skipOptional skipRestOfLine
         return (time, desc)
+
+
+skipRestOfLine :: Parser ()
+skipRestOfLine =
+    skipMany (noneOf "\n") >> skipOptional (char '\n') >> return ()
 
 
 comment :: Parser String
