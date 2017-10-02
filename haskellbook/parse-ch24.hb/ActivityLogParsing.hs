@@ -61,9 +61,9 @@ skipComments =
 
 parseDate :: Parser Date
 parseDate =
-    do  _ <- char '#'
+    do  skipMany (noneOf "#")
+        _ <- char '#'
         skipMany (oneOf " ")
-        -- date <- some (noneOf "\n")
         y1 <- digit
         y2 <- digit
         y3 <- digit
