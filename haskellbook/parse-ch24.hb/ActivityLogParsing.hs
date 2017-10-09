@@ -35,7 +35,7 @@ type History =
 
 
 data Log =
-    Log History
+    Log History Int
     deriving (Eq, Show)
 
 
@@ -140,7 +140,7 @@ parseLog =
     do  skipWhitespace
         skipComments
         history <- parseHistory
-        return $ Log history
+        return $ Log history 0
 
 
 maybeSuccess :: Result a -> Maybe a
@@ -244,7 +244,7 @@ main =
                                    , (2115, "Read")
                                    , (2200, "Sleep")
                                ])
-                        ]
+                        ] 0
                     )
 
         describe "Comment parsing:" $ do
