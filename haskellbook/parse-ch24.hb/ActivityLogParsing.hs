@@ -151,8 +151,16 @@ maybeSuccess _ =
 
 
 sumActivities :: Activities -> Int
-sumActivities =
-    undefined
+sumActivities as =
+    toMins $ foldl (\z x -> (fst x) - z) 0 as
+
+
+toMins :: Int -> Int
+toMins x =
+    let
+        dm = divMod x 100
+    in
+        ((fst dm) * 60) + snd dm
 
 
 main :: IO ()
@@ -166,7 +174,7 @@ main =
                         (800, "Breakfast")
                         , (900, "Sanitizing moisture collector")
                         ]
-                sumActivities as `shouldBe` 0
+                sumActivities as `shouldBe` 60
         describe "Log parsing:" $ do
             it "can parse a full log" $ do
                 let p =
