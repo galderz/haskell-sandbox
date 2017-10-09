@@ -152,7 +152,16 @@ maybeSuccess _ =
 
 sumActivities :: Activities -> Int
 sumActivities as =
-    toMins $ foldl (\z x -> (fst x) - z) 0 as
+    toMins $ fst (foldl sumActivityWithPrev (0, 0) as)
+
+
+sumActivityWithPrev :: (Int, Int) -> (Int, String) -> (Int, Int)
+sumActivityWithPrev z x =
+    (fst z + cnt (fst x) (snd z), fst x)
+    where
+        cnt x' z' =
+            if (z' == 0) then 0
+            else (x' - z')
 
 
 toMins :: Int -> Int
@@ -168,13 +177,33 @@ main =
     hspec $
     do
         describe "Activity summing: " $ do
-            it "can count time in an activity" $ do
+            it "can count time in a 1h activity" $ do
                 let as =
-                        [
-                        (800, "Breakfast")
+                        [ (800, "Breakfast")
                         , (900, "Sanitizing moisture collector")
                         ]
                 sumActivities as `shouldBe` 60
+            it "can count time in a 1h30m activity" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (930, "Sanitizing moisture collector")
+                        ]
+                sumActivities as `shouldBe` 90
+            it "can count time in a two 1h activities" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        , (1000, "Exercising")
+                        ]
+                sumActivities as `shouldBe` 120
+            -- it "can count time in multiple activities" $ do
+            --     let as =
+            --             [ (800, "Breakfast")
+            --             , (900, "Sanitizing moisture collector")
+            --             , (1100, "Exercising in high-grav gym")
+            --             , (1730, "R&R")
+            --             ]
+            --     sumActivities as `shouldBe` 570
         describe "Log parsing:" $ do
             it "can parse a full log" $ do
                 let p =
