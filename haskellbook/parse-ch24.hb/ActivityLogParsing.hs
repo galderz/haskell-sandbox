@@ -196,14 +196,14 @@ main =
                         , (1000, "Exercising")
                         ]
                 sumActivities as `shouldBe` 120
-            -- it "can count time in multiple activities" $ do
-            --     let as =
-            --             [ (800, "Breakfast")
-            --             , (900, "Sanitizing moisture collector")
-            --             , (1100, "Exercising in high-grav gym")
-            --             , (1730, "R&R")
-            --             ]
-            --     sumActivities as `shouldBe` 570
+            it "can count time in multiple activities" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        , (1100, "Exercising in high-grav gym")
+                        , (1730, "R&R")
+                        ]
+                sumActivities as `shouldBe` 570
         describe "Log parsing:" $ do
             it "can parse a full log" $ do
                 let p =
