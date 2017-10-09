@@ -150,10 +150,23 @@ maybeSuccess _ =
     Nothing
 
 
+sumActivities :: Activities -> Int
+sumActivities =
+    undefined
+
+
 main :: IO ()
 main =
     hspec $
     do
+        describe "Activity summing: " $ do
+            it "can count time in an activity" $ do
+                let as =
+                        [
+                        (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        ]
+                sumActivities as `shouldBe` 0
         describe "Log parsing:" $ do
             it "can parse a full log" $ do
                 let p =
