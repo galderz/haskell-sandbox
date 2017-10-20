@@ -172,10 +172,37 @@ toMins x =
         ((fst dm) * 60) + snd dm
 
 
+avgActivities :: Activities -> Double
+avgActivities as =
+    fromIntegral ((sumActivities as)) / (fromIntegral ((length as) - 1))
+
+
 main :: IO ()
 main =
     hspec $
     do
+        describe "Activity averaging: " $ do
+            it "can avg time in a 1h activity" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        ]
+                avgActivities as `shouldBe` 60.0
+            it "can avg time in a two 1h activities" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        , (1000, "Exercising")
+                        ]
+                avgActivities as `shouldBe` 60.0
+            it "can avg time in multiple activities" $ do
+                let as =
+                        [ (800, "Breakfast")
+                        , (900, "Sanitizing moisture collector")
+                        , (1100, "Exercising in high-grav gym")
+                        , (1730, "R&R")
+                        ]
+                avgActivities as `shouldBe` 190.0
         describe "Activity summing: " $ do
             it "can count time in a 1h activity" $ do
                 let as =
