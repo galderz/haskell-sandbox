@@ -63,6 +63,16 @@ main =
                     r' =
                         maybeSuccess m
                 r' `shouldBe` Just (IPAddress 2886794753)
+            it "can parse 204.120.0.15" $ do
+                let p =
+                        parseIPAddress
+                    i =
+                        "204.120.0.15"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                r' `shouldBe` Just (IPAddress 3430416399)
 
         describe "Shifting numbers: " $ do
             it "can calculate an IP address by shifting and adding numbers" $ do
