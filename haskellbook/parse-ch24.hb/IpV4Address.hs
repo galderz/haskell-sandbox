@@ -1,6 +1,7 @@
 import Data.Bits
 import Data.Word
 import Test.Hspec
+import Text.Trifecta
 
 
 data IPAddress =
@@ -21,6 +22,23 @@ dec2 n =
 dec3 :: Bits a => a -> a
 dec3 n =
     shift n 8
+
+
+toIp :: Integer -> Integer -> Integer -> Integer -> Word32
+toIp i1 i2 i3 i4 =
+    fromInteger $ (dec1 i1) + (dec2 i2) + (dec3 i3) + i4
+
+
+parseIPAddress :: Parser IPAddress
+parseIPAddress =
+    do  ip1 <- decimal
+        _ <- char '.'
+        ip2 <- decimal
+        _ <- char '.'
+        ip3 <- decimal
+        _ <- char '.'
+        ip4 <- decimal
+        return $ IPAddress $ toIp ip1 ip2 ip3 ip4
 
 
 main :: IO ()
