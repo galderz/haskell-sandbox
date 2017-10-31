@@ -8,6 +8,21 @@ data IPAddress =
     deriving (Eq, Ord, Show)
 
 
+dec1 :: Bits a => a -> a
+dec1 n =
+    shift n 24
+
+
+dec2 :: Bits a => a -> a
+dec2 n =
+    shift n 16
+
+
+dec3 :: Bits a => a -> a
+dec3 n =
+    shift n 8
+
+
 main :: IO ()
 main =
     hspec $
@@ -15,8 +30,8 @@ main =
         describe "Shifting numbers: " $ do
             it "can calculate an IP address by shifting and adding numbers" $ do
                 let dec =
-                        (shift 172 24)
-                        + (shift 16 16)
-                        + (shift 254 8)
+                        (dec1 172)
+                        + (dec2 16)
+                        + (dec3 254)
                         + 1 :: Word32
                 dec `shouldBe` 2886794753
