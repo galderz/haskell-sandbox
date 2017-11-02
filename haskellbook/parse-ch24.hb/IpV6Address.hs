@@ -1,6 +1,7 @@
 import Data.Bits
 import Data.Word
 import Test.Hspec
+import Text.Trifecta
 
 
 data IPAddress6 =
@@ -8,16 +9,35 @@ data IPAddress6 =
     deriving (Eq, Ord, Show)
 
 
--- 0:0:0:0:0:ffff:ac10:fe01
--- 0:0:0:0: 0:65535:44048:65025
--- 0 << 112
--- 0 << 96
--- 0 << 80
--- 0 << 64
--- 0 << 48
--- 65535 << 32
--- 44048 << 16
--- 65025 << 0
+toWord64 :: Integer -> Integer -> Integer -> Integer -> Integer -> Word64
+toWord64 padding i1 i2 i3 i4 =
+    fromInteger $
+        (shift (48 + padding) (fromInteger i1))
+        + (shift (32 + padding) (fromInteger i2))
+        + (shift (16 + padding) (fromInteger i3))
+        + shift (0 + padding) (fromInteger i4)
+
+
+parseIPAddress6 :: Parser IPAddress6
+parseIPAddress6 =
+    do  ip1 <- hexadecimal
+        _ <- char ':'
+        ip2 <- hexadecimal
+        _ <- char ':'
+        ip3 <- hexadecimal
+        _ <- char '.'
+        ip4 <- hexadecimal
+        _ <- char ':'
+        ip5 <- hexadecimal
+        _ <- char ':'
+        ip6 <- hexadecimal
+        _ <- char ':'
+        ip7 <- hexadecimal
+        _ <- char ':'
+        ip8 <- hexadecimal
+        return $ IPAddress6
+            (toWord64 0 ip1 ip2 ip3 ip4)
+            (toWord64 48 ip5 ip6 ip7 ip8)
 
 
 main :: IO ()
@@ -36,3 +56,15 @@ main =
                         + (shift 44048 16)
                         + 65025 :: Word64
                 dec `shouldBe` 281473568538113
+
+
+-- 0:0:0:0:0:ffff:ac10:fe01
+-- 0:0:0:0: 0:65535:44048:65025
+-- 0 << 112
+-- 0 << 96
+-- 0 << 80
+-- 0 << 64
+-- 0 << 48
+-- 65535 << 32
+-- 44048 << 16
+-- 65025 << 0
