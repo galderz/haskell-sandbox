@@ -71,6 +71,18 @@ main :: IO ()
 main =
     hspec $
     do
+        describe "IPv6 to decimal" $ do
+            it "can parse 0:0:0:0:0:ffff:ac10:fe01" $ do
+                let p =
+                        parseIPAddress6
+                    i =
+                        "0:0:0:0:0:ffff:ac10:fe01"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        fmap toDecimal (maybeSuccess m)
+                print m
+                r' `shouldBe` Just 281473568538113
         describe "IPv6 parsing: " $ do
             it "can parse 0:0:0:0:0:ffff:cc78:f" $ do
                 let p =
