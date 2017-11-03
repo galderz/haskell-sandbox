@@ -1,4 +1,5 @@
 import Data.Bits
+import Data.Char
 import Data.Word
 import Test.Hspec
 import Text.Trifecta
@@ -9,6 +10,13 @@ data IPAddress6 =
     deriving (Eq, Ord, Show)
 
 
+maybeSuccess :: Result a -> Maybe a
+maybeSuccess (Success a) =
+    Just a
+maybeSuccess _ =
+    Nothing
+
+
 toWord64 :: Integer -> Integer -> Integer -> Integer -> Integer -> Word64
 toWord64 padding i1 i2 i3 i4 =
     fromInteger $
@@ -16,6 +24,11 @@ toWord64 padding i1 i2 i3 i4 =
         + (shift (32 + padding) (fromInteger i2))
         + (shift (16 + padding) (fromInteger i3))
         + shift (0 + padding) (fromInteger i4)
+
+
+toDecimal :: IPAddress6 -> Word64
+toDecimal (IPAddress6 high low) =
+    high + low
 
 
 parseIPAddress6 :: Parser IPAddress6
@@ -44,6 +57,30 @@ main :: IO ()
 main =
     hspec $
     do
+        -- describe "IPv6 parsing: " $ do
+        --     it "can parse 0:0:0:0:0:ffff:ac10:fe01" $ do
+        --         let p =
+        --                 parseIPAddress6
+        --             i =
+        --                 "0:0:0:0:0:ffff:ac10:fe01"
+        --             m =
+        --                 parseString p mempty i
+        --             r' =
+        --                 maybeSuccess m
+
+        --         r' `shouldBe` Just (IPAddress6 0 0)
+        describe "Decimal parsing: " $ do
+            it "can parse 1" $ do
+                let p =
+                        digit
+                    i =
+                        "1"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+
+                r' `shouldBe` Just '1'
         describe "Shifting numbers: " $ do
             it "can calculate an IPv6 address by shifting and adding" $ do
                 let dec =
