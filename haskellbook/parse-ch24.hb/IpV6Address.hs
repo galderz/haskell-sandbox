@@ -10,6 +10,21 @@ data IPAddress6 =
     deriving (Eq, Ord, Show)
 
 
+parseHexDigit :: Parser Char
+parseHexDigit =
+    oneOf (['0'..'9'] ++ ['a'..'f'] ++ ['A'..'F'])
+
+
+stringToInt :: String -> Integer
+stringToInt s =
+    toInteger $ foldl (\z x -> (z * 10) + digitToInt x) 0 s
+
+
+base16Integer :: Parser Integer
+base16Integer =
+    fmap stringToInt (some parseHexDigit)
+
+
 maybeSuccess :: Result a -> Maybe a
 maybeSuccess (Success a) =
     Just a
@@ -69,6 +84,40 @@ main =
         --                 maybeSuccess m
 
         --         r' `shouldBe` Just (IPAddress6 0 0)
+        describe "Hexadecimal parsing: " $ do
+            it "can parse f" $ do
+                let p =
+                        base16Integer
+                    i =
+                        "f"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just 15
+            it "can parse 7" $ do
+                let p =
+                        base16Integer
+                    i =
+                        "7"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just 7
+            it "can parse A" $ do
+                let p =
+                        base16Integer
+                    i =
+                        "a"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just 10
         describe "Decimal parsing: " $ do
             it "can parse 1" $ do
                 let p =
@@ -79,7 +128,7 @@ main =
                         parseString p mempty i
                     r' =
                         maybeSuccess m
-
+                print m
                 r' `shouldBe` Just '1'
         describe "Shifting numbers: " $ do
             it "can calculate an IPv6 address by shifting and adding" $ do
