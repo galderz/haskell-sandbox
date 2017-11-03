@@ -17,7 +17,7 @@ parseHexDigit =
 
 stringToInt :: String -> Integer
 stringToInt s =
-    toInteger $ foldl (\z x -> (z * 10) + digitToInt x) 0 s
+    toInteger $ foldl (\z x -> (z * 16) + digitToInt x) 0 s
 
 
 base16Integer :: Parser Integer
@@ -85,6 +85,17 @@ main =
 
         --         r' `shouldBe` Just (IPAddress6 0 0)
         describe "Hexadecimal parsing: " $ do
+            it "can parse fe01" $ do
+                let p =
+                        base16Integer
+                    i =
+                        "fe01"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just 65025
             it "can parse f" $ do
                 let p =
                         base16Integer
