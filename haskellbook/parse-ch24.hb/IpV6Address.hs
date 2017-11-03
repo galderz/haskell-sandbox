@@ -15,13 +15,13 @@ parseHexDigit =
     oneOf (['0'..'9'] ++ ['a'..'f'] ++ ['A'..'F'])
 
 
-stringToInt :: String -> Integer
+stringToInt :: String -> Int
 stringToInt s =
-    toInteger $ foldl (\z x -> (z * 16) + digitToInt x) 0 s
+    foldl (\z x -> (z * 16) + digitToInt x) 0 s
 
 
-base16Integer :: Parser Integer
-base16Integer =
+base16Int :: Parser Int
+base16Int =
     fmap stringToInt (some parseHexDigit)
 
 
@@ -32,13 +32,12 @@ maybeSuccess _ =
     Nothing
 
 
-toWord64 :: Integer -> Integer -> Integer -> Integer -> Integer -> Word64
+toWord64 :: Int -> Int -> Int -> Int -> Int -> Word64
 toWord64 padding i1 i2 i3 i4 =
-    fromInteger $
-        (shift (48 + padding) (fromInteger i1))
-        + (shift (32 + padding) (fromInteger i2))
-        + (shift (16 + padding) (fromInteger i3))
-        + shift (0 + padding) (fromInteger i4)
+    fromIntegral $ (shift i1 (48 + padding))
+        + (shift i2 (32 + padding))
+        + (shift i3 (16 + padding))
+        + shift i4 (0 + padding)
 
 
 toDecimal :: IPAddress6 -> Word64
@@ -48,46 +47,46 @@ toDecimal (IPAddress6 high low) =
 
 parseIPAddress6 :: Parser IPAddress6
 parseIPAddress6 =
-    do  ip1 <- hexadecimal
+    do  ip1 <- base16Int
         _ <- char ':'
-        ip2 <- hexadecimal
+        ip2 <- base16Int
         _ <- char ':'
-        ip3 <- hexadecimal
-        _ <- char '.'
-        ip4 <- hexadecimal
+        ip3 <- base16Int
         _ <- char ':'
-        ip5 <- hexadecimal
+        ip4 <- base16Int
         _ <- char ':'
-        ip6 <- hexadecimal
+        ip5 <- base16Int
         _ <- char ':'
-        ip7 <- hexadecimal
+        ip6 <- base16Int
         _ <- char ':'
-        ip8 <- hexadecimal
+        ip7 <- base16Int
+        _ <- char ':'
+        ip8 <- base16Int
         return $ IPAddress6
-            (toWord64 0 ip1 ip2 ip3 ip4)
-            (toWord64 48 ip5 ip6 ip7 ip8)
+            (toWord64 64 ip1 ip2 ip3 ip4)
+            (toWord64 0 ip5 ip6 ip7 ip8)
 
 
 main :: IO ()
 main =
     hspec $
     do
-        -- describe "IPv6 parsing: " $ do
-        --     it "can parse 0:0:0:0:0:ffff:ac10:fe01" $ do
-        --         let p =
-        --                 parseIPAddress6
-        --             i =
-        --                 "0:0:0:0:0:ffff:ac10:fe01"
-        --             m =
-        --                 parseString p mempty i
-        --             r' =
-        --                 maybeSuccess m
-
-        --         r' `shouldBe` Just (IPAddress6 0 0)
-        describe "Hexadecimal parsing: " $ do
+        describe "IPv6 parsing: " $ do
+            it "can parse 0:0:0:0:0:ffff:ac10:fe01" $ do
+                let p =
+                        parseIPAddress6
+                    i =
+                        "0:0:0:0:0:ffff:ac10:fe01"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just (IPAddress6 0 281473568538113)
+        describe "Base16Int parsing: " $ do
             it "can parse fe01" $ do
                 let p =
-                        base16Integer
+                        base16Int
                     i =
                         "fe01"
                     m =
@@ -98,7 +97,7 @@ main =
                 r' `shouldBe` Just 65025
             it "can parse f" $ do
                 let p =
-                        base16Integer
+                        base16Int
                     i =
                         "f"
                     m =
@@ -109,7 +108,7 @@ main =
                 r' `shouldBe` Just 15
             it "can parse 7" $ do
                 let p =
-                        base16Integer
+                        base16Int
                     i =
                         "7"
                     m =
@@ -120,7 +119,7 @@ main =
                 r' `shouldBe` Just 7
             it "can parse A" $ do
                 let p =
-                        base16Integer
+                        base16Int
                     i =
                         "a"
                     m =
@@ -142,6 +141,24 @@ main =
                 print m
                 r' `shouldBe` Just '1'
         describe "Shifting numbers: " $ do
+            it "can calculate lower IPv6 address number using toWord64" $ do
+                let dec =
+                        toWord64 0 0 65535 44048 65025
+                dec `shouldBe` 281473568538113
+            it "can calculate an IPv6 address by shifting and adding" $ do
+                let dec =
+                        (shift 0 112)
+                        + (shift 0 96)
+                        + (shift 0 80)
+                        + (shift 0 64) :: Word64
+                dec `shouldBe` 0
+            it "can calculate lower IPv6 address number" $ do
+                let dec =
+                        (shift 0 48)
+                        + (shift 65535 32)
+                        + (shift 44048 16)
+                        + 65025 :: Word64
+                dec `shouldBe` 281473568538113
             it "can calculate an IPv6 address by shifting and adding" $ do
                 let dec =
                         (shift 0 112)
