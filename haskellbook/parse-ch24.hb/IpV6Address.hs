@@ -95,6 +95,17 @@ main =
                 print m
                 r' `shouldBe` Just 281473568538113
         describe "IPv6 parsing: " $ do
+            -- it "can parse FE80:0000:0000:0000:0202:B3FF:FE1E:8329" $ do
+            --     let p =
+            --             parseIPAddress6
+            --         i =
+            --             "FE80:0000:0000:0000:0202:B3FF:FE1E:8329"
+            --         m =
+            --             parseString p mempty i
+            --         r' =
+            --             maybeSuccess m
+            --     print m
+            --     r' `shouldBe` Just (IPAddress6 0 281474112159759)
             it "can parse 0:0:0:0:0:ffff:cc78:f" $ do
                 let p =
                         parseIPAddress6
@@ -179,20 +190,20 @@ main =
                 let dec =
                         toWord64 0 0 65535 44048 65025
                 dec `shouldBe` 281473568538113
-            it "can calculate an IPv6 address by shifting and adding" $ do
+            it "can calculate higher IPv6 address number" $ do
                 let dec =
-                        (shift 0 112)
-                        + (shift 0 96)
-                        + (shift 0 80)
-                        + (shift 0 64) :: Word64
-                dec `shouldBe` 0
+                        (shift 65152 48)
+                        + (shift 0 32)
+                        + (shift 0 16)
+                        + 0 :: Word64
+                dec `shouldBe` 18338657682652659712
             it "can calculate lower IPv6 address number" $ do
                 let dec =
-                        (shift 0 48)
-                        + (shift 65535 32)
-                        + (shift 44048 16)
-                        + 65025 :: Word64
-                dec `shouldBe` 281473568538113
+                        (shift 514 48)
+                        + (shift 46079 32)
+                        + (shift 65054 16)
+                        + 33577 :: Integer
+                dec `shouldBe` 144876050090722089
             it "can calculate an big IPv6 address by shifting and adding" $ do
                 let dec =
                         (shift 65152 112)
