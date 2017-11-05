@@ -45,6 +45,11 @@ toDecimal (IPAddress6 high low) =
     high + low
 
 
+sumHighLow :: Word64 -> Word64 -> Integer
+sumHighLow n1 n2 =
+    (shift (toInteger n1) 64) + (toInteger n2)
+
+
 parseIPAddress6 :: Parser IPAddress6
 parseIPAddress6 =
     do  ip1 <- base16Int
@@ -185,7 +190,15 @@ main =
                         maybeSuccess m
                 print m
                 r' `shouldBe` Just '1'
-        describe "Shifting numbers: " $ do
+        describe "Shifting numbers:" $ do
+            it "can calculate IPv6 decimal shifting and adding" $ do
+                let high =
+                        toWord64 0 65152 0 0 0
+                    low =
+                        toWord64 0 514 46079 65054 33577
+                    total =
+                        sumHighLow high low
+                total `shouldBe` 338288524927261089654163772891438416681
             it "can calculate lower IPv6 address number using toWord64" $ do
                 let dec =
                         toWord64 0 0 65535 44048 65025
@@ -195,7 +208,7 @@ main =
                         (shift 65152 48)
                         + (shift 0 32)
                         + (shift 0 16)
-                        + 0 :: Word64
+                        + 0 :: Integer
                 dec `shouldBe` 18338657682652659712
             it "can calculate lower IPv6 address number" $ do
                 let dec =
