@@ -193,6 +193,17 @@ main =
                         + (shift 44048 16)
                         + 65025 :: Word64
                 dec `shouldBe` 281473568538113
+            it "can calculate an big IPv6 address by shifting and adding" $ do
+                let dec =
+                        (shift 65152 112)
+                        + (shift 0 96)
+                        + (shift 0 80)
+                        + (shift 0 64)
+                        + (shift 514 48)
+                        + (shift 46079 32)
+                        + (shift 65054 16)
+                        + 33577 :: Integer
+                dec `shouldBe` 338288524927261089654163772891438416681
             it "can calculate an IPv6 address by shifting and adding" $ do
                 let dec =
                         (shift 0 112)
