@@ -202,7 +202,7 @@ main =
                         + (shift 0 48)
                         + (shift 65535 32)
                         + (shift 44048 16)
-                        + 65025 :: Word64
+                        + 65025 :: Integer
                 dec `shouldBe` 281473568538113
 
 
