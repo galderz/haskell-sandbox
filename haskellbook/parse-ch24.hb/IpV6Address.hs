@@ -40,9 +40,9 @@ toWord64 i1 i2 i3 i4 =
         + i4
 
 
-toDecimal :: IPAddress6 -> Word64
+toDecimal :: IPAddress6 -> Integer
 toDecimal (IPAddress6 high low) =
-    high + low
+    sumHighLow high low
 
 
 sumHighLow :: Word64 -> Word64 -> Integer
@@ -77,7 +77,18 @@ main =
     hspec $
     do
         describe "IPv6 to decimal" $ do
-            it "can parse 0:0:0:0:0:ffff:cc78:f" $ do
+            it "can parse FE80:0000:0000:0000:0202:B3FF:FE1E:8329" $ do
+                let p =
+                        parseIPAddress6
+                    i =
+                        "FE80:0000:0000:0000:0202:B3FF:FE1E:8329"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        fmap toDecimal $ maybeSuccess m
+                print m
+                r' `shouldBe` Just 338288524927261089654163772891438416681
+            it "can convert 0:0:0:0:0:ffff:cc78:f" $ do
                 let p =
                         parseIPAddress6
                     i =
@@ -88,7 +99,7 @@ main =
                         fmap toDecimal (maybeSuccess m)
                 print m
                 r' `shouldBe` Just 281474112159759
-            it "can parse 0:0:0:0:0:ffff:ac10:fe01" $ do
+            it "can convert 0:0:0:0:0:ffff:ac10:fe01" $ do
                 let p =
                         parseIPAddress6
                     i =
