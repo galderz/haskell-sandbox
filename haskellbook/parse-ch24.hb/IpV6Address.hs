@@ -32,12 +32,12 @@ maybeSuccess _ =
     Nothing
 
 
-toWord64 :: Int -> Int -> Int -> Int -> Int -> Word64
-toWord64 padding i1 i2 i3 i4 =
-    fromIntegral $ (shift i1 (48 + padding))
-        + (shift i2 (32 + padding))
-        + (shift i3 (16 + padding))
-        + shift i4 (0 + padding)
+toWord64 :: Int -> Int -> Int -> Int -> Word64
+toWord64 i1 i2 i3 i4 =
+    fromIntegral $ (shift i1 48)
+        + (shift i2 32)
+        + (shift i3 16)
+        + i4
 
 
 toDecimal :: IPAddress6 -> Word64
@@ -68,8 +68,8 @@ parseIPAddress6 =
         _ <- char ':'
         ip8 <- base16Int
         return $ IPAddress6
-            (toWord64 64 ip1 ip2 ip3 ip4)
-            (toWord64 0 ip5 ip6 ip7 ip8)
+            (toWord64 ip1 ip2 ip3 ip4)
+            (toWord64 ip5 ip6 ip7 ip8)
 
 
 main :: IO ()
@@ -193,9 +193,9 @@ main =
         describe "Shifting numbers:" $ do
             it "can calculate IPv6 decimal shifting and adding" $ do
                 let high =
-                        toWord64 0 65152 0 0 0
+                        toWord64 65152 0 0 0
                     low =
-                        toWord64 0 514 46079 65054 33577
+                        toWord64 514 46079 65054 33577
                     total =
                         sumHighLow high low
                 total `shouldBe` 338288524927261089654163772891438416681
@@ -203,7 +203,7 @@ main =
                 low `shouldBe` 144876050090722089
             it "can calculate lower IPv6 address number using toWord64" $ do
                 let dec =
-                        toWord64 0 0 65535 44048 65025
+                        toWord64 0 65535 44048 65025
                 dec `shouldBe` 281473568538113
             it "can calculate higher IPv6 address number" $ do
                 let dec =
