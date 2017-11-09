@@ -100,17 +100,18 @@ main =
                 print m
                 r' `shouldBe` Just 281473568538113
         describe "IPv6 parsing: " $ do
-            -- it "can parse FE80:0000:0000:0000:0202:B3FF:FE1E:8329" $ do
-            --     let p =
-            --             parseIPAddress6
-            --         i =
-            --             "FE80:0000:0000:0000:0202:B3FF:FE1E:8329"
-            --         m =
-            --             parseString p mempty i
-            --         r' =
-            --             maybeSuccess m
-            --     print m
-            --     r' `shouldBe` Just (IPAddress6 0 281474112159759)
+            it "can parse FE80:0000:0000:0000:0202:B3FF:FE1E:8329" $ do
+                let p =
+                        parseIPAddress6
+                    i =
+                        "FE80:0000:0000:0000:0202:B3FF:FE1E:8329"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        maybeSuccess m
+                print m
+                r' `shouldBe` Just
+                    (IPAddress6 18338657682652659712 144876050090722089)
             it "can parse 0:0:0:0:0:ffff:cc78:f" $ do
                 let p =
                         parseIPAddress6
