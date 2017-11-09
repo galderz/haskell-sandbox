@@ -199,6 +199,8 @@ main =
                     total =
                         sumHighLow high low
                 total `shouldBe` 338288524927261089654163772891438416681
+                high `shouldBe` 18338657682652659712
+                low `shouldBe` 144876050090722089
             it "can calculate lower IPv6 address number using toWord64" $ do
                 let dec =
                         toWord64 0 0 65535 44048 65025
