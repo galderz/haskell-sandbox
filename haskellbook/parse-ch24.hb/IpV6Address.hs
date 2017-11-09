@@ -77,6 +77,17 @@ main =
     hspec $
     do
         describe "IPv6 to decimal" $ do
+            it "can convert ...:417A" $ do
+                let p =
+                        parseIPAddress6
+                    i =
+                        "2001:DB8:0000:0000:8:800:200C:417A"
+                    m =
+                        parseString p mempty i
+                    r' =
+                        fmap toDecimal $ maybeSuccess m
+                print m
+                r' `shouldBe` Just 42540766411282592856906245548098208122
             it "can parse FE80:0000:0000:0000:0202:B3FF:FE1E:8329" $ do
                 let p =
                         parseIPAddress6
