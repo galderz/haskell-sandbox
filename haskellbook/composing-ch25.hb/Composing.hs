@@ -17,6 +17,11 @@ instance (Functor f, Functor g) => Functor (Compose f g) where
         Compose $ (fmap . fmap) f fga
 
 
+v :: Compose [] Maybe (Compose Maybe [] Integer)
+v =
+    Compose [Just (Compose $ Just [1])]
+
+
 main :: IO ()
 main =
   do  print $ Compose [Just 1, Nothing]
@@ -25,3 +30,4 @@ main =
       -- Compose [] Maybe Int
       print $ Compose xs
       print $ fmap (+1) (Compose xs)
+      print $ v
