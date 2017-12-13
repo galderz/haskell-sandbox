@@ -45,6 +45,11 @@ instance (Foldable f, Foldable g) => Foldable (Compose f g) where
         (foldMap . foldMap) f fga
 
 
+instance (Traversable f, Traversable g) => Traversable (Compose f g) where
+    traverse f (Compose fga) =
+        fmap Compose ((traverse . traverse) f fga)
+
+
 v :: Compose [] Maybe (Compose Maybe [] Integer)
 v =
     Compose [Just (Compose $ Just [1])]
