@@ -39,6 +39,11 @@ instance (Applicative f, Applicative g) => Applicative (Compose f g) where
 --         undefined
 
 
+instance (Foldable f, Foldable g) => Foldable (Compose f g) where
+    foldMap f (Compose fga) =
+        (foldMap . foldMap) f fga
+
+
 v :: Compose [] Maybe (Compose Maybe [] Integer)
 v =
     Compose [Just (Compose $ Just [1])]
