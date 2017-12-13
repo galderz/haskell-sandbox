@@ -30,6 +30,15 @@ instance (Applicative f, Applicative g) => Applicative (Compose f g) where
         Compose $ (fmap (<*>) f) <*> a
 
 
+-- impossible.
+-- instance (Monad f, Monad g) => Monad (Compose f g) where
+--     return =
+--         pure
+
+--     (>>=) :: Compose f g a -> (a -> Compose f g b) -> Compose f g b (>>=) =
+--         undefined
+
+
 v :: Compose [] Maybe (Compose Maybe [] Integer)
 v =
     Compose [Just (Compose $ Just [1])]
