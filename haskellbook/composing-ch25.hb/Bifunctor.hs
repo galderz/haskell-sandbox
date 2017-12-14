@@ -22,8 +22,8 @@ instance Bifunctor Deux where
     bimap f g (Deux x y) =
         Deux (f x) (g y)
 
-    first =
-        undefined
+    first f (Deux x y) =
+        Deux (f x) y
 
     second =
         undefined
