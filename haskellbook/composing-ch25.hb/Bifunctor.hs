@@ -25,5 +25,5 @@ instance Bifunctor Deux where
     first f (Deux x y) =
         Deux (f x) y
 
-    second =
-        undefined
+    second f (Deux x y) =
+        Deux x (f y)
