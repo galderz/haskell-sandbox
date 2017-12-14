@@ -37,8 +37,8 @@ instance Bifunctor Const where
     bimap f g (Const x) =
         Const (f x)
 
-    first =
-        undefined
+    first f (Const x) =
+        Const (f x)
 
     second =
         undefined
