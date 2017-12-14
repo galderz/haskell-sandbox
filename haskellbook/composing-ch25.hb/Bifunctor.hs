@@ -27,3 +27,18 @@ instance Bifunctor Deux where
 
     second f (Deux x y) =
         Deux x (f y)
+
+
+data Const a b =
+    Const a
+
+
+instance Bifunctor Const where
+    bimap f g (Const x) =
+        Const (f x)
+
+    first =
+        undefined
+
+    second =
+        undefined
