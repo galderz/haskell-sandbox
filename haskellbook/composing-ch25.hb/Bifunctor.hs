@@ -12,3 +12,18 @@ class Bifunctor p where
     second :: (b -> c) -> p a b -> p a c
     second =
         bimap id
+
+
+data Deux a b =
+    Deux a b
+
+
+instance Bifunctor Deux where
+    bimap f g (Deux x y) =
+        Deux (f x) (g y)
+
+    first =
+        undefined
+
+    second =
+        undefined
