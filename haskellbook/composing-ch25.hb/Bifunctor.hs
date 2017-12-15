@@ -55,5 +55,5 @@ instance Bifunctor (Drei a) where
     first f (Drei x y z) =
         Drei x (f y) z
 
-    second =
-        undefined
+    second f (Drei x y z) =
+        Drei x y (f z)
