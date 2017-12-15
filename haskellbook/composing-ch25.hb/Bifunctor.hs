@@ -40,5 +40,5 @@ instance Bifunctor Const where
     first f (Const x) =
         Const (f x)
 
-    second =
-        undefined
+    second f (Const x) =
+        Const x
