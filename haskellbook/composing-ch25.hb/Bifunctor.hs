@@ -42,3 +42,18 @@ instance Bifunctor Const where
 
     second f (Const x) =
         Const x
+
+
+data Drei a b c =
+    Drei a b c
+
+
+instance Bifunctor (Drei a) where
+    bimap f g (Drei x y z) =
+        Drei x (f y) (g z)
+
+    first =
+        undefined
+
+    second =
+        undefined
