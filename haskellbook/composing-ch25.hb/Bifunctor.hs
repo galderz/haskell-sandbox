@@ -57,3 +57,18 @@ instance Bifunctor (Drei a) where
 
     second f (Drei x y z) =
         Drei x y (f z)
+
+
+data SuperDrei a b c =
+    SuperDrei a b
+
+
+instance Bifunctor (SuperDrei a) where
+    bimap f g (SuperDrei x y) =
+        SuperDrei x (f y)
+
+    first =
+        undefined
+
+    second =
+        undefined
