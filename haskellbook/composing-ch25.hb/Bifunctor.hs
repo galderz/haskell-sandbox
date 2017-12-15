@@ -52,8 +52,8 @@ instance Bifunctor (Drei a) where
     bimap f g (Drei x y z) =
         Drei x (f y) (g z)
 
-    first =
-        undefined
+    first f (Drei x y z) =
+        Drei x (f y) z
 
     second =
         undefined
