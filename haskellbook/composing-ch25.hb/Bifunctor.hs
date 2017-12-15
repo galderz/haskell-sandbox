@@ -67,8 +67,8 @@ instance Bifunctor (SuperDrei a) where
     bimap f g (SuperDrei x y) =
         SuperDrei x (f y)
 
-    first =
-        undefined
+    first f (SuperDrei x y) =
+        SuperDrei x (f y)
 
     second =
         undefined
