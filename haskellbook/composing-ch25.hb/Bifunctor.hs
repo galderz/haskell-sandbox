@@ -70,5 +70,5 @@ instance Bifunctor (SuperDrei a) where
     first f (SuperDrei x y) =
         SuperDrei x (f y)
 
-    second =
-        undefined
+    second f (SuperDrei x y) =
+        SuperDrei x y
