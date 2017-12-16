@@ -87,3 +87,18 @@ instance Bifunctor (SemiDrei a) where
 
     second f (SemiDrei x) =
         SemiDrei x
+
+
+data Quadriceps a b c d =
+    Quadzzz a b c d
+
+
+instance Bifunctor (Quadriceps a b) where
+    bimap f g (Quadzzz a b x y) =
+        Quadzzz a b (f x) (g y)
+
+    first =
+        undefined
+
+    second =
+        undefined
