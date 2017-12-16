@@ -85,5 +85,5 @@ instance Bifunctor (SemiDrei a) where
     first f (SemiDrei x) =
         SemiDrei x
 
-    second =
-        undefined
+    second f (SemiDrei x) =
+        SemiDrei x
