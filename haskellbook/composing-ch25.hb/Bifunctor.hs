@@ -82,8 +82,8 @@ instance Bifunctor (SemiDrei a) where
     bimap f g (SemiDrei x) =
         SemiDrei x
 
-    first =
-        undefined
+    first f (SemiDrei x) =
+        SemiDrei x
 
     second =
         undefined
