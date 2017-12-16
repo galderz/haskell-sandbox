@@ -72,3 +72,18 @@ instance Bifunctor (SuperDrei a) where
 
     second f (SuperDrei x y) =
         SuperDrei x y
+
+
+data SemiDrei a b c =
+    SemiDrei a
+
+
+instance Bifunctor (SemiDrei a) where
+    bimap f g (SemiDrei x) =
+        SemiDrei x
+
+    first =
+        undefined
+
+    second =
+        undefined
