@@ -97,8 +97,8 @@ instance Bifunctor (Quadriceps a b) where
     bimap f g (Quadzzz a b x y) =
         Quadzzz a b (f x) (g y)
 
-    first =
-        undefined
+    first f (Quadzzz a b x y) =
+        Quadzzz a b (f x) y
 
     second =
         undefined
