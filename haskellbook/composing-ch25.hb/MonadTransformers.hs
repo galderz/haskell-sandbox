@@ -23,3 +23,19 @@ instance Functor Identity where
 instance (Functor m) => Functor (IdentityT m) where
     fmap f (IdentityT fa) =
         IdentityT (fmap f fa)
+
+
+instance Applicative Identity where
+    pure =
+        Identity
+
+    (Identity f) <*> (Identity a) =
+        Identity (f a)
+
+
+instance (Applicative m) => Applicative (IdentityT m) where
+    pure x =
+        IdentityT (pure x)
+
+    (IdentityT fab) <*> (IdentityT fa) =
+        IdentityT (fab <*> fa)
