@@ -13,3 +13,13 @@ newtype Identity a =
 newtype IdentityT f a =
     IdentityT { runIdentityT :: f a }
     deriving (Eq, Show)
+
+
+instance Functor Identity where
+    fmap f (Identity a) =
+        Identity (f a)
+
+
+instance (Functor m) => Functor (IdentityT m) where
+    fmap f (IdentityT fa) =
+        IdentityT (fmap f fa)
