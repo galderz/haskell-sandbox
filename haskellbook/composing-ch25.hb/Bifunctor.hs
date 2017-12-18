@@ -115,8 +115,10 @@ instance Bifunctor MyEither where
     bimap f g (MyRight y) =
         MyRight (g y)
 
-    first =
-        undefined
+    first f (MyLeft x) =
+        MyLeft (f x)
+    first f (MyRight y) =
+        MyRight y
 
     second =
         undefined
