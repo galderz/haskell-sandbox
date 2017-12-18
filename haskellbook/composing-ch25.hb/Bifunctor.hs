@@ -102,3 +102,21 @@ instance Bifunctor (Quadriceps a b) where
 
     second f (Quadzzz a b x y) =
         Quadzzz a b x (f y)
+
+
+data MyEither a b =
+    MyLeft a
+    | MyRight b
+
+
+instance Bifunctor MyEither where
+    bimap f g (MyLeft x) =
+        MyLeft (f x)
+    bimap f g (MyRight y) =
+        MyRight (g y)
+
+    first =
+        undefined
+
+    second =
+        undefined
