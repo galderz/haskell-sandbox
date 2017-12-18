@@ -120,5 +120,7 @@ instance Bifunctor MyEither where
     first f (MyRight y) =
         MyRight y
 
-    second =
-        undefined
+    second f (MyLeft x) =
+        MyLeft x
+    second f (MyRight y) =
+        MyRight (f y)
