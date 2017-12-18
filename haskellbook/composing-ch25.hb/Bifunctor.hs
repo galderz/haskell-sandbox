@@ -100,5 +100,5 @@ instance Bifunctor (Quadriceps a b) where
     first f (Quadzzz a b x y) =
         Quadzzz a b (f x) y
 
-    second =
-        undefined
+    second f (Quadzzz a b x y) =
+        Quadzzz a b x (f y)
