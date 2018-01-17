@@ -39,3 +39,19 @@ instance (Applicative m) => Applicative (IdentityT m) where
 
     (IdentityT fab) <*> (IdentityT fa) =
         IdentityT (fab <*> fa)
+
+
+instance Monad Identity where
+    return =
+        pure
+
+    (Identity a) >>= f =
+        f a
+
+
+instance (Monad m) => Monad (IdentityT m) where
+    return =
+        pure
+
+    (IdentityT ma) >>= f =
+        IdentityT $ ma >>= runIdentityT . f
