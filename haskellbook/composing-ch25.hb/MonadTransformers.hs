@@ -55,3 +55,10 @@ instance (Monad m) => Monad (IdentityT m) where
 
     (IdentityT ma) >>= f =
         IdentityT $ ma >>= runIdentityT . f
+
+
+main :: IO ()
+main =
+    do
+        let sumR = return . (+1)
+        print $ IdentityT [1, 2, 3] >>= sumR
