@@ -1,5 +1,7 @@
 {-# LANGUAGE InstanceSigs #-}
 
+import Control.Monad
+
 
 -- The identity monad transformer, serving
 -- only to to specify that additional
@@ -28,4 +30,7 @@ instance (Monad m) => Monad (IdentityT m) where
 
     (>>=) :: IdentityT m a -> (a -> IdentityT m b) -> IdentityT m b
     (IdentityT ma) >>= f =
-        undefined
+        let
+            aimb = join (fmap runIdentityT (fmap f ma))
+        in
+            IdentityT aimb
