@@ -31,6 +31,14 @@ instance (Monad m) => Monad (IdentityT m) where
     (>>=) :: IdentityT m a -> (a -> IdentityT m b) -> IdentityT m b
     (IdentityT ma) >>= f =
         let
-            aimb = join (fmap runIdentityT (fmap f ma))
+            -- Functor law:
+            -- fmap (f . g) == fmap f . fmap g
+            aimb = join (fmap (runIdentityT . f) ma)
         in
             IdentityT aimb
+
+        -- Baseline version
+        -- let
+        --     aimb = join (fmap runIdentityT (fmap f ma))
+        -- in
+        --     IdentityT aimb
