@@ -45,3 +45,8 @@ instance (Monad m) => Monad (IdentityT m) where
         --     aimb = join (fmap runIdentityT (fmap f ma))
         -- in
         --     IdentityT aimb
+
+    -- (>>=) :: IdentityT m a -> (a -> IdentityT m b) -> IdentityT m b
+    -- m >>= k =
+    --     IdentityT $ runIdentityT . k
+    --     =<< runIdentityT m
