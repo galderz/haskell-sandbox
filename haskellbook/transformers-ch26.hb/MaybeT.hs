@@ -15,3 +15,11 @@ instance (Functor f, Functor g) => Functor (Compose f g) where
 instance (Functor m) => Functor (MaybeT m) where
     fmap f (MaybeT ma) =
         MaybeT $ (fmap . fmap) f ma
+
+
+instance (Applicative f, Applicative g) => Applicative (Compose f g) where
+    pure x =
+        Compose $ (pure . pure) x
+
+    (<*>) =
+        undefined
