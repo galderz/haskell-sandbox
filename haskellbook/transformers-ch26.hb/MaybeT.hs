@@ -21,5 +21,5 @@ instance (Applicative f, Applicative g) => Applicative (Compose f g) where
     pure x =
         Compose $ (pure . pure) x
 
-    (<*>) =
-        undefined
+    (<*>) (Compose f) (Compose a) =
+        Compose $ (fmap (<*>) f) <*> a
