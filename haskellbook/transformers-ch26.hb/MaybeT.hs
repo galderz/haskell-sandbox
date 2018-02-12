@@ -23,3 +23,11 @@ instance (Applicative f, Applicative g) => Applicative (Compose f g) where
 
     (<*>) (Compose f) (Compose a) =
         Compose $ (fmap (<*>) f) <*> a
+
+
+instance (Applicative m) => Applicative (MaybeT m) where
+    pure x =
+        MaybeT $ (pure . pure) x
+
+    (<*>) =
+        undefined
