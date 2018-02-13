@@ -31,3 +31,22 @@ instance (Applicative m) => Applicative (MaybeT m) where
 
     (<*>) (MaybeT f) (MaybeT a) =
         MaybeT $ (fmap (<*>) f) <*> a
+
+
+newtype Identity a =
+    Identity { runIdentity :: a }
+    deriving (Eq, Show)
+
+
+instance Functor Identity where
+    fmap f (Identity a) =
+        Identity (f a)
+
+
+instance Applicative Identity where
+    pure =
+        Identity
+
+    (Identity f) <*> (Identity a) =
+        Identity (f a)
+
