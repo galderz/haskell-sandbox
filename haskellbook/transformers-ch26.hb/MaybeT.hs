@@ -29,5 +29,5 @@ instance (Applicative m) => Applicative (MaybeT m) where
     pure x =
         MaybeT $ (pure . pure) x
 
-    (<*>) =
-        undefined
+    (<*>) (MaybeT f) (MaybeT a) =
+        MaybeT $ (fmap (<*>) f) <*> a
