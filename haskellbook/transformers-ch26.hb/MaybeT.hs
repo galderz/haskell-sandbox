@@ -50,3 +50,10 @@ instance Applicative Identity where
     (Identity f) <*> (Identity a) =
         Identity (f a)
 
+
+innerMost
+    :: [Maybe (Identity (a -> b))]
+    -> [Maybe (Identity a -> Identity b)]
+innerMost =
+    (fmap . fmap) (<*>)
+
