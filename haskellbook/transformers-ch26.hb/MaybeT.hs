@@ -69,3 +69,11 @@ final' ::
     [Maybe (Identity a) -> Maybe (Identity b)]
     -> [Maybe (Identity a)] -> [Maybe (Identity b)]
 final' = (<*>)
+
+
+lmiApply
+    :: [Maybe (Identity (a -> b))]
+    -> [Maybe (Identity a)]
+    -> [Maybe (Identity b)]
+lmiApply f x =
+  final' (second' (innerMost f)) x
