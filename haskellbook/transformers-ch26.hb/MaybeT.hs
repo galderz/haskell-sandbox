@@ -63,3 +63,9 @@ second'
     -> [Maybe (Identity a) -> Maybe (Identity b)]
 second' =
     fmap (<*>)
+
+
+final' ::
+    [Maybe (Identity a) -> Maybe (Identity b)]
+    -> [Maybe (Identity a)] -> [Maybe (Identity b)]
+final' = (<*>)
