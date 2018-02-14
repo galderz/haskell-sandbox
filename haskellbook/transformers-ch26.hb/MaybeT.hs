@@ -1,3 +1,6 @@
+{-# LANGUAGE InstanceSigs #-}
+
+
 newtype MaybeT m a =
     MaybeT { runMaybeT :: m (Maybe a) }
 
@@ -34,6 +37,21 @@ instance (Applicative m) => Applicative (MaybeT m) where
         -- is equivalent to:
         --
         -- MaybeT $ (fmap (<*>) f) <*> a
+
+
+instance (Monad m) => Monad (MaybeT m) where
+    return =
+        pure
+
+    (>>=) :: MaybeT m a -> (a -> MaybeT m b) -> MaybeT m b
+    (MaybeT ma) >>= f =
+        MaybeT $
+          do  v <- ma
+              case v of
+                  Nothing ->
+                      return Nothing
+                  Just y ->
+                      runMaybeT (f y)
 
 
 newtype Identity a =
