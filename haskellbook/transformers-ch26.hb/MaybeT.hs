@@ -57,3 +57,9 @@ innerMost
 innerMost =
     (fmap . fmap) (<*>)
 
+
+second'
+    :: [Maybe (Identity a -> Identity b)]
+    -> [Maybe (Identity a) -> Maybe (Identity b)]
+second' =
+    fmap (<*>)
