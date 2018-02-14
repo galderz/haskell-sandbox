@@ -30,7 +30,10 @@ instance (Applicative m) => Applicative (MaybeT m) where
         MaybeT $ (pure . pure) x
 
     (<*>) (MaybeT f) (MaybeT a) =
-        MaybeT $ (fmap (<*>) f) <*> a
+        MaybeT $ (<*>) <$> f <*> a
+        -- is equivalent to:
+        --
+        -- MaybeT $ (fmap (<*>) f) <*> a
 
 
 newtype Identity a =
