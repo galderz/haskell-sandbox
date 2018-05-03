@@ -7,3 +7,11 @@ newtype EitherT e m a =
 instance Functor m => Functor (EitherT e m) where
     fmap f (EitherT emx) =
         EitherT $ (fmap . fmap) f emx
+
+
+instance Applicative m => Applicative (EitherT e m) where
+    pure x =
+        EitherT $ (pure . pure) x
+
+    f <*> a =
+        undefined
