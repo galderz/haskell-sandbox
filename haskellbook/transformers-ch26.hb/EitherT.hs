@@ -13,5 +13,5 @@ instance Applicative m => Applicative (EitherT e m) where
     pure x =
         EitherT $ (pure . pure) x
 
-    f <*> a =
-        undefined
+    (<*>) (EitherT emf) (EitherT emx) =
+        EitherT $ (fmap (<*>) emf) <*> emx
