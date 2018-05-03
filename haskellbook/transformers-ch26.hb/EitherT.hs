@@ -15,3 +15,11 @@ instance Applicative m => Applicative (EitherT e m) where
 
     (<*>) (EitherT emf) (EitherT emx) =
         EitherT $ (fmap (<*>) emf) <*> emx
+
+
+instance Monad m => Monad (EitherT e m) where
+    return =
+        pure
+
+    v >>= f =
+        undefined
