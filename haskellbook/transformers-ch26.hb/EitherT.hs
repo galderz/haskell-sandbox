@@ -33,8 +33,8 @@ instance Monad m => Monad (EitherT e m) where
 
 -- transformer version of swapEither.
 swapEitherT :: (Functor m) => EitherT e m a -> EitherT a m e
-swapEitherT =
-    undefined
+swapEitherT (EitherT emx) =
+    EitherT $ fmap swapEither emx
 
 
 swapEither :: Either e a -> Either a e
