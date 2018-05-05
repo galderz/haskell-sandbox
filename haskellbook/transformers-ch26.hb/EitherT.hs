@@ -21,5 +21,11 @@ instance Monad m => Monad (EitherT e m) where
     return =
         pure
 
-    v >>= f =
-        undefined
+    (EitherT ma) >>= f =
+        EitherT $
+            do  v <- ma
+                case v of
+                    Left x ->
+                        return $ Left x
+                    Right y ->
+                        runEitherT (f y)
