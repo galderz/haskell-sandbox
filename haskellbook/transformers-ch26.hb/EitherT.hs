@@ -29,3 +29,16 @@ instance Monad m => Monad (EitherT e m) where
                         return $ Left x
                     Right y ->
                         runEitherT (f y)
+
+
+-- transformer version of swapEither.
+swapEitherT :: (Functor m) => EitherT e m a -> EitherT a m e
+swapEitherT =
+    undefined
+
+
+swapEither :: Either e a -> Either a e
+swapEither (Left x) =
+    Right x
+swapEither (Right y) =
+    Left y
