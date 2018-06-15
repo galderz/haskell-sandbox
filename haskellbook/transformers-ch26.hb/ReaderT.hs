@@ -11,5 +11,5 @@ instance Applicative m => Applicative (ReaderT r m) where
     pure x =
         ReaderT (pure . pure x)
 
-    (<*>) =
-        undefined
+    (<*>) (ReaderT rmf) (ReaderT rmx) =
+        ReaderT ((fmap (<*>) rmf) <*> rmx)
