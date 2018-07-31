@@ -1,3 +1,6 @@
+{-# LANGUAGE InstanceSigs #-}
+
+
 newtype ReaderT r m a =
     ReaderT { runReaderT :: r -> m a }
 
@@ -13,3 +16,14 @@ instance Applicative m => Applicative (ReaderT r m) where
 
     (<*>) (ReaderT rmf) (ReaderT rmx) =
         ReaderT ((fmap (<*>) rmf) <*> rmx)
+
+
+instance Monad m => Monad (ReaderT r m) where
+    return =
+        pure
+
+    (>>=) :: ReaderT r m a -> (a -> ReaderT r m b) -> ReaderT r m b
+    (ReaderT rma) >>= f =
+        ReaderT $ \r ->
+            do v <- rma r
+               runReaderT (f v) r
