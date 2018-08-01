@@ -7,8 +7,9 @@ newtype StateT s m a =
 
 instance (Functor m) => Functor (StateT s m) where
     fmap f (StateT sma) =
-        StateT $ \s ->
-                     let r =
-                             sma s
-                     in
-                         fmap (first f) r
+        StateT $
+            \s ->
+                 let r =
+                         sma s
+                 in
+                     fmap (first f) r
