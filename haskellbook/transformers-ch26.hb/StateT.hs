@@ -25,3 +25,11 @@ instance Monad m => Applicative (StateT s m) where
                 (f, s') <- smf s
                 (y, s'') <- smx s'
                 return (f y, s'')
+
+
+instance Monad m => Monad (StateT s m) where
+    return =
+        pure
+
+    (>>=) =
+        undefined
