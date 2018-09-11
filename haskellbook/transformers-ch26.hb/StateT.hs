@@ -1,3 +1,5 @@
+{-# LANGUAGE InstanceSigs #-}
+
 import Data.Bifunctor
 
 
@@ -31,5 +33,9 @@ instance Monad m => Monad (StateT s m) where
     return =
         pure
 
-    (>>=) =
-        undefined
+    (>>=) :: StateT s m a -> (a -> StateT s m b) -> StateT s m b
+    (StateT sma) >>= f =
+        StateT $ \s ->
+            do
+                (x, s') <- sma s
+                runStateT (f x) s'
